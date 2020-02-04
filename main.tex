@@ -68,6 +68,30 @@
 % acronyms
 \usepackage{acronym}
 
+% pretty beautiful latex table
+% \documentclass{article}
+\usepackage{tabu}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\definecolor{tableHeader}{RGB}{211, 47, 47}
+\definecolor{tableLineOne}{RGB}{245, 245, 245}
+\definecolor{tableLineTwo}{RGB}{224, 224, 224}
+\newcommand{\tableHeaderStyle}{
+    \rowfont{\leavevmode\color{white}\bfseries}
+    \rowcolor{tableHeader}
+}
+
+\usepackage{mathtools,amssymb}
+\usepackage{booktabs, isotope,colortbl,caption}
+
+\arrayrulecolor{cyan}
+% \captionsetup[table]{labelfont={color=cyan,sc},justification=RaggedRight,singlelinecheck=false,skip=2pt}
+
+\newlength{\mytablewidth}
+\newsavebox{\mytablebox}
+
+ \renewcommand{\arraystretch}{1.5}
+
 \hypersetup{
     colorlinks = true,
     allcolors = blue

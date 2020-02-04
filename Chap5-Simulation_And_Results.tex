@@ -1,21 +1,63 @@
 \chapter{Simulation and Results}
 \label{chap:5_Simulation_And_Results}
     
-        In this chapter, we present scenarios for validation and evaluation and experimental results. The scenarios cover different encounters between vessels for collision avoidance evaluation and exposition to different wind speeds to identification of the system response and limitations. Beyond that, we present the execution with and without \ac{ATC} for scientific control evaluation of the path planning algorithm. As done by several authors, \eg{} Larson \etal{} ~\cite{Larson2006Autonomous}, Naeem \etal{} ~\cite{Naeem2012COLREGS}, Campbell \etal{} ~\cite{Campbell2013Automatic}, Naus ~\cite{Naus2013Idea}, \etc{}, we evaluated 4 main encounter scenarios between two vessels: head-on, crossing from right, crossing from left and overtaking;
+        %V1.0:
+        % In this chapter, we present scenarios for validation and evaluation and experimental results. The scenarios cover different encounters between vessels for collision avoidance evaluation and for identification of our system's response and limitations we expose it to different wind speeds. Beyond that, we present the execution with and without \ac{ATC} for scientific control validation of the path planning algorithm. As done by several authors, \eg{} Larson \etal{} ~\cite{Larson2006Autonomous}, Naeem \etal{} ~\cite{Naeem2012COLREGS}, Campbell \etal{} ~\cite{Campbell2013Automatic}, Naus ~\cite{Naus2013Idea}, \etc{}, we evaluated 4 main encounter scenarios between two vessels: head-on, crossing from right, crossing from left and overtaking. Based on \cite{} we made a quantitative evaluation of our planning system measuring computational cost and minimum distance between vessels.
+        
+        %V2.0:
+        % In this chapter, we present scenarios for validation (qualitative analysis) and evaluation (quantitative analysis) and experimental results. The scenarios cover different encounters between vessels for collision avoidance success evaluation and exposition to different environmental behaviors for identification of response capability and limitations of our system. Beyond that, we present the execution with and without \ac{ATC} for scientific control validation of our path planning algorithm.
+        
+        %V3.0:
+        % In this chapter, we present the scenarios for validation (qualitative analysis) and evaluation (quantitative analysis) and experimental results. The scenarios cover different encounters between vessels for collision avoidance success evaluation and exposition to different environmental behaviors for identification of response capability and limitations of our system. Beyond that, we present the execution of our path planning algorithm with and without \ac{ATC}.
+        
+        %V4.0:
+        In this chapter, we present the scenarios for validation (qualitative analysis) and evaluation (quantitative analysis) of our approach, as well as the experimental results. The simulations cover different encounters scenarios between vessels for evaluation of collision avoidance success and exposition to different environmental behaviors for identification of limitations of our system.
 
     \section{Simulations Characterization}
     
-    %DJ: Maybe show comparison between study simulation format and our
-    Scenarios have been developed (Figure \ref{fig:simulation_uwsim_encounters}) to evaluate the system focusing on being comparable with scenarios presented in reference studies, \ie{} Agrawal \etal{} ~\cite{Agrawal2015COLREGS} and Huang \etal{} ~\cite{Huang2019Generalized}. Both studies were chosen for their quality and similarity with our work. Agrawal \etal{} was chosen for being our problem-solving inspiration, unfortunately, they do not present too much information about their system evaluation, so we based our tests and system evaluation on Huang \etal{} as they explicitly present their simulation scenarios characterization, results and simulate a \ac{USV} similar in dimensions to ours.
+    We run our simulations on \usvsim ~\cite{Paravisi2018Toward} simulator using the platform described in Table \ref{tab:simulation_platform_description}. 
+    %Grammarlly: 100/100
+    We developed 12 scenarios for evaluation the system focusing on being comparable with simulations presented in reference studies, \ie{} Agrawal \etal{} ~\cite{Agrawal2015COLREGS} and Huang \etal{} ~\cite{Huang2019Generalized}. Both studies were chosen for their quality ( \ie{} h-index) and similarity with our work. Agrawal \etal{} was chosen for being our problem-solving inspiration. Unfortunately, they do not present too much information about their system evaluation, so we based our tests and system evaluation on Huang \etal{} as they explicitly present their simulation scenarios characterization, results, and simulate a \ac{USV} similar in dimensions to ours.
     
-    We run our simulations on \usvsim ~\cite{Paravisi2018Toward} simulator. We assembled the scenarios in stream Dilúvio (see Figures \ref{fig:simulation_diluvio_googleLocation_roundedArea}, \ref{fig:simulation_diluvio_googleLocation2_1_roundedArea} and \ref{fig:simulation_diluvio_googleLocation2_2_roundedArea}). Figures \ref{fig:simulation_uwsim_headon_starting_pos}, \ref{fig:simulation_uwsim_crossingright_starting_pos}, \ref{fig:simulation_uwsim_crossingleft_starting_pos} and \ref{fig:simulation_uwsim_overtake_starting_pos} show the starting configuration of the evaluated scenarios, the respective configuration of each scenario is presented in Table \ref{tab:simulation_scenarios_configuration}.
+    \taburowcolors[1] 1{tableLineOne .. tableLineTwo}
+    \tabulinesep = ^3mm_2mm
+    \everyrow{\tabucline[.4mm  white]{}}
+
+    \begin{table}
+        \caption{Simulation Platform Description}
+        \centering
+            \begin{tabu} to \textwidth { >{\bfseries}X[c, 0] X[c, 3]}
+            Computer & Desktop Dell XPS 8700 \\
+            Processor & Intel® Core™ i7-4770 CPU @ 3.40GHz × 8 \\
+            Memory & \begin{tabular}[c]{@{}l@{}}Teikon PC3-12800u DDR3 1600 MHz 2GB x 2\\ Teikon PC3-12800u DDR3 1600 MHz 4GB x 2\end{tabular} \\
+            Operating System & Ubuntu 16.04.6 LTS \\
+            ROS Version & ROS Kinetic
+            \end{tabu}  
+        \label{tab:simulation_platform_description}
+    \end{table}
+    
+        % Grammarlly: 100/100
+    In our simulations, we use a differential boat - shown in Figure \ref{fig:diffboat} - with two thrusters, which enables it to rotate over its axis. This boat is modeled according to specifications of the Lutra Prop boat, acquired from Platypus ~\cite{PlatypusLLC}. The differential boat is 106 centimeters long\footnote{Our comparing reference, \ie{} Huang \etal{} \cite{Huang2019Generalized} evaluate a 120 centimeters long vessel}, 48 centimeters wide and 15 centimeters tall, being able to achieve a maximum speed of 1.14 m/s. In its bow, we simulate a parameterized laser for environment scanning, allowing us to set different angles and detection distance ranges.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{figs/diffboat.png}
+        \caption{Simulated version of Lutra Prop boat}
+        \label{fig:diffboat}
+    \end{figure}
+%AMA acho q apresentacao do barco deva vir antes da apresentacao dos 4 cenarios. vc deve mencionar outras caracteristicas, como peso, sensores, a caracteristicas do laser.  
+
+    
+    
+     We assembled the scenarios in a simulated version of the Dilúvio stream (see Figures \ref{fig:simulation_diluvio_googleLocation_roundedArea}, \ref{fig:simulation_diluvio_googleLocation2_1_roundedArea} and \ref{fig:simulation_diluvio_googleLocation2_2_roundedArea}), and as done by several authors, \eg{} Larson \etal{} ~\cite{Larson2006Autonomous}, Naeem \etal{} ~\cite{Naeem2012COLREGS}, Campbell \etal{} ~\cite{Campbell2013Automatic}, Naus ~\cite{Naus2013Idea}, \etc{}, we evaluated 4 main encounter scenarios between two vessels, head-on, crossing from right, crossing from Left, and overtaking. Figures \ref{fig:simulation_uwsim_headon_starting_pos}, \ref{fig:simulation_uwsim_crossingright_starting_pos}, \ref{fig:simulation_uwsim_crossingleft_starting_pos} and \ref{fig:simulation_uwsim_overtake_starting_pos} show the starting configuration of the evaluated scenarios, the respective configuration of each scenario is presented in Tables \ref{tab:simulation_scenarios_configuration_own_vessel} and \ref{tab:simulation_scenarios_configuration_encountering_vessel}.
     
     \begin{figure}[H]
         \centering
         \includegraphics[scale=0.3]{figs/simulation_diluvio_googleLocation_roundedArea.png}
-        \caption{Google maps simulation location (-30.047258°, -51.232660°) Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil}
+        \caption{Real-world location of the area we choose for evaluation of our system. This is a potential place for real-world trials of our system, once it has and is near our laboratory, so we evaluate the behavior of our system on it. Google maps location (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil}
         \label{fig:simulation_diluvio_googleLocation_roundedArea}
     \end{figure}
+    \todo{cite some characteristics of the region}
     
     \begin{figure}[H]
     \centering
@@ -70,64 +112,242 @@
     \caption{Encounter scenarios for evaluation. Scenarios adopted from ~\cite{Huang2019Generalized}.}
     \label{fig:simulation_uwsim_encounters}
     \end{figure}
+
+%AMA a figura dos barcos esta muito pequena. veja como fica na versao impressa. acho q vc vai ter q pelo menos desenhar uma flecha p indicar a direcao dos barcos.
+
+    \begin{center}
+        \savebox{\mytablebox}{\begin{tabular}{cccc}
+        
+        \toprule[3pt]
+        \multicolumn{4}{c}{\textbf{Own Vessel}} \\
+        \midrule
+        \textbf{Encounter Type} & \textbf{Initial Pose (m, m, º)} & \textbf{Target Position} &  \textbf{Max. Speed (m/s)}\\
+        \midrule
+        Head On &  (450, 107.5, 0)  &   (480, 107.5)   &  0.4 \\
+        Crossing Right &  (410, 105, 90)  &  (410, 133)   &  0.86  \\
+        Crossing Left &  (410, 105, 90)  & (410, 133)   &  0.29  \\
+        Overtaking &  (450, 107.5, 0)  &  (550, 107.5)   &  0.5 \\
+        \bottomrule
+        
+        \end{tabular}}
+        \settowidth{\mytablewidth}{\usebox{\mytablebox}}
+        \begin{minipage}{\mytablewidth}
+        \captionof{table}{Encounter Scenarios Configuration - Own Vessel}
+        \label{tab:simulation_scenarios_configuration_own_vessel}
+        \usebox{\mytablebox}
+        \end{minipage}
+
+    \end{center}
     
-    % Please add the following required packages to your document preamble:
-    % \usepackage{booktabs}
-    \begin{table}[H]
-    \centering
-    \begin{tabular}{@{}cccc@{}}
-        \toprule
-        \multicolumn{4}{c}{Own Vessel}                                                                                                                                 \\ \midrule
-        \multicolumn{1}{|c|}{}               & \multicolumn{1}{c|}{Initial Pose (m, m, º)} & \multicolumn{1}{c|}{Max. Speed (m/s)} & \multicolumn{1}{c|}{Waypoint}     \\ \midrule
-        \multicolumn{1}{|c|}{Head On}        & \multicolumn{1}{c|}{(450, 107.5, 0)}        & \multicolumn{1}{c|}{0.4}              & \multicolumn{1}{c|}{(480, 107.5)} \\ \midrule
-        \multicolumn{1}{|c|}{Crossing Right} & \multicolumn{1}{c|}{(410, 105, 90)}         & \multicolumn{1}{c|}{0.86}             & \multicolumn{1}{c|}{(410, 133)}   \\ \midrule
-        \multicolumn{1}{|c|}{Crossing Left}  & \multicolumn{1}{c|}{(410, 105, 90)}         & \multicolumn{1}{c|}{0.29}             & \multicolumn{1}{c|}{(410, 133)}   \\ \midrule
-        \multicolumn{1}{|c|}{Overtaking}     & \multicolumn{1}{c|}{(450, 107.5, 0)}        & \multicolumn{1}{c|}{0.5}              & \multicolumn{1}{c|}{(550, 107.5)} \\ \midrule
-        \multicolumn{1}{l}{}                 & \multicolumn{1}{l}{}                        & \multicolumn{1}{l}{}                  & \multicolumn{1}{l}{}              \\ \midrule
-        \multicolumn{4}{c}{Encountering Vessel}                                                                                                                        \\ \midrule
-        \multicolumn{1}{|l|}{}               & \multicolumn{1}{l|}{Initial Pose (m, m, º)} & \multicolumn{1}{l|}{Max. Speed (m/s)} & \multicolumn{1}{l|}{Waypoint}     \\ \midrule
-        \multicolumn{1}{|c|}{Head On}        & \multicolumn{1}{c|}{(461, 107.5, 180)}      & \multicolumn{1}{c|}{0.15}             & \multicolumn{1}{c|}{(350, 107)}   \\ \midrule
-        \multicolumn{1}{|c|}{Crossing Right} & \multicolumn{1}{c|}{(416, 120, 225)}        & \multicolumn{1}{c|}{0.18}             & \multicolumn{1}{c|}{(404, 115)}   \\ \midrule
-        \multicolumn{1}{|c|}{Crossing Left}  & \multicolumn{1}{c|}{(416, 120, 315)}        & \multicolumn{1}{c|}{0.44}             & \multicolumn{1}{c|}{(416, 115)}   \\ \midrule
-        \multicolumn{1}{|c|}{Overtaking}     & \multicolumn{1}{c|}{(461, 107.5, 0)}        & \multicolumn{1}{c|}{0.15}             & \multicolumn{1}{c|}{(600, 107)}   \\ \bottomrule
-        \end{tabular}
-    \caption{Encounter scenarios Configuration}
-    \label{tab:simulation_scenarios_configuration}
-    \end{table}
-    
-    In our simulations, we use a differential boat - shown in Figure \ref{fig:diffboat} - with two thrusters, which enables it to rotate over its axis. This boat is modeled according to specifications of the Lutra Prop boat, acquired from Platypus ~\cite{PlatypusLLC}. The differential boat is 106 centimeters long, 48 centimeters wide and 15 centimeters tall, being able to achieve a maximum speed of 1.14 m/s. In its bow, we simulate a parameterized laser for environment scanning, allowing us to set different angles and detection distance ranges.
-    
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.75]{figs/diffboat.png}
-        \caption{Simulated version of Lutra Prop boat}
-        \label{fig:diffboat}
-    \end{figure}
-    
-    Agrawal \etal ~\cite{Agrawal2015COLREGS} evaluate theirs A* approach in a 100mx100m grid with a resolution of 1:1, resulting in a search space of 10000 cells, our scenarios were built respecting the same proportionality. In all scenarios, our \ac{USV} plan in a 20mx20m grid with 1:0.2 resolution, resulting in a search space of 10000 cells. The choice of 20x20 dimension is related to real limitations of the range and reliability on laser sensors, the RPLIDAR A3 laser~\cite{RPLidarA3} model, for example, is reliably capable of detection in a 25 meters distance range.
+    \begin{center}
+        \savebox{\mytablebox}{\begin{tabular}{cccc}
+        
+        \toprule[3pt]
+        \multicolumn{4}{c}{\textbf{Encountering Vessel}} \\
+        \midrule
+        \textbf{Encounter Type} & \textbf{Initial Pose (m, m, º)} & \textbf{Target Position} & \textbf{Max. Speed (m/s)}\\
+        \midrule
+        Head On &  (450, 107.5, 0)  &   (480, 107.5)   &  0.4 \\
+        Crossing Right &  (410, 105, 90)  &  (410, 133)   &  0.86  \\
+        Crossing Left &  (410, 105, 90)  & (410, 133)   &  0.29  \\
+        Overtaking &  (450, 107.5, 0)  &  (550, 107.5)   &  0.5 \\
+        \bottomrule
+        
+        \end{tabular}}
+        \settowidth{\mytablewidth}{\usebox{\mytablebox}}
+        \begin{minipage}{\mytablewidth}
+        \captionof{table}{Encounter Scenarios Configuration - Encountering Vessel}
+        \label{tab:simulation_scenarios_configuration_encountering_vessel}
+        \usebox{\mytablebox}
+        \end{minipage}
+
+    \end{center}
+
+%AMA a apresentacao da tabela está realmente feia ! Latex tem formatos bem legais. Sugiro melhorar esse aspecto. Tb sugiro fortemente colocar na fig anterior o local do initial pose, destination, e trajetoria. Acho q deve trocar Waypoint por destination ou target position.
+%DJ: Done
     
     \section{Experiments Results}
     
-        As presented before we adopted scientific experimentation for \ac{ATC} correctness evaluation, running same scenario twice, one execution with \ac{ATC} and another without \ac{ATC}. Results and their respective description for head on and crossing from right scenarios are presented respectivelly in Figures \ref{fig:Result_HeadOn_With_Without_ATC} and \ref{fig:Result_CrossingRight_With_Without_ATC}. For each scenario, we measured the computation time of every execution of our path planner, average sustained speed, and minimal distance maintained between the vessels, and evaluated successful avoidance. In Table \ref{tab:results} we show collected results.
+        % Grammarlly: 100/100
+        We adopted scientific experimentation for \ac{ATC} correctness validation, running the same scenario twice, one execution with \ac{ATC}, and another without \ac{ATC}. Results and their respective description for head-on, crossing from right, crossing from left and overtaking scenarios are presented respectively in Figures \ref{fig:headOn_E}, \ref{fig:crossingRight_E}, \ref{fig:crossingLeft_E} and \ref{fig:overtaking_E}. For each scenario, we measured the computation time of every execution of our path planner, average sustained speed, and minimal distance maintained between the vessels, and evaluated successful avoidance. In Table \ref{tab:results} we show collected results.
         
         \begin{figure}[H]
-            \centering
-            \includegraphics[scale=0.50]{figs/Result_HeadOn_With_Without_ATC.png}
-            \caption{Head-on Scenario Simulation Result with \ac{ATC} vs without \ac{ATC}. Start positions are denoted by OV$_{t0}$ for own vessel and EV$_{t0}$ for encountering vessel. (A) Own vessel COLREGS-compliant behavior due to A* \ac{ATC} path planner. (B) Non COLREGS-compliant own vessel behavior generated by A* without \ac{ATC}.}
-            \label{fig:Result_HeadOn_With_Without_ATC}
+        \centering
+        
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_headOn_E.png}
+                \caption{With \ac{ATC}}
+                \label{fig:plot_headOn_E}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_noATC_headOn_E.png}
+                \caption{Without \ac{ATC}}
+                \label{fig:plot_noATC_headOn_E}
+            \end{subfigure}
+            
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_headOn_Wind_E.png}
+                \caption{With \ac{ATC} and Wind}
+                \label{fig:plot_headOn_Wind_E}
+            \end{subfigure}
+            % \begin{subfigure}[b]{0.45\textwidth}
+            %     \centering
+            %     \includegraphics[width=\textwidth]{figs/plot_Overtaking_Wind_BAD_E.png}
+            %     \caption{\ac{ATC} and Bad Wind}
+            %     \label{fig:plot_headOn_Wind__BAD_E}
+            % \end{subfigure}
+        
+        \caption{DESCRIÇÂO DOS GRAFICOS AQUI: }
+        \label{fig:headOn_E}
+        \end{figure}
+%AMA a legenda dass trajetorias esta ilegivel. ou vc aumenta ate ficar legivel ou remove dali. se remover, vc pode descrever o significado das cores na legenda.
+%AMA do jeito q está, nao eh facil comparar um grafico c o outro. seria MUITO melhor se vc conseguir colocar dois plots juntos. por exemplo, with ATC e wo/ ATC. with ATC e with ATC + wind. Nao junta os 3 pois acho q vai poluir demais.
+% AMA a legenda dos eixos tb nao deve estar legivel p impressao. aumente o texto dos nros.
+%AMA o ponto vermelho eh o ponto inicial ou final. deixar isso claro na legenda
+%AMA qnd tiver vento, anota na figura a dirececao e velocidade tb.
+        
+         \begin{figure}[H]
+        \centering
+        
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_crossingRight_E.png}
+                \caption{With \ac{ATC}}
+                \label{fig:plot_crossingRight_E}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_noATC_crossingRight_E.png}
+                \caption{Without \ac{ATC}}
+                \label{fig:plot_noATC_crossingRight_E}
+            \end{subfigure}
+            
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_crossingRight_Wind_E.png}
+                \caption{With \ac{ATC} and Wind}
+                \label{fig:plot_crossingRight_Wind_E}
+            \end{subfigure}
+            % \begin{subfigure}[b]{0.45\textwidth}
+            %     \centering
+            %     \includegraphics[width=\textwidth]{figs/plot_Overtaking_Wind_BAD_E.png}
+            %     \caption{\ac{ATC} and Bad Wind}
+            %     \label{fig:plot_crossingRight_Wind__BAD_E}
+            % \end{subfigure}
+        
+        \caption{DESCRIÇÂO DOS GRAFICOS AQUI: }
+        \label{fig:crossingRight_E}
         \end{figure}
         
-        \begin{figure}[H]
-            \centering
-            \includegraphics[scale=0.50]{figs/Result_CrossingRight_With_Without_ATC.png}
-            \caption{Crossing from Right Scenario Simulation Result with \ac{ATC} vs without \ac{ATC}. Start positions are denoted by OV$_{t0}$ for own vessel and EV$_{t0}$ for encountering vessel. (A) Own vessel COLREGS-compliant behavior due to A* \ac{ATC} path planner. (B) Non COLREGS-compliant own vessel behavior generated by A* without \ac{ATC}.}
-            \label{fig:Result_CrossingRight_With_Without_ATC}
+         \begin{figure}[H]
+        \centering
+        
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_crossingLeft_E.png}
+                \caption{With \ac{ATC}}
+                \label{fig:plot_crossingLeft_E}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_noATC_crossingLeft_E.png}
+                \caption{Without \ac{ATC}}
+                \label{fig:plot_noATC_crossingLeft_E}
+            \end{subfigure}
+            
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_crossingLeft_Wind_E.png}
+                \caption{With \ac{ATC} and Wind}
+                \label{fig:plot_crossingLeft_Wind_E}
+            \end{subfigure}
+            % \begin{subfigure}[b]{0.45\textwidth}
+            %     \centering
+            %     \includegraphics[width=\textwidth]{figs/plot_Overtaking_Wind_BAD_E.png}
+            %     \caption{\ac{ATC} and Bad Wind}
+            %     \label{fig:plot_crossingLeft_Wind__BAD_E}
+            % \end{subfigure}
+        
+        \caption{DESCRIÇÂO DOS GRAFICOS AQUI: Crossing Left Encounter}
+        \label{fig:crossingLeft_E}
         \end{figure}
         
-% \usepackage{multirow}
+         \begin{figure}[H]
+        \centering
+        
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_overtaking_E.png}
+                \caption{With \ac{ATC}}
+                \label{fig:plot_overtaking_E}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_noATC_overtaking_E.png}
+                \caption{Without \ac{ATC}}
+                \label{fig:plot_noATC_overtaking_E}
+            \end{subfigure}
+            
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figs/plot_overtaking_Wind_E.png}
+                \caption{With \ac{ATC} and Wind}
+                \label{fig:plot_overtaking_Wind_E}
+            \end{subfigure}
+            % \begin{subfigure}[b]{0.45\textwidth}
+            %     \centering
+            %     \includegraphics[width=\textwidth]{figs/plot_Overtaking_Wind_BAD_E.png}
+            %     \caption{\ac{ATC} and Bad Wind}
+            %     \label{fig:plot_overtaking_Wind__BAD_E}
+            % \end{subfigure}
+        
+        \caption{DESCRIÇÂO DOS GRAFICOS AQUI: }
+        \label{fig:overtaking_E}
+        \end{figure}
 
+        
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[scale=0.50]{figs/Result_HeadOn_With_Without_ATC.png}
+        %     \caption{Head-on Scenario Simulation Result with \ac{ATC} vs without \ac{ATC}. Start positions are denoted by OV$_{t0}$ for own vessel and EV$_{t0}$ for encountering vessel. (A) Own vessel COLREGS-compliant behavior due to A* \ac{ATC} path planner. (B) Non COLREGS-compliant own vessel behavior generated by A* without \ac{ATC}.}
+        %     \label{fig:Result_HeadOn_With_Without_ATC}
+        % \end{figure}
+        
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[scale=0.50]{figs/Result_CrossingRight_With_Without_ATC.png}
+        %     \caption{Crossing from Right Scenario Simulation Result with \ac{ATC} vs without \ac{ATC}. Start positions are denoted by OV$_{t0}$ for own vessel and EV$_{t0}$ for encountering vessel. (A) Own vessel COLREGS-compliant behavior due to A* \ac{ATC} path planner. (B) Non COLREGS-compliant own vessel behavior generated by A* without \ac{ATC}.}
+        %     \label{fig:Result_CrossingRight_With_Without_ATC}
+        % \end{figure}
+        
+    % \begin{figure}[H]
+    % \centering
+    
+    %     \begin{subfigure}[b]{0.5\textwidth}
+    %       \centering
+    %         \includegraphics[scale=0.40]{figs/Result_HeadOn_With_Without_ATC.png}
+    %         \caption{Head-on Scenario Simulation Result with \ac{ATC} vs without \ac{ATC}. Start positions are denoted by OV$_{t0}$ for own vessel and EV$_{t0}$ for encountering vessel. (A) Own vessel COLREGS-compliant behavior due to A* \ac{ATC} path planner. (B) Non COLREGS-compliant own vessel behavior generated by A* without \ac{ATC}.}
+    %         \label{fig:Result_HeadOn_With_Without_ATC}
+    %     \end{subfigure}
+    %     \begin{subfigure}[b]{0.5\textwidth}
+    %       \centering
+    %         \includegraphics[scale=0.40]{figs/Result_CrossingRight_With_Without_ATC.png}
+    %         \caption{Crossing from Right Scenario Simulation Result with \ac{ATC} vs without \ac{ATC}. Start positions are denoted by OV$_{t0}$ for own vessel and EV$_{t0}$ for encountering vessel. (A) Own vessel COLREGS-compliant behavior due to A* \ac{ATC} path planner. (B) Non COLREGS-compliant own vessel behavior generated by A* without \ac{ATC}.}
+    %         \label{fig:Result_CrossingRight_With_Without_ATC}
+    %     \end{subfigure}
+    
+    % \caption{Encounter scenarios for evaluation. Scenarios adopted from ~\cite{Huang2019Generalized}.}
+    % \label{fig:simulation_uwsim_encounters}
+    % \end{figure}
+    
+%AMA a diferenca entre avg e max eh enorme. explique bem o motivo disso. p um problema de tempo real, essa variacao nao eh muito interessante. 
 
+\todo{cite authors on table caption}
 \begin{table}
+\caption{Based on \cite{} we made a quantitative evaluation of our planning system measuring computational cost and minimum distance between vessels.}
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|} 
 \hline
@@ -141,19 +361,19 @@
 \cline{2-7}
                                                                                                    & \textbf{Wind}                                                                                     & 0.355          & 0.077             & 0.079                                                                & Yes                                                                                                 & 1.505                                                                                                \\ 
 \hline
-\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing }\\\textbf{ from Right} \end{tabular}} & \textbf{No ATC}                                                                                   & 0.390          & 0.050             & 0.098                                                                & Yes                                                                                                 & 5.4145                                                                                               \\ 
+\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing }\\\textbf{ from Right} \end{tabular}} & \textbf{No ATC}                                                                                   & 0.390          & 0.050             & 0.098                                                                & Yes                                                                                                 & 5.414                                                                                               \\ 
 \cline{2-7}
                                                                                                    & \textbf{ATC}                                                                                      & 0.395          & 0.052             & 0.104                                                                & Yes                                                                                                 & 3.264                                                                                                \\ 
 \cline{2-7}
                                                                                                    & \textbf{Wind}                                                                                     & 0.403          & 0.085             & 0.124                                                                & Yes                                                                                                 & 3.739                                                                                                \\ 
 \hline
-\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing }\\\textbf{ from Left} \end{tabular}}  & \textbf{No ATC}                                                                                   & 0.003          & 0.001             & 0.0003                                                               & Yes                                                                                                 & 2.881                                                                                                \\ 
+\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing }\\\textbf{ from Left} \end{tabular}}  & \textbf{No ATC}                                                                                   &           &              &                                                                &                                                                                                &                                                                                                 \\ 
 \cline{2-7}
-                                                                                                   & \textbf{ATC}                                                                                      &                &                   &                                                                      &                                                                                                     &                                                                                                      \\ 
+                                                                                                   & \textbf{ATC}                                                                                      &               &                   &                                                                      &                                                                                                     &                                                                                                      \\ 
 \cline{2-7}
                                                                                                    & \textbf{Wind}                                                                                     &                &                   &                                                                      &                                                                                                     &                                                                                                      \\ 
 \hline
-\multirow{3}{*}{\textbf{Overtaking} }                                                              & \textbf{No ATC}                                                                                   &                &                   &                                                                      &                                                                                                     &                                                                                                      \\ 
+\multirow{3}{*}{\textbf{Overtaking} }                                                              & \textbf{No ATC}                                                                                   &   0.368             &  0.006                 &  0.030                                                                    &   Yes                                                                                                  &  3.325                                                                                                    \\ 
 \cline{2-7}
                                                                                                    & \textbf{ATC}                                                                                      & 0.357          & 0.018             & 0.022                                                                & Yes                                                                                                 & 3.101                                                                                                \\ 
 \cline{2-7}
@@ -162,3 +382,6 @@
 \end{tabular}
 \label{tab:results}
 \end{table}
+
+    % Grammarlly: 100/100
+    Agrawal \etal ~\cite{Agrawal2015COLREGS} evaluate theirs A* approach in a 100mx100m grid with a resolution of 1:1, resulting in a search space of 10000 cells, we built our scenarios respecting the same proportionality. In all scenarios, our \ac{USV} plan in a 20mx20m grid with 1:0.2 resolution, resulting in a search space of 10000 cells. The choice of 20x20 dimension is related to real limitations of the range and reliability on laser sensors, the RPLIDAR A3 laser~\cite{RPLidarA3} model, for example, is reliably capable of detection in a 25 meters distance range.
