@@ -14,7 +14,7 @@
     In general, trajectory generation shall be in accordance with the \ac{USV} mission and marine protocols, such as being in accordance with the \ac{COLREGS} or respect \ac{TSS} definitions\footnote{\ac{TSS} are similar to traffic ground lines that must be respected by vessels on navigation at sea.}. Also, information about vehicle capability and environmental conditions may be required to determine suitable trajectories.
     
     % Gloabl path-planning algorithms evaluate the whole information available on a certain area in order to generate an obstacle-free path between the departure location, or initial waypoint, and the destination, or final waypoint. Candeloro2017Voronoi
-    As presented in Chapter \ref{chap:3_StateOfTheArt}, typical implementations of the guidance system propose the usage of global and local guidance modules. Thus, the global guidance module becomes responsible for path planning related to the far-field based on well-known information about the environment and assuming a deliberative behavior. Conversely, the local guidance module is responsible for path planning related to the near-field environment, assuming a reactive behavior. Both global and local guidance systems usually define the \ac{USV} trajectory considering static and dynamic obstacles.
+    As presented in Chapter \ref{chap:3_LiteratureReview}, typical implementations of the guidance system propose the usage of global and local guidance modules. Thus, the global guidance module becomes responsible for path planning related to the far-field based on well-known information about the environment and assuming a deliberative behavior. Conversely, the local guidance module is responsible for path planning related to the near-field environment, assuming a reactive behavior. Both global and local guidance systems usually define the \ac{USV} trajectory considering static and dynamic obstacles.
     
     In general, static information about the environment such as islands, boulders, etc, is extracted from nautical charts and topography maps. While dynamic information about the environment is acquired in runtime sensing by the perception system and through real-time updated electronic navigation charts capable of identifying other vessels and obstacles. Moreover, the guidance system depends on a world representation (e.g., 2D/3D maps representation, and occupancy grids) for running its main component, the path planner. Conventional methods for path planning applied to \ac{USV} guidance are optimization methods based on evolutionary algorithm and heuristics methods.
     % VJ Acho que o parágrafo esta com informação faltando. O runtime sensing usando o perception system é uma coisa e a eletronic navigation chart é outra.  Separe cada uma delas e suas funções. "real-time updated electronic navigation charts" não é um tipo de world representation? Vc menciona o perception system aqui e na sessão abaixo. Me parece que deveria estar em outro lugar ou mais elaborado aqui.
@@ -32,7 +32,7 @@
     
     \begin{figure}[H]
         \centering
-        \includegraphics[scale=0.7]{figs/Liu2016Unmanned_GNCSystem.png}
+        \includegraphics[scale=0.7]{figs/Chap2/Liu2016Unmanned_GNCSystem.png}
         \caption{\ac{GNC} System - Components and interaction between them \cite{Liu2016Unmanned}}
         \label{fig:Liu2016Unmanned_GNCSystem}
     \end{figure}
