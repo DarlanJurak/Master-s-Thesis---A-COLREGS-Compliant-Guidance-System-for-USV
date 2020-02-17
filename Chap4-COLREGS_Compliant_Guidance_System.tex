@@ -1,7 +1,22 @@
 \chapter{COLREGS Compliant Guidance System}
 \label{chap:4_COLREGS_Compliant_Guidance_System}
 
+Neste capítulo apresentamos a arquitetura do sistema desenvolvido.
+
 \section{System Architecture}
+
+O nosso sistema é composto por 3 principais módulos: guidance, navigation, and control. Uma visão geral do sistema é apresentada na Figura \ref{gnc_arch}.
+
+\subsection{Navigation}
+O sistema de navegação é composto pelos seguintes submódulos:
+
+\begin{itemize}
+    \item fake\_gps: o módulo gps\_fake disponibiliza para o sistema a localização global do \ac{USV}. A localização global é convertida para coordenadas locais e estão
+    \item laser:
+    \item fake\_ais:
+    \item map\_server:
+\end{itemize}
+
 \section{Global Guidance}
 \section{Local Guidance}
 VO because the algorithms collect all the velocities that result in collisions and present a set of collision-free velocities for human/machine, which facilitates human/machine to search for the best option.
