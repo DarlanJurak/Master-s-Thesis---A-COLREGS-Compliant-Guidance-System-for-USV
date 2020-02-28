@@ -5,22 +5,29 @@
 
 \section{GNC System}
     
-    The \acs{GNC} system is essential component for most \acp{USV}, being responsible for manage partially or entirely the \ac{USV}. GNC stands for Guidance, Navigation, and Control being composed of software and onboard computers. In this section, we describe the responsibilities of each one of these modules as well as the interaction between them.
+    The \acs{GNC} system is essential component for most \acp{USV}, being responsible for manage partially or entirely the \ac{USV}. \acs{GNC} stands for Guidance, Navigation, and Control. In this section, we describe the responsibilities of each one of these modules as well as the interaction between them. The Figure \ref{fig:Liu2016Unmanned_GNCSystem} presented by Liu~\cite{Liu2016Unmanned} illustrates general \ac{GNC} modules responsabilities and interactions.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{figs/Chap2/Liu2016Unmanned_GNCSystem.png}
+        \caption{\ac{GNC} System~\cite{Liu2016Unmanned}}
+        \label{fig:Liu2016Unmanned_GNCSystem}
+    \end{figure}
     
     \subsection{Guidance System}
 
-    In an autonomous approach, most \acp{USV} guidance systems are responsible for planning the path that will be traveled by the \ac{USV} using available information about static and dynamic obstacles captured by the navigation and the perception system.
+    In an autonomous approach, most \acp{USV} guidance systems are responsible for planning the path that will be traveled by the \ac{USV} using available information about static and dynamic obstacles gethered by the navigation system.
 
     In general, trajectory generation shall be in accordance with the \ac{USV} mission and marine protocols, such as being in accordance with the \ac{COLREGS} or respect \ac{TSS} definitions\footnote{\ac{TSS} are similar to traffic ground lines that must be respected by vessels on navigation at sea.}. Also, information about vehicle capability and environmental conditions may be required to determine suitable trajectories.
     
     % Gloabl path-planning algorithms evaluate the whole information available on a certain area in order to generate an obstacle-free path between the departure location, or initial waypoint, and the destination, or final waypoint. Candeloro2017Voronoi
-    As presented in Chapter \ref{chap:3_LiteratureReview}, typical implementations of the guidance system propose the usage of global and local guidance modules. Thus, the global guidance module becomes responsible for path planning related to the far-field based on well-known information about the environment and assuming a deliberative behavior. Conversely, the local guidance module is responsible for path planning related to the near-field environment, assuming a reactive behavior. Both global and local guidance systems usually define the \ac{USV} trajectory considering static and dynamic obstacles.
+    Typical implementations of the guidance system propose the usage of global and local guidance modules. The global guidance module is responsible for path planning related to the far-field based on well-known information about the environment and assuming a deliberative behavior. Conversely, the local guidance module is responsible for path planning related to the near-field environment, assuming a reactive behavior. Both global and local guidance systems usually define the \ac{USV} trajectory considering static and dynamic obstacles.
     
     In general, static information about the environment such as islands, boulders, etc, is extracted from nautical charts and topography maps. While dynamic information about the environment is acquired in runtime sensing by the perception system and through real-time updated electronic navigation charts capable of identifying other vessels and obstacles. Moreover, the guidance system depends on a world representation (e.g., 2D/3D maps representation, and occupancy grids) for running its main component, the path planner. Conventional methods for path planning applied to \ac{USV} guidance are optimization methods based on evolutionary algorithm and heuristics methods.
     % VJ Acho que o parágrafo esta com informação faltando. O runtime sensing usando o perception system é uma coisa e a eletronic navigation chart é outra.  Separe cada uma delas e suas funções. "real-time updated electronic navigation charts" não é um tipo de world representation? Vc menciona o perception system aqui e na sessão abaixo. Me parece que deveria estar em outro lugar ou mais elaborado aqui.
     % DJ: Partially done: acredito ter corrigido de maneira adequada a parte referente à "runtime sensing" mas o resto fiquei com duvidas e optei por seguir em frente e deixar assim por enquanto.
 
-    \subsection{Navigation, Control and Perception systems}
+    \subsection{Navigation and Control Systems}
     
     The navigation system is responsible by the \ac{USV} current state estimation (i.e., position, velocity, orientation, and acceleration) and measurement of some environment information (e.g., wind speed and ocean current), being composed of \acs{GPS}, compasses, and barometers. 
     The control system is responsible for keeping the actuators of the \ac{USV} following the trajectory generated by the guidance system. 
@@ -29,13 +36,6 @@
     % DJ: N concordo.
     In general, perception systems are composed of cameras and near-field range sensors such as \ac{LIDAR}.
     Figure \ref{fig:Liu2016Unmanned_GNCSystem} presented by Liu \etal~\cite{Liu2016Unmanned} shows a big picture of the \ac{GNC} system, the responsibilities of each module and the interaction between them, elucidating the definitions presented in this section. 
-    
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.7]{figs/Chap2/Liu2016Unmanned_GNCSystem.png}
-        \caption{\ac{GNC} System - Components and interaction between them \cite{Liu2016Unmanned}}
-        \label{fig:Liu2016Unmanned_GNCSystem}
-    \end{figure}
     
     % VJ o que é importante na imagem? O que vc quer que o leitor saiba? Apontar na label e no texto. Lemre-se que vc não tem direito autoral das imagens e que isso pode virar uma dor de cabeça se o autor for chato. Sempre consulte os autores ao usar imagens de terceiros.
     
@@ -289,3 +289,29 @@
     \subsection{Surface Vehicle Modeling}
     \subsection{Configuration Space}
     \subsection{Planning Algorithms}
+    
+\section{A*}
+
+A-star method, or simply A*, is a basic path planning algorithm in various fields, which uses heuristics to find the optimal path. A* algorithm is correct, complete and optimal. The meaning of correctness is that there are no obstacles on the computational path. Completeness means that a path can be found , if feasible path exists. Optimally means that it is able to calculate the shortest path from the start point to the goal point.
+Define an evaluation function for the A*
+f (n) = g(n) + h(n) (1)
+where
+ g(n) is the cost of the path from the start point to node
+n found so far. g(n) is given by
+g(n) = g(n - 1) + c(n, n - 1) (2)
+where c(n,n-1) is the cost from node n-1 to its neighbor node n that calculated by using the Euclidean distance.
+ h(n) is the straight-line distance from the node n to the goal point. For predefined goal piont, the value of h(n) is constant which can be calculated in advance.
+ f(n) is an estimate of the cost of an optimal path from start point via node n to the goal point.
+There are two important priority queues in the A* algorithm, open list and close list. Open is a stable priority queue, which storages nodes with the key f value in ascending order. Close storages expanded nodes to ensure that each node is only expended once. The lowest f value in the Open will be selected as he current node, and the path is found when the current node is goal point. \cite{Wang2018Hybrid}
+
+\section{Proportional Controller}
+\section{Euclidian Distance}
+\section{Steering Angle}
+\section{Atan2}
+
+
+
+    
+% VO because the algorithms collect all the velocities that result in collisions and present a set of collision-free velocities for human/machine, which facilitates human/machine to search for the best option.
+
+% The advantages of the VO algorithms have been noticed by researchers in maritime engineering. The idea of VO algorithms had ap- peared in the 1980s, named as Collision Threat Parameter Area (CTPA) (Degre and Lefevre, 1981; Lenart, 1983). Subsequently, Pedersen et al. (2003) showed that this method can provide a better support for the Officer On Watch (OOW) in collision prevention comparing with tra- ditional Automatic Radar Plotting Aid (ARPA). Later on, a series of studies proposed to use VO/CTPA algorithms for collision avoidance in various scenarios, e.g. restricted waters (Szlapczynski and Szlapczynska, 2017), multiple-ship (Szlapczynski, 2008), incorporating with regulations (Zhao et al., 2016), and unmanned ship (Kuwata et al., 2014). In (Huang et al., 2018), the algorithms which presume the target-ship keeps constant velocity, are concluded as a special case of the VO algorithm, called linear VO (LVO) algorithm. Details about the existing applications of VO algorithms in the maritime domain are addressed in Section 2.3.

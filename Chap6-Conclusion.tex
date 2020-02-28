@@ -1,2 +1,8 @@
 \chapter{Conclusion}
 \label{chap:6_Conclusion}
+
+    O nosso méodo ATC A* se mostrou eficaz para CORLEGS-compliance collision avoidance. Em questão de desempenho, o custo computacional está diretamente atrelado a nossa implmentação do A* base mas a criação de obstáculos virtuais com ATC, cria de maneira indireta um aumento no tempo computacional, devido a restrição no espaço de busca.
+    
+    Uma melhoria melhoria possível seria adionar um raio de infleção de custo nos obstáculos criados para evitar que o método A* explorasse área que são vizinhas de obstáculos virtuais e que não poderam ser utilizadas na busca pela trajetória final e acabam somente por aumentar o custo computacional, pois nos testes realiados o método explorou grandes área próximas dos obstáculos virtuais, devido ao comportamento heuristico  do algoritmo mas esses obstáculos não podiam ser transpostos, então estes nodos foram explorados mas não levavam a trajetória final.
+    
+    Outra melhoria possível seria avaliar uma distância crítica na qual o sistema deveria onsiderar como irrelevante a COLREGS compliance e tornar prioritária evitar obstáculos a todo custo, ou seja podendo inclusive ultrapassar zonas que estivessem com a marcação de obstáculos virtuais, isso pode ser implementado mantendo os obstáculos virtuais com um custo auto mas não acima do aceitável para trangressão pelo A*.
