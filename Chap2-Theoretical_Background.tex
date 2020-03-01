@@ -1,45 +1,194 @@
 \chapter{Theoretical Background \label{chap:2_TheoreticalBackground}}
 
-
-    In this chapter we present some background on the main concepts related to our study. The focus is to define the guidance components of a \ac{USV}, and present the international regulations for navigation of vessels on water (\acs{COLREGS}).
+    %%%%%%%%%%%%%%%%%%
+    % Grammarly: 100/100
+    %%%%%%%%%%%%%%%%%%
+    In this chapter, we present the background of the main concepts related to our study. The focus is to present the components of an \acl{USV}, and present the international regulations for navigation of vessels on water (\acs{COLREGS}).
 
 \section{GNC System}
     
-    The \acs{GNC} system is essential component for most \acp{USV}, being responsible for manage partially or entirely the \ac{USV}. \acs{GNC} stands for Guidance, Navigation, and Control. In this section, we describe the responsibilities of each one of these modules as well as the interaction between them. The Figure \ref{fig:Liu2016Unmanned_GNCSystem} presented by Liu~\cite{Liu2016Unmanned} illustrates general \ac{GNC} modules responsabilities and interactions.
+    %%%%%%%%%%%%%%%%%%
+    % Grammarly: 99/100
+    %%%%%%%%%%%%%%%%%%
+    The \acs{GNC} system is an essential component for most \acp{USV}, being responsible for managing partially or entirely the \ac{USV}. \acs{GNC} stands for Guidance, Navigation, and Control. In this section, we describe the responsibilities of each one of the \ac{GNC} modules as well as the interaction between them. The Figure \ref{fig:Liu2016Unmanned_GNCSystem} presented by Liu~\cite{Liu2016Unmanned} summarize \acs{GNC} modules; their responsibilities and interactions.
     
     \begin{figure}[H]
         \centering
-        \includegraphics[scale=0.7]{figs/Chap2/Liu2016Unmanned_GNCSystem.png}
-        \caption{\ac{GNC} System~\cite{Liu2016Unmanned}}
+        \includegraphics[scale=0.85]{figs/Chap2/Liu2016Unmanned_GNCSystem.png}
+        \caption{\ac{GNC} System Modules~\cite{Liu2016Unmanned}}
         \label{fig:Liu2016Unmanned_GNCSystem}
     \end{figure}
     
+    %%%%%%%%%%%%%%%%%%
+    % Grammarly: 100/100
+    %%%%%%%%%%%%%%%%%%
+    In short, the guidance system is responsible for the determination of the \ac{USV}'s trajectory to achieve a goal location. For trajectory generation, the guidance system uses the information provided by the navigation system related to the environment (\eg~obstacles around and general disturbances such as wind and current) and related to the \ac{OV}'s state (\eg~current location). After generating the trajectory, the guidance system makes the route available to the control system. The control system generates actuation commands to change the \ac{USV}'s state and effectively move the \ac{USV}. We present detailed explanations about the \ac{GNC} modules in the sections below.
+    % After the determination of a path, the guidance system make the path available to the control system.
+    
     \subsection{Guidance System}
 
-    In an autonomous approach, most \acp{USV} guidance systems are responsible for planning the path that will be traveled by the \ac{USV} using available information about static and dynamic obstacles gethered by the navigation system.
 
-    In general, trajectory generation shall be in accordance with the \ac{USV} mission and marine protocols, such as being in accordance with the \ac{COLREGS} or respect \ac{TSS} definitions\footnote{\ac{TSS} are similar to traffic ground lines that must be respected by vessels on navigation at sea.}. Also, information about vehicle capability and environmental conditions may be required to determine suitable trajectories.
+    % In an autonomous approach, most \acp{USV} guidance systems are responsible for planning the path that will be traveled by the \ac{USV}. 
+    % % For determination of a path, the guidance system uses available information about static and dynamic obstacles gathered by the navigation system. 
+    % For determination of a path, the guidance system uses the information gathered by the navigation system related to the environment and to the \ac{OV}'s state. In general, trajectory generation shall be in accordance with the \ac{USV} mission and marine protocols, such as being in accordance with the \ac{COLREGS} or respect \ac{TSS} definitions (\ac{TSS} are similar to traffic ground lines that must be respected by vessels on navigation at sea.) Also, information about vehicle capability (e.g. maximum speed and power consumption)
+    % %AMA dar uma exemplo de vehicle capability
+    % %DJ: Done
+    % and environmental conditions (e.g. wind, wave, and current disturbance)
+    % %AMA dar exemplos de environmental conditions que podem ser relevantes
+    % %DJ: Done
+    % may be required to determine suitable trajectories.
     
+    %%%%%%%%%%%%%%%%%%
+    % Grammarly: 100/100
+    %%%%%%%%%%%%%%%%%%
+    In an autonomous approach, most \acp{USV} guidance systems are responsible for planning the path that will be traveled by the \ac{USV}. For the determination of a path, the guidance system uses the information gathered by the navigation system related to the environment and the \ac{OV}'s state. In general, trajectory generation shall consider the \ac{USV} mission and marine protocols, such as being under the \ac{COLREGS} or respect \ac{TSS} definitions (\ac{TSS} are similar to traffic ground lines that must be respected by vessels on navigation at sea.) Also, information about vehicle capability (e.g., maximum speed and power consumption) and environmental conditions (e.g., wind, wave, and current disturbance) may be required to determine suitable trajectories.
+    
+    %%%%%%%%%%%%%%%%%%
+    % Grammarly: 100/100
+    %%%%%%%%%%%%%%%%%%
     % Gloabl path-planning algorithms evaluate the whole information available on a certain area in order to generate an obstacle-free path between the departure location, or initial waypoint, and the destination, or final waypoint. Candeloro2017Voronoi
-    Typical implementations of the guidance system propose the usage of global and local guidance modules. The global guidance module is responsible for path planning related to the far-field based on well-known information about the environment and assuming a deliberative behavior. Conversely, the local guidance module is responsible for path planning related to the near-field environment, assuming a reactive behavior. Both global and local guidance systems usually define the \ac{USV} trajectory considering static and dynamic obstacles.
+    Typical implementations of the guidance system propose the usage of global and local planners\cite{Liu2016Unmanned}. The global planner is responsible for path planning related to the far-field based on well-known information about the environment, such as islands, coasts, bridges over water \etc, assuming a deliberative behavior (see Figure \ref{fig:chap2_globallocalpath}). Conversely, the local planner is responsible for path planning related to the near-field environment, assuming a reactive behavior when detecting other vessels or obstacles. Conventional methods for path planning applied to \ac{USV} guidance are based on heuristic search\cite{Liu2016Unmanned}, such as A*\cite{Larson2006Autonomous, Naus2013Idea}. Some works used optimization methods for \ac{USV}`s path planning but presented several limitations in real-world trials, due to expensive computational cost \cite{Svec2011Trajectory, Campbell2013Automatic}.
+    %AMA me parece q deveria ter pelo menos uma ref para essas heuristicas. um survey, por exemplo.
+    %DJ: Done
+
+    %%%%%%%%%%%%%%%%%%
+    % Grammarly: 100/100
+    %%%%%%%%%%%%%%%%%%
+    % In Figure \ref{fig:chap2_globallocalpath} we illustrate the difference between global and local planning in our context. For a situation where our own vessel (\acs{OV}), is not capable of
+    % %AMA capable of + verbo-ing ..... capable of detecting. verificar se existem outras ocorrencias
+    % detecting some vessel in the far-field, the global planner could define a route above a location occupied by the encountering vessel (\acs{EV}). In this situation the local planner should react when \ac{EV} appears in the near-field and define an avoidance behavior. Both global and local planners usually define the \ac{USV} trajectory considering static and dynamic obstacles.
     
-    In general, static information about the environment such as islands, boulders, etc, is extracted from nautical charts and topography maps. While dynamic information about the environment is acquired in runtime sensing by the perception system and through real-time updated electronic navigation charts capable of identifying other vessels and obstacles. Moreover, the guidance system depends on a world representation (e.g., 2D/3D maps representation, and occupancy grids) for running its main component, the path planner. Conventional methods for path planning applied to \ac{USV} guidance are optimization methods based on evolutionary algorithm and heuristics methods.
-    % VJ Acho que o parágrafo esta com informação faltando. O runtime sensing usando o perception system é uma coisa e a eletronic navigation chart é outra.  Separe cada uma delas e suas funções. "real-time updated electronic navigation charts" não é um tipo de world representation? Vc menciona o perception system aqui e na sessão abaixo. Me parece que deveria estar em outro lugar ou mais elaborado aqui.
-    % DJ: Partially done: acredito ter corrigido de maneira adequada a parte referente à "runtime sensing" mas o resto fiquei com duvidas e optei por seguir em frente e deixar assim por enquanto.
+    In Figure \ref{fig:chap2_globallocalpath}, we illustrate the difference between global and local planning in our context. For a situation where our vessel (henceforth referred to as \ac{OV}) is not capable of detecting some vessel in the far-field, the global planner could define a route above a location occupied by the encountering vessel (\acs{EV}). In this situation, the local planner should react when the \ac{EV} appears in the near-field and define an avoidance behavior. Both global and local planners usually define the \ac{USV} trajectory considering static and dynamic obstacles.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.6]{figs/Chap2/GlobalLocalPath.pdf}
+        \caption{Global and local paths.}
+        \label{fig:chap2_globallocalpath}
+    \end{figure}
+
+    %%%%%%%%%%%%%%%%%%
+    % Grammarly: 100/100
+    %%%%%%%%%%%%%%%%%%
+    %AMA me parece q essa definicao deveria vir antes. deixo a teu criterio
+    %DJ: modifiquei o texto acima para que esse ultimo parágrafo fique numa sequência lógica.
+    In general, static information about the environment, such as islands, and coasts, are extracted from nautical charts, topography charts, and maps available offline. While dynamic information about the environment, such as unknown static obstacles and other vessels, is acquired in run-time by the navigation system. Also, the guidance system depends on a world representation (i.e., cost maps) for running its main component, the path planner.
 
     \subsection{Navigation and Control Systems}
     
-    The navigation system is responsible by the \ac{USV} current state estimation (i.e., position, velocity, orientation, and acceleration) and measurement of some environment information (e.g., wind speed and ocean current), being composed of \acs{GPS}, compasses, and barometers. 
-    The control system is responsible for keeping the actuators of the \ac{USV} following the trajectory generated by the guidance system. 
-    Moreover, lately, studies present the perception system as a central component of a \ac{USV} together with guidance, navigation, and control systems. 
-    % VJ frase perdida e repetida anteriormente?
-    % DJ: N concordo.
-    In general, perception systems are composed of cameras and near-field range sensors such as \ac{LIDAR}.
-    Figure \ref{fig:Liu2016Unmanned_GNCSystem} presented by Liu \etal~\cite{Liu2016Unmanned} shows a big picture of the \ac{GNC} system, the responsibilities of each module and the interaction between them, elucidating the definitions presented in this section. 
+     
     
-    % VJ o que é importante na imagem? O que vc quer que o leitor saiba? Apontar na label e no texto. Lemre-se que vc não tem direito autoral das imagens e que isso pode virar uma dor de cabeça se o autor for chato. Sempre consulte os autores ao usar imagens de terceiros.
+    % The navigation system is responsible for the determination of the current state of the USV (e.g., position, velocity, orientation, and acceleration) and environment perception (e.g., static and dynamic obstacles, other vessels, wind speed, and water current).
+    % %AMA esse tipo de exemplo eh bem importante. acho q se vc colocar la na 1a vez q vc menciona esses termos ja eh o suficiente. por outro lado, melhor sobrar do que faltar. de qualquer forma. eh importante ter PELO MENOS nas 1a mencoes
+    % %DJ: Adicionei nas 1as menções
+    % For current state estimation, the navigation system can use GPS, \ac{IMU}, and compasses.
+    % %AMA barometer eh usado em USV ?!?! certeza ?
+    % %DJ: removed
+    % Regarding environment perception, static information about the environment is extracted from nautical charts and topographic maps. On the other hand, the dynamic information about the environment is acquired in real-time sensing by the navigation system through the usage of cameras, \ac{LIDAR}, radar, and \ac{AIS}. \ac{AIS} allows automated message exchange between vessel, facilitating the identification of other vessels location, velocity, course, path, dimension, and type. 
     
-    % \subsubsection{Behavior-based systems}
+    %%%%%%%%%%%%%%%%%%
+    %
+    %%% Navigation   
+    %
+    %%% Grammarly: 99/100
+    %%%%%%%%%%%%%%%%%%
+    The navigation system is responsible for the determination of the current state of the USV (e.g., position, velocity, orientation, and acceleration) and environment perception (e.g., static and dynamic obstacles, other vessels, wind speed, and water current). For current state estimation, the navigation system can use GPS, \ac{IMU}, and compasses. Regarding environment perception, static information about the environment is extracted from nautical charts and topographic maps. On the other hand, the dynamic information about the environment is acquired in real-time sensing by the navigation system through the usage of cameras, \ac{LIDAR}, radar, and \ac{AIS}. \ac{AIS} allows automated message exchange between vessels, facilitating the identification of location, velocity, course, path, dimension, and type.
+    
+    %%%%%%%%%%%%%%%%%%
+    %
+    %%% Control
+    %
+    %%% Grammarly: 100/100
+    %%%%%%%%%%%%%%%%%%
+    The control system is responsible for the generation of actuation commands that change the \ac{USV}'s state. For an airboat (as shown in Figure \ref{fig:chap2_airboat}), for example, the control system will generate commands to change the rotation and gain of the fan. While for a differential boat (as shown in Figure \ref{fig:chap2_diffboat}), the control system will generate a gain command for each thruster. The control system determines actuation commands, considering the trajectory generated by the guidance system.
+    
+    \begin{figure}[H]
+    \centering
+    
+        \begin{subfigure}[b]{0.44\textwidth}
+            \centering
+            \includegraphics[scale=0.44]{figs/Chap2/airboat.png}
+            \caption{Airboat with fan}
+            \label{fig:chap2_airboat}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.52\textwidth}
+            \centering
+            \includegraphics[scale=0.48]{figs/Chap2/diffboat2.png}
+            \caption{Differential boat with two thruster}
+            \label{fig:chap2_diffboat}
+        \end{subfigure}
+    
+    \caption{Example of vessels and different propellers Both vessels are simulated versions of Platypus\cite{PlatypusLLC} boats we have in our laboratory.}
+    \label{fig:boats}
+    \end{figure}
+
+\section{COLREGS}
+\label{sec:colregs}
+
+    %Campbell2012Rule
+    % Human error, both active and latent, are said to cause marine collisions in an estimated 89-96\% of cases (Roth-blum (2000)), for instance the catastrophic MVDo˜na Paz ferry collision with the MTVector. An intelligent Obstacle Detection and Avoidance (ODA) system can potentially eliminate the issues caused by poor judgement or failure to react promptly.
+
+    %%%%%%%%%%%%%%%%%%
+    %%% Grammarly: 99/100
+    %%%%%%%%%%%%%%%%%%
+    \ac{COLREGS}\cite{COLREGS} stands for "International Regulation for Preventing Collisions at Sea, 1972", sometimes cited as "COLlision REGulations at Sea" or "Convention on the International Regulations for Preventing Collisions at Sea" - in this work we adopted the latter. The definitions declared on the \ac{COLREGS} are controlled, updated, and of responsibility of the \ac{IMO}. Briefly, the \ac{COLREGS} defines the rules that must be followed by vessels upon waters to avoid a collision. 
+    The \ac{COLREGS} are adopted by the United Nations as a global convention and must be respected by every country.
+    
+    % Some rules are related to possible or mandatory features required for a \ac{USV} system, such as 9, 10, 13, 14, 15, 16, 17, and 18. Also, other rules are related to structural requirements for \ac{USV}s in real-world trials, such as 23, and 33.
+    %AMA tu sabe q o leitor vai ficar boiando totalmente aqui pois ele nao faz ideia o que sao as regras 23 e 33, por exemplo.
+    %DJ: removed
+    
+    %%%%%%%%%%%%%%%%%%
+    %%% Grammarly: 99/100
+    %%%%%%%%%%%%%%%%%%
+    \ac{COLREGS} rules were not defined considering autonomous systems such as \ac{USV}s. They were written to be interpreted by well-experienced sailors and imply the usage of their experience and common sense. There are gaps to be filled and subjective or ambiguous definitions to be addressed, making the development of a \ac{COLREGS}-compliant \ac{USV} guidance system challenging.
+    %%%%%%%%%%%%%%%%%%
+    %%% Grammarly: 100/100
+    %%%%%%%%%%%%%%%%%%
+    Below we describe the four main encounters presented in \ac{COLREGS}, head-on, crossing from the right, crossing from the left, and overtaking. In our work, we adapted in the guidance system the behavior described below for each type of encounter.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.125]{figs/Chap2/Encounters.pdf}
+        \caption{Possible encounters between vessels discussed in the COLREGS.}
+        \label{fig:chap2_encounters}
+    \end{figure}
+    
+    \begin{itemize}
+        \item Head-On: In this situation both vessels should avoid collision going to their starboard side.
+        \item Crossing from the right and crossing from the left: In this scenario, the COLREGS defines different responsibilities for each vessel. The vessel that has the other vessel in its starboard side must give way and is responsible for the collision avoidance. The vessel that has the other vessel in its port side must keep its course without great changes. In a critical situation, where the give way vessel seems not able to avoid the collision, the keep vessel should act to avoid.
+        \item Overtake: In this scenario the vessel overtaking another, can freely decide which side to go but must avoid to generate any other crossing situation.
+    \end{itemize}
+
+    % \subsection{Surface Vehicle Modeling}
+    % \subsection{Configuration Space}
+    % \subsection{Planning Algorithms}
+    
+% \section{A*}
+
+% A-star method, or simply A*, is a basic path planning algorithm in various fields, which uses heuristics to find the optimal path. A* algorithm is correct, complete and optimal. The meaning of correctness is that there are no obstacles on the computational path. Completeness means that a path can be found , if feasible path exists. Optimally means that it is able to calculate the shortest path from the start point to the goal point.
+% Define an evaluation function for the A*
+% f (n) = g(n) + h(n) (1)
+% where
+%  g(n) is the cost of the path from the start point to node
+% n found so far. g(n) is given by
+% g(n) = g(n - 1) + c(n, n - 1) (2)
+% where c(n,n-1) is the cost from node n-1 to its neighbor node n that calculated by using the Euclidean distance.
+%  h(n) is the straight-line distance from the node n to the goal point. For predefined goal piont, the value of h(n) is constant which can be calculated in advance.
+%  f(n) is an estimate of the cost of an optimal path from start point via node n to the goal point.
+% There are two important priority queues in the A* algorithm, open list and close list. Open is a stable priority queue, which storages nodes with the key f value in ascending order. Close storages expanded nodes to ensure that each node is only expended once. The lowest f value in the Open will be selected as he current node, and the path is found when the current node is goal point. \cite{Wang2018Hybrid}
+
+% \section{Proportional Controller}
+% \section{Euclidian Distance}
+% \section{Steering Angle}
+% \section{Atan2}
+    
+% VO because the algorithms collect all the velocities that result in collisions and present a set of collision-free velocities for human/machine, which facilitates human/machine to search for the best option.
+
+% The advantages of the VO algorithms have been noticed by researchers in maritime engineering. The idea of VO algorithms had ap- peared in the 1980s, named as Collision Threat Parameter Area (CTPA) (Degre and Lefevre, 1981; Lenart, 1983). Subsequently, Pedersen et al. (2003) showed that this method can provide a better support for the Officer On Watch (OOW) in collision prevention comparing with tra- ditional Automatic Radar Plotting Aid (ARPA). Later on, a series of studies proposed to use VO/CTPA algorithms for collision avoidance in various scenarios, e.g. restricted waters (Szlapczynski and Szlapczynska, 2017), multiple-ship (Szlapczynski, 2008), incorporating with regulations (Zhao et al., 2016), and unmanned ship (Kuwata et al., 2014). In (Huang et al., 2018), the algorithms which presume the target-ship keeps constant velocity, are concluded as a special case of the VO algorithm, called linear VO (LVO) algorithm. Details about the existing applications of VO algorithms in the maritime domain are addressed in Section 2.3.
+
+  % \subsubsection{Behavior-based systems}
         
         %% Benjamin2004COLREGS
         % The origin of behavior-based systems is commonly attributed to Brooks' "subsumption architecture" in [R. Brooks, “A Robust Layered Control System for a Mobile Robot”, IEEE Journal of Robofics and Automation, RA-2(1):14-23, April 1986]. Since then, it has been used in a large variety of applications including: indoor robots, e.g., [l, 2, 7, 9, 13, 14, 17, 19, 201, land vehicles, e.g., [16], planetary rovers, e.g., [12, 181, and marine vehicles, e.g., [3,4,6,8, 15] 
@@ -82,236 +231,3 @@
     % \subsubsection{Closest Point of Approach}
         % One is using various indicators to measure a collision risk and find associated evasive actions that keep the risk at an acceptable level. Two widely used indicators, Distance to CPA (DCPA) and Time to CPA (TCPA), are based on the concept of closest point of approach (CPA) (Kearon, 1979).
     % \subsubsection{Occupancy Grid}
-
-\section{COLREGS}
-\label{sec:colregs}
-
-    %Campbell2012Rule
-    % Human error, both active and latent, are said to cause marine collisions in an estimated 89-96\% of cases (Roth-blum (2000)), for instance the catastrophic MVDo˜na Paz ferry collision with the MTVector. An intelligent Obstacle Detection and Avoidance (ODA) system can potentially eliminate the issues caused by poor judgement or failure to react promptly.
-
-    \ac{COLREGS}\cite{COLREGS} stands for “International Regulation for Preventing Collisions at Sea, 1972”, sometimes cited as "COLlision REGulations at Sea" or "Convention on the International Regulations for Preventing Collisions at Sea" -- in this work we adopted the latter. The definitions declared on the \ac{COLREGS} are controlled, updated and of responsibility of the \ac{IMO}. Briefly, the \ac{COLREGS} defines the rules that must be followed by vessels upon waters to avoid collision. 
-    The \ac{COLREGS} are adopted by the United Nations as a global convention and must be respected by every country.
-    
-    The \ac{COLREGS} include 41 rules divided into five sections: General document appliance, Steering \& Sailing, Lights \& Shapes, Sound and Light Signals, and Exceptions. Relevant rules in the context of the present work are listed below. For purpose of discussion we underline subjective or ambiguous terms:
-    % VJ: Em português criamos frases gigantes, em Inglês, evite isso e quebre frases que vão ficar muito grandes sempre que possível. O termo no-objective acho que se escreve sem hífen e significa: emotional; based on inner experience rather than fact. Subjective. Vc não deve usar plural ali. 
-    % DJ: "Non-objective" removed.
-    % Paragraph reduced.
-    
-    \begin{itemize}
-    % VJ: penso eu que seja visto como plágio um número tão elevado de frases citadas exatamente como são. Talvez fosse melhor explicar com suas palavras.
-    
-    %AMA 31/1 nesse caso ae acho apropriado pois um dos objetivos de parafrasear aqui eh deixar claro alguns pontos de ambiguidade da regras. Se ele reescrevesse do jeito dele, o leitor poderia pensar q a ambiguidade eh culpa do Darlan e nao da norma. 
-
-        \item Rule 5 - Proper "look-out" (PARAPHRASED):
-        
-        \begin{itemize}
-            \item "Every vessel shall at all times maintain a \underline{proper look-out} by sight and hearing as well as by all available means appropriate in the prevailing circumstances and conditions so as to make a full appraisal of the situation and of the risk of collision."
-        \end{itemize}
-        
-        This is the first rule that we detect subjectivity. The rule talks about a "proper look-out", an expression that can have a common sense between experienced sailors but it is a hard mission for system designers to address this requirement.
-        
-        \item Rule 6 - Safe speed (PARAPHRASED):
-        
-        \begin{itemize}
-            \item "Every vessel shall at all times proceed at a \underline{safe speed} so that she can take proper and effective action to avoid collision and be stopped within a \underline{distance appropriate} to the prevailing circumstances and conditions."
-        \end{itemize}
-        
-        \item Rule 7 - Risk of collision (PARAPHRASED):
-        
-        \begin{itemize}
-            \item "Every vessel shall use \underline{all available means} appropriate to the prevailing circumstances and conditions to determine if a risk of collision exists. If there is any doubt, such risk shall be deemed to exist."
-        \end{itemize}
-        
-        \item Rule 8 - Action to avoid collision (PARAPHRASED):
-        
-            \begin{itemize}
-                \item "Any action to avoid collision shall be taken in accordance with the Rules of this Part and shall, if the circumstances of the case admit, be positive, made in \underline{ample time} and with due regard to the observance of \underline{good seamanship}."
-                \item "Any alteration of course and/or speed to avoid collision shall if the circumstances of the case admit, be \underline{large enough} to be readily apparent to another vessel observing visually or by radar; a succession of small alterations of course and/or speed should be avoided."
-                \item "If necessary to avoid collision or allow more time to assess the situation, a vessel shall slacken her speed or take all way off by stopping or reversing her means of propulsion."
-            \end{itemize}
-        
-        \item Rule 9 - Narrow channels (PARAPHRASED):
-        
-            \begin{itemize}
-                \item "A vessel proceeding along the course of a narrow channel or fairway shall keep as near to the outer limit of the channel or fairway which lies on her starboard side as is safe and practicable."
-            
-                \item "A vessel of less than 20 metres in length or a sailing vessel shall not impede the passage of a vessel which can safely navigate only within a narrow channel or fairway."
-            \end{itemize}
-            
-            % VJ Possible implementation? Não entendi o que vc quer com estes parágrafos, melhor vc me explicar
-            Possible implementation: The \ac{USV} must detect a narrow channel and the starboard-near coast and navigate near to this coast (without violation of other rules). If the system is on a \ac{USV} of less than 20 meters, it must be capable of detect other vessels and let they pass with priority on their own mission.
-        
-        \item Rule 10 - Traffic separation schemes (PARAPHRASED):
-        
-            \begin{itemize}
-                \item A vessel using \ac{TSS} shall:
-                \begin{itemize}
-                    \item "Proceed in the appropriate traffic lane in the general direction of traffic flow for that lane."
-                    \item "So far as practicable keep clear of a traffic separation line or separation zone."
-                \end{itemize}
-                
-                \item "A vessel shall not use an inshore traffic zone when she can safely use the appropriate traffic lane within the adjacent traffic separation scheme. However, vessels of less than 20 metres in length, sailing vessels, and vessels engaged in fishing may use the inshore traffic zone." 
-        
-                \item "A vessel other than a crossing vessel or a vessel joining or leaving a lane shall not normally enter a separation zone or cross a separation line except:" 
-                \begin{itemize}
-                    \item "A vessel of less than 20 metres in length or a sailing vessel shall not impede the safe passage of a power-driven vessel following a traffic lane."          
-                \end{itemize}
-            \end{itemize}
-            
-            \ac{TSS} are defined routes, such as ground traffic lanes, with required orientation and direction. An example is presented in Figure \ref{fig:COLREGS_10_TSS_1}.
-            \begin{figure}[H]
-                \centering
-                \includegraphics[scale=0.3]{figs/COLREGS_10_TSS_1.png}
-                \caption{Traffic Separation Scheme Example \cite{yachtcluTSS}}
-                \label{fig:COLREGS_10_TSS_1}
-            \end{figure}
-            
-            Possible implementation: Change guidance according to \acp{TSS}.
-            
-        \item Rule 11 - Rules 11-18 must be followed when vessels encounters happen.
-        \item Rule 13 - Overtaking (PARAPHRASED):
-        
-            \begin{itemize}
-                \item "Any vessel overtaking any other shall \underline{keep out of the way} of the vessel being overtaken."
-                \item "A vessel shall be deemed to be overtaking when coming up with another vessel from a direction more than 22.5 degrees abaft her beam, that is, in such a position with reference to the vessel she is overtaking, that at night she would be able to see only the sternlight of that vessel but neither of her sidelights."(c).
-                \item "When a vessel is in any doubt as to whether she is overtaking another, she shall assume that this is the case and act accordingly."
-                \item "Any subsequent alteration of the bearing between the two vessels shall not make the overtaking vessel a crossing vessel within the meaning of these Rules or relieve her of the duty of keeping clear of the overtaken vessel until she is finally past and clear."
-            \end{itemize}
-            
-            Possible implementation: Overtaking action with degrees constraint. Detect if the \ac{USV} is being overtaken and then apply constraints to the guidance system to avoid actions that can generate dangerous situations.
-            
-            An example of this scenario is presented in Figure \ref{fig:COLREGS_Rule13}:
-            \begin{figure}[H]
-                \centering
-                \includegraphics[scale=0.45]{figs/COLREGS_Rule13.jpg}
-                \caption{Overtaking Situation \cite{nasbla2009}}
-                \label{fig:COLREGS_Rule13}
-            \end{figure}
-            
-        \item Rule 14 - Head-On (PARAPHRASED):
-        
-            \begin{itemize}
-                \item "When two power-driven vessels are meeting on \underline{reciprocal or nearly reciprocal} courses so as to involve risk of collision each shall alter her course to starboard so that each shall pass on the port side of the other."
-            \end{itemize}
-            
-            Possible implementation: Head-on collision avoidance action.
-            
-            An example of this scenario is presented in Figure \ref{fig:COLREGS_Rule14}:
-            \begin{figure}[H]
-                \centering
-                \includegraphics[scale=0.45]{figs/COLREGS_Rule14.jpg}
-                \caption{Head-on Situation \cite{nasbla2009}}
-                \label{fig:COLREGS_Rule14}
-            \end{figure}
-            
-       \item Rule 15 - Crossing (PARAPHRASED):
-        
-            \begin{itemize}
-                \item "When two power-driven vessels are crossing \underline{so as to involve risk of collision}, the vessel which has the other on her own starboard side shall keep out of the way and shall, if the circumstances of the case admit, avoid crossing ahead of the other vessel."
-            \end{itemize}
-            
-            Possible implementation: Crossing collision avoidance action.
-            
-            An example of this scenario is presented in Figure \ref{fig:COLREGS_Rule15}\cite{nasbla2009}:
-            \begin{figure}[H]
-                \centering
-                \includegraphics[scale=0.45]{figs/COLREGS_Rule15.jpg}
-                \caption{Crossing Situation \cite{nasbla2009}}
-                \label{fig:COLREGS_Rule15}
-            \end{figure}
-            
-        \item Rule 16 - Action by give-way vessel (PARAPHRASED):
-        
-            \begin{itemize}
-                \item "Every vessel which is directed to keep out of the way of another vessel shall, so far as possible, take \underline{early and substantial} action to keep \underline{well clear}."
-            \end{itemize}
-        
-        \item Rule 17 - Action by stand-on vessel (PARAPHRASED):
-        
-            \begin{itemize}
-                \item "Where one of two vessels is to keep out of the way the other shall keep her course and speed"
-                \item "The latter vessel may however take action to avoid collision by her manoeuvre alone, as soon as it \underline{becomes apparent to her} that the vessel required to keep out of the way is not taking appropriate action in compliance with these Rules."
-                \item "When, from any cause, the vessel required to keep her course and speed finds herself so close that collision cannot be avoided by the action of the give-way vessel alone, she shall take such action as will best aid to avoid collision."
-            \end{itemize}
-            
-        \item Rule 18 - Responsibilities between vessels:
-        
-            There is a hierarchy of responsibilities. More powerful and robust vessels are more responsible by maneuver than less powerful or less robust. Power-driven vessel underway shall keep out of the way of a vessel not under command, a vessel restricted in its ability to maneuver, a vessel engaged in fishing, and a sailing vessel. Sailing vessel underway shall keep out of the way of a vessel not under command, a vessel restricted in its ability to maneuver, and a vessel engaged in fishing. A vessel engaged in fishing underway shall keep out of the way of a vessel not under command, and a vessel restricted in its ability to maneuver.
-            
-            Possible implementation: The \ac{USV} system could be capable of detecting and identify other types of vessel, this could lead to a change of action.
-            
-        \item Rule 23 - Power-driven vessels underway (PARAPHRASED):
-        
-            \begin{itemize}
-                \item "A power-driven vessel underway shall exhibit:"
-                \begin{itemize}
-                    \item "a masthead light forward;"
-                    \item "sidelights;"
-                    \item "a sternlight."
-                \end{itemize}   
-                \item "A power-driven vessel of less than 12 metres in length may in lieu of the lights prescribed in paragraph (a) of this Rule exhibit an all-round white light and sidelights;"
-                \item "A power-driven vessel of less than 7 metres in length whose maximum speed does not exceed 7 knots may exhibit an all-round white light and shall, if practicable, also exhibit sidelights;"
-            \end{itemize}
-            
-            Possible implementation: real boat requirements for tests.
-            
-        \item Rule 27 - Vessels not under command or restricted in their ability to maneuver (PARAPHRASED):
-        
-        \begin{itemize}
-
-            \item "A vessel not under command shall exhibit:" 
-                \begin{itemize}
-            
-                    \item "two all-round red lights in a vertical line where they can best be seen;" 
-                    \item "two balls or similar shapes in a vertical line where they can best be seen;"
-                    \item "when making way through the water, in addition to the lights prescribed in this paragraph, sidelights and a sternlight."
-            
-                \end{itemize}
-            \item "A vessel restricted in her ability to manoeuvre, except a vessel engaged in mine clearance operations, shall exhibit:"
-                \begin{itemize}
-        
-                \item "three all-round lights in a vertical line where they can best be seen. The highest and lowest of these lights shall be red and the middle light shall be white;"
-                \item "three shapes in a vertical line where they can best be seen. The highest and lowest of these shapes shall be balls and the middle one a diamond;"
-        
-            \end{itemize}
-        \end{itemize}
-        
-        \item Rule 33 - Equipment for sound signals: A vessel of less than 12 meters in length shall be provided with some means of making an efficient sound signal.
-
-    \end{itemize}
-    
-    The highlighted rules above will be used in the research proposal of this document. 
-    From them we can have a glance of the non-objectiveness or ambiguity of some terms used for rules definition such as proper look-out", "safe speed", "ample time", "large enough", and others. Some rules are related to possible or mandatory features required for a \ac{USV} system, such as 9, 10, 13, 14, 15, 16, 17, and 18. Also, other rules are related to structural requirements for \ac{USV}s in real-world trials, such as 23, and 33.
-    
-    \ac{COLREGS} rules were not defined considering autonomous systems such as \ac{USV}s. They were written to be interpreted by well-experienced sailors and imply usage of their experience and common sense. There are gaps to be filled and subjective or ambiguous definitions to be addressed, making the development of a \ac{COLREGS}-compliant \ac{USV} guidance system challenging.
-    % VJ: reorganizar
-
-    \subsection{Surface Vehicle Modeling}
-    \subsection{Configuration Space}
-    \subsection{Planning Algorithms}
-    
-\section{A*}
-
-A-star method, or simply A*, is a basic path planning algorithm in various fields, which uses heuristics to find the optimal path. A* algorithm is correct, complete and optimal. The meaning of correctness is that there are no obstacles on the computational path. Completeness means that a path can be found , if feasible path exists. Optimally means that it is able to calculate the shortest path from the start point to the goal point.
-Define an evaluation function for the A*
-f (n) = g(n) + h(n) (1)
-where
- g(n) is the cost of the path from the start point to node
-n found so far. g(n) is given by
-g(n) = g(n - 1) + c(n, n - 1) (2)
-where c(n,n-1) is the cost from node n-1 to its neighbor node n that calculated by using the Euclidean distance.
- h(n) is the straight-line distance from the node n to the goal point. For predefined goal piont, the value of h(n) is constant which can be calculated in advance.
- f(n) is an estimate of the cost of an optimal path from start point via node n to the goal point.
-There are two important priority queues in the A* algorithm, open list and close list. Open is a stable priority queue, which storages nodes with the key f value in ascending order. Close storages expanded nodes to ensure that each node is only expended once. The lowest f value in the Open will be selected as he current node, and the path is found when the current node is goal point. \cite{Wang2018Hybrid}
-
-\section{Proportional Controller}
-\section{Euclidian Distance}
-\section{Steering Angle}
-\section{Atan2}
-
-
-
-    
-% VO because the algorithms collect all the velocities that result in collisions and present a set of collision-free velocities for human/machine, which facilitates human/machine to search for the best option.
-
-% The advantages of the VO algorithms have been noticed by researchers in maritime engineering. The idea of VO algorithms had ap- peared in the 1980s, named as Collision Threat Parameter Area (CTPA) (Degre and Lefevre, 1981; Lenart, 1983). Subsequently, Pedersen et al. (2003) showed that this method can provide a better support for the Officer On Watch (OOW) in collision prevention comparing with tra- ditional Automatic Radar Plotting Aid (ARPA). Later on, a series of studies proposed to use VO/CTPA algorithms for collision avoidance in various scenarios, e.g. restricted waters (Szlapczynski and Szlapczynska, 2017), multiple-ship (Szlapczynski, 2008), incorporating with regulations (Zhao et al., 2016), and unmanned ship (Kuwata et al., 2014). In (Huang et al., 2018), the algorithms which presume the target-ship keeps constant velocity, are concluded as a special case of the VO algorithm, called linear VO (LVO) algorithm. Details about the existing applications of VO algorithms in the maritime domain are addressed in Section 2.3.
