@@ -87,21 +87,12 @@
     
     \vskip 1cm
     
-     We assembled the scenarios in a simulated version of the Dilúvio stream. The Dilúvio stream is a potential location for real-world trials of our system due to the fact that it is near of our laboratory, so we evaluate the behavior of our system on a simulated version of it. In Figure \ref{fig:simulation_diluvio_googleLocation_roundedArea} we show with a red box the specific location we simulated in our experiments\footnote{Google maps location: (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil}. In Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea} we show side by side another perspective of the real-word location and its simulated version, in both Figures we marked with a red box a bridge region where we assembled some the encounters between the vessels.
+    %  We assembled the scenarios in a simulated version of the Dilúvio stream. The Dilúvio stream is a potential location for real-world trials of our system due to the fact that it is near of our laboratory, so we evaluate the behavior of our system on a simulated version of it. In Figure \ref{fig:simulation_diluvio_googleLocation_roundedArea} we show with a red box the specific location we simulated in our experiments\footnote{Google maps location: (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil}. In Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea} we show side by side another perspective of the real-word location and its simulated version, in both Figures we marked with a red box a bridge region where we assembled some the encounters between the vessels.
+    %  %AMA mencionar brevemente como esse cenario foi montado (foto area, resolucao de tanto, etc). O Marcelo tem essa descricao.
+    We assembled the scenarios in a simulated version of the Dilúvio stream. The Dilúvio stream is a potential location for real-world trials of our system due to the fact that it is near of our laboratory, so we evaluate the behavior of our system on a simulated version of it. In Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea} we show with a red box the specific location we simulated in our experiments\footnote{Google maps location: (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil} and its simulated version.
+    % We assembled 4 encounters between two vessels in the region marked with the red box.
      %AMA mencionar brevemente como esse cenario foi montado (foto area, resolucao de tanto, etc). O Marcelo tem essa descricao.
      
-     As done by several authors, \eg{} Larson \etal{} ~\cite{Larson2006Autonomous}, Naeem \etal{} ~\cite{Naeem2012COLREGS}, Campbell \etal{} ~\cite{Campbell2013Automatic}, Naus ~\cite{Naus2013Idea}, \etc{}, we evaluated 4 main encounter scenarios between two vessels, head-on, crossing from right, crossing from left, and overtaking regarding COLREGS-compliance evaluation. In Figure \ref{fig:simulation_uwsim_headon_starting_pos} we show the starting configuration of the two vessel in a head-on encounter scenario, below the bridge shown in Figure \ref{fig:simulation_diluvio_googleLocation2_2_roundedArea}. Figures \ref{fig:simulation_uwsim_headon_starting_pos}, \ref{fig:simulation_uwsim_crossingright_starting_pos}, \ref{fig:simulation_uwsim_crossingleft_starting_pos} and \ref{fig:simulation_uwsim_overtake_starting_pos} show the starting configuration of the evaluated scenarios, the respective configuration of each scenario is presented in Tables \ref{tab:simulation_scenarios_configuration_own_vessel} and \ref{tab:simulation_scenarios_configuration_encountering_vessel}. 
-     
-     In this scenario the vessels encounter one another below the bridge presented in Figure \ref{fig:simulation_diluvio_googleLocation2_2_roundedArea}.
-    
-   \begin{figure}
-        \centering
-        \includegraphics[scale=0.32]{figs/Chap5/simulation_diluvio_googleLocation_roundedArea.png}
-        \caption{Real-world location of the area we choose for evaluation of our system.}
-        \label{fig:simulation_diluvio_googleLocation_roundedArea}
-    \end{figure}
-    % \todo{cite some characteristics of the region}
-    
     \begin{figure}
     \centering
         \begin{subfigure}[b]{0.48\textwidth}
@@ -121,6 +112,19 @@
     \caption{Real world region and its simulated version}
     \label{fig:simulation_diluvio_googleLocation2_roundedArea}
     \end{figure}
+     
+    % V1.0:  
+    % As done by several authors, \eg{} Larson \etal{}~\cite{Larson2006Autonomous}, Naeem \etal{}~\cite{Naeem2012COLREGS}, Campbell \etal{}~\cite{Campbell2013Automatic}, Naus~\cite{Naus2013Idea}, \etc{}, we evaluated 4 main encounter scenarios between two vessels, head-on, crossing from the right, crossing from the left, and overtaking. 
+    % V2.0:  
+    As done by several authors (\eg{} Larson \etal{}~\cite{Larson2006Autonomous}, Naeem \etal{}~\cite{Naeem2012COLREGS}, Campbell \etal{}~\cite{Campbell2013Automatic}, Naus~\cite{Naus2013Idea}), regarding evaluate the \ac{COLREGS}-compliance of our system, we assembled 4 main encounter scenarios between two vessels, head-on, crossing from the right, crossing from the left, and overtaking. One of the vessels own our \ac{COLREGS}-compliant system (forthworth referred as \acl{OV}) the other vessel (forthworth referred as \acl{EV}) don't have any \ac{COLREGS} compliance knowledge. The starting configuration of each vessel in each scenario is described in Tables \ref{tab:simulation_scenarios_configuration_own_vessel} and \ref{tab:simulation_scenarios_configuration_encountering_vessel}. Both head-on and overtaking scenarios, were assembled right below the bridge shown in Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea}, while the crossing scenarios were assembled far the bridge, simply due to the need of more space between the start positions.
+
+%   \begin{figure}
+%         \centering
+%         \includegraphics[scale=0.32]{figs/Chap5/simulation_diluvio_googleLocation_roundedArea.png}
+%         \caption{Real-world location of the area we choose for evaluation of our system.}
+%         \label{fig:simulation_diluvio_googleLocation_roundedArea}
+%     \end{figure}
+    % \todo{cite some characteristics of the region}
     
     \begin{figure}[H]
     \centering
