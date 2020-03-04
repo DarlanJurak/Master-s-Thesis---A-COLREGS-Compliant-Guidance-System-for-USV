@@ -1,14 +1,14 @@
 \chapter{Simulation and Results}
 \label{chap:5_Simulation_And_Results}
         
-    % Grammarlly: 100/100
-    In this chapter, we present simulation scenarios for qualitative and quantitative evaluation of our system, as well as the experimental results. The simulations cover different encounters scenarios between two vessels, one using our path planning method and other without any COLREGS-compliant method. For qualitative evaluation, we analyzed avoidance success and the behavior of our system when exposed to different environmental conditions. For quantitative evaluation, we analyzed the time for computation of our path planning method and the minimum distance kept between our COLREGS-compliant vessel and the encountering vessel during the simulation.
+    % Grammarlly: 95/100
+    In this chapter, we present simulation scenarios for qualitative and quantitative evaluation of our system, as well as the experimental results. The simulations cover different encounter scenarios between two vessels, one using our path planning method and other without any COLREGS-compliant method. For qualitative evaluation, we analyzed avoidance success and the behavior of our system when exposed to different environmental conditions. For quantitative evaluation, we analyzed the time for computation of our path planning method and the minimum distance kept between our COLREGS-compliant vessel and the encountering vessel during the simulation.
 
     \section{Simulations Characterization}
 
     % Grammarlly: 100/100
-    We run our simulations on \usvsim\footnote{https://github.com/disaster-robotics-proalertas/usv\_sim\_lsa}~\cite{Paravisi2018Toward} simulator using the platform described in Table \ref{tab:simulation_platform_description}. 
-    We developed 12 scenarios for evaluation the system focusing on being comparable with simulations presented in reference studies, \ie{} Agrawal \etal{} ~\cite{Agrawal2015COLREGS} and Huang \etal{} ~\cite{Huang2019Generalized}. We chose both studies for their quality (\ie{} h-index > 50) and similarity with our work. Agrawal \etal{} present our problem-solving inspiration but unfortunately, they do not present too much information about their system evaluation, so we based our tests and system evaluation on Huang \etal{} as they explicitly present their simulation scenarios characterization, results, and simulate a \ac{USV} similar to ours in the aspect of dimensions.
+    We run our simulations on USV\_sim\footnote{https://github.com/disaster-robotics-proalertas/usv\_sim\_lsa}~\cite{Paravisi2018Toward} simulator using the platform described in Table \ref{tab:simulation_platform_description}. 
+    We developed 12 scenarios for evaluation the system focusing on comparison with simulations presented in reference studies, \ie{} Agrawal \etal{} ~\cite{Agrawal2015COLREGS} and Huang \etal{} ~\cite{Huang2019Generalized}. We chose both studies for their quality (\ie{} h-index > 50) and similarity with our work. Agrawal \etal{} present our problem-solving inspiration but unfortunately, they do not present too much information about their system evaluation, so we based our tests and system evaluation on Huang \etal{} as they explicitly present their simulation scenarios characterization, results, and simulate a \ac{USV} similar to ours in respect to the dimensions.
     
     \taburowcolors[1] 1{tableLineOne .. tableLineTwo}
     \tabulinesep = ^3mm_2mm
@@ -30,7 +30,7 @@
     \end{table}
     
     % Grammarlly: 100/100
-    In our simulations, we use a differential boat - shown in Figure \ref{fig:diffboat} - with two thrusters, which enables it to rotate over its axis. This boat is modeled according to specifications of the Lutra Prop boat, acquired from Platypus ~\cite{PlatypusLLC}. Beyond the specifications shown in Table \ref{tab:diffboat_specs}, the Lutra boat we use in our simulation has a laser rangefinder for environment scanning in its bow. We set the rangefinder to be capable of detect objects in 25 meters in a range of 360°.
+    In our simulations, we use a differential boat - shown in Figure \ref{fig:diffboat} - with two thrusters, which enables it to rotate over its axis. This boat is modeled according to specifications of the Lutra Prop boat, acquired from Platypus ~\cite{PlatypusLLC}. Beyond the specifications shown in Table \ref{tab:diffboat_specs}, the Lutra boat we use in our simulation has a laser rangefinder for environment scanning in its bow. We set the rangefinder to be capable of detecting objects within 25 meters in a range of 360°.
     
     % \taburowcolors[1] 1{tableLineOne .. tableLineTwo}
     % \tabulinesep = ^3mm_2mm
@@ -86,10 +86,12 @@
     \end{minipage}
     
     \vskip 1cm
-    
     %  We assembled the scenarios in a simulated version of the Dilúvio stream. The Dilúvio stream is a potential location for real-world trials of our system due to the fact that it is near of our laboratory, so we evaluate the behavior of our system on a simulated version of it. In Figure \ref{fig:simulation_diluvio_googleLocation_roundedArea} we show with a red box the specific location we simulated in our experiments\footnote{Google maps location: (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil}. In Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea} we show side by side another perspective of the real-word location and its simulated version, in both Figures we marked with a red box a bridge region where we assembled some the encounters between the vessels.
+    
     %  %AMA mencionar brevemente como esse cenario foi montado (foto area, resolucao de tanto, etc). O Marcelo tem essa descricao.
-    We assembled the scenarios in a simulated version of the Dilúvio stream. The Dilúvio stream is a potential location for real-world trials of our system due to the fact that it is near of our laboratory, so we evaluate the behavior of our system on a simulated version of it. In Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea} we show with a red box the specific location we simulated in our experiments\footnote{Google maps location: (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil} and its simulated version.
+
+    % Grammarlly: 100/100
+    We assembled the scenarios in a simulated version of the Dilúvio stream. The Dilúvio stream is a potential location for real-world trials of our system since it is near our laboratory, so we evaluate the behavior of our system on a simulated version of it. In Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea} we show with a red box the specific location we simulated in our experiments\footnote{Google maps location: (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil} and its simulated version.
     % We assembled 4 encounters between two vessels in the region marked with the red box.
      %AMA mencionar brevemente como esse cenario foi montado (foto area, resolucao de tanto, etc). O Marcelo tem essa descricao.
      
@@ -116,7 +118,8 @@
     % V1.0:  
     % As done by several authors, \eg{} Larson \etal{}~\cite{Larson2006Autonomous}, Naeem \etal{}~\cite{Naeem2012COLREGS}, Campbell \etal{}~\cite{Campbell2013Automatic}, Naus~\cite{Naus2013Idea}, \etc{}, we evaluated 4 main encounter scenarios between two vessels, head-on, crossing from the right, crossing from the left, and overtaking. 
     % V2.0:  
-    As done by several authors (\eg{} Larson \etal{}~\cite{Larson2006Autonomous}, Naeem \etal{}~\cite{Naeem2012COLREGS}, Campbell \etal{}~\cite{Campbell2013Automatic}, Naus~\cite{Naus2013Idea}), regarding evaluate the \ac{COLREGS}-compliance of our system, we assembled 4 main encounter scenarios between two vessels, head-on, crossing from the right, crossing from the left, and overtaking. One of the vessels own our \ac{COLREGS}-compliant system (forthworth referred as \acl{OV}) the other vessel (forthworth referred as \acl{EV}) don't have any \ac{COLREGS} compliance knowledge. The starting configuration of each vessel in each scenario is described in Tables \ref{tab:simulation_scenarios_configuration_own_vessel} and \ref{tab:simulation_scenarios_configuration_encountering_vessel}. Both head-on and overtaking scenarios, were assembled right below the bridge shown in Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea}, while the crossing scenarios were assembled far the bridge, simply due to the need of more space between the start positions.
+    % Grammarlly: 100/100
+    As done by several authors (\eg{} Larson \etal{}~\cite{Larson2006Autonomous}, Naeem \etal{}~\cite{Naeem2012COLREGS}, Campbell \etal{}~\cite{Campbell2013Automatic}, Naus~\cite{Naus2013Idea}), regarding evaluate the \ac{COLREGS}-compliance of our system, we assembled 4 main encounter scenarios between two vessels, head-on, crossing from the right, crossing from the left, and overtaking. One of the vessels own our \ac{COLREGS}-compliant system (forthworth referred as \acl{OV}) the other vessel (forthworth referred as \acl{AV}) don't have any \ac{COLREGS} compliance knowledge. The starting configuration of each vessel in each scenario is described in Tables \ref{tab:simulation_scenarios_configuration_own_vessel} and \ref{tab:simulation_scenarios_configuration_encountering_vessel}. Both head-on and overtaking scenarios, were assembled right below the bridge shown in Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea}, while the crossing scenarios were assembled far the bridge, simply due to the need of more space between the start positions.
 
 %   \begin{figure}
 %         \centering
@@ -192,8 +195,8 @@
         \savebox{\mytablebox}{\begin{tabular}{cccc}
         
         \toprule[3pt]
-        \multicolumn{4}{c}{\textbf{\ac{EV}}} \\
-        % \multicolumn{3}{c}{\textbf{\ac{EV}}} \\
+        \multicolumn{4}{c}{\textbf{\ac{AV}}} \\
+        % \multicolumn{3}{c}{\textbf{\ac{AV}}} \\
         \midrule
         \textbf{Encounter Type} & \textbf{Initial Pose (m, m, º)} & \textbf{Target Position} & \textbf{Max. Speed (m/s)}\\
         \midrule
@@ -206,7 +209,7 @@
         \end{tabular}}
         \settowidth{\mytablewidth}{\usebox{\mytablebox}}
         \begin{minipage}{\mytablewidth}
-        \captionof{table}{Encounter Scenarios Configuration - \ac{EV}}
+        \captionof{table}{Encounter Scenarios Configuration - \ac{AV}}
         \label{tab:simulation_scenarios_configuration_encountering_vessel}
         \usebox{\mytablebox}
         \end{minipage}
@@ -224,67 +227,67 @@
         %% Grammarlly: 93/100
         %% v2.0
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        We qualitatively evaluated the behavior of our method in two different configurations. In the first configuration, we compare the behavior of the system with and without \ac{ATC}, and in the second configuration, we compare the behavior of our system with \ac{ATC} under the influence of wind and without the influence of wind. We executed both scenarios for four types of possible encounters between two vessels. For quantitative evaluation of each scenario, we measured the computation time of every execution of our path planner, average sustained speed, and minimal distance maintained between the vessels, as well as we evaluated whether the collision avoidance was successful or not. In Table \ref{tab:results} we summarize the collected results.
+        We qualitatively evaluate the behavior of our method in two different configurations. In the first configuration, we compare the behavior of the system with and without \ac{ATC}.  In the second configuration, we compare our system's behavior with \ac{ATC} with and without the influence of wind. We executed both scenarios for four types of possible encounters between the two vessels. For the quantitative evaluation of each scenario, we measured the computation time of every execution of our path planner, average sustained speed, and minimal distance maintained between the vessels, as well as whether the collision avoidance was successful or not. In Table \ref{tab:results}, we summarize the collected results.
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Head-On w vs wo \ac{ATC}
         %
         %% Grammarlly: 99/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        Figure \ref{fig:plot_ho_w_vs_wo} presents, comparatively, the final trajectory of two vessels in two executions of the same head-on scenario. For the \ac{OV}, the performed trajectory is guided by our local guidance system, and \ac{EV} from its start position must go to a goal ahead. In the "\ac{ATC} case" execution, our system is fully functional, in the "no \ac{ATC}" execution we removed the ability of the planning system to generate virtual obstacles, which is the core of the \ac{ATC} method and partially responsible for the COLREGS-Compliant path planning. In both runs, in the time interval from t0 until just before t1 \ac{OV} goes northeast, due to a static obstacle located from (450, 104) to (460, 104).
+        In Figure \ref{fig:plot_ho_w_vs_wo}, we present, comparatively, the final trajectory of two vessels in two executions of the same head-on scenario. For the \ac{OV}, the performed trajectory is guided by our local guidance system, while the \ac{AV} is following a path towards a given goal ahead. In the "ATC case" execution, our system is fully functional, in the "no ATC" execution we removed the ability of the planning system to generate virtual obstacles, which is the core of the \ac{ATC} method and partially responsible for the \ac{COLREGS}-Compliant path planning. In both runs, in the time interval from t0 until just before t1, \ac{OV} goes northeast, due to a static obstacle located from (450, 104) to (460, 104). 
         
-        Until t1, \ac{OV} tends to distance itself from the static obstacle, at t1 for both executions of the scenario, \ac{EV} becomes noticeable at the \ac{OV} local cost map. From t1, \ac{OV} reacts differently to each scenario. We observe that even with the existence of a static obstacle to the south in its proximity, \ac{OV} in \ac{ATC} case decides to avoid the encounter with the other vessel moving to its starboard side, featuring a COLREGS-Compliant behavior. \ac{OV} in "no \ac{ATC}" case, influenced only by the existence of an obstacle in the south and the encounter with \ac{EV}, performs a not COLREGS-compliant trajectory.
+        Until t1, \ac{OV} tends to distance itself from the static obstacle. At t1 for both executions of the scenario, \ac{AV} becomes noticeable at the \ac{OV} local cost map. From t1 onwards, \ac{OV} reacts differently to each scenario. We observe that even with the existence of a static obstacle to the south in its proximity, \ac{OV} in the \ac{ATC} case decides to avoid the encounter with the other vessel moving to its starboard side, featuring a \ac{COLREGS}-Compliant behavior. \ac{OV} in "no ATC" case, is influenced only by the existence of an obstacle in the south and at the encounter with \ac{AV}, performs a not \ac{COLREGS}-compliant trajectory.
 
         \begin{figure}[H]
             \centering
             \includesvg[width=\textwidth]{figs/Chap5/plot_ho_w_vs_wo.svg}
-            \caption{Comparison of vessels trajectories in \ac{ATC} case and no \ac{ATC} in a head-on encounter scenario. Start position for \ac{OV} and \ac{EV} are marked with filled ">" and "<", while their goals are marked with "x". Here we can observe that our \ac{ATC} A* method implied COLREGS compliance, once on the detection of another vessel (at time $t_1$), it avoided collision going to its starboard side.}
+            \caption{Comparison of vessel trajectories in \ac{ATC} case and no \ac{ATC} in a head-on encounter scenario. Start position for \ac{OV} and \ac{AV} are marked with filled ">" and "<", while their goals are marked with "x". Here we can observe that our \ac{ATC} A* method implied \ac{COLREGS} compliance, once on the detection of another vessel (at time $t_1$) it avoided collision going to its starboard side.}
             \label{fig:plot_ho_w_vs_wo}
         \end{figure}
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Head-On w vs wo \ac{ATC} Computational Time
         %
-        %% Grammarlly: ??/100
+        %% Grammarlly: 99/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        Figure \ref{fig:plot_ho_w_vs_wo_CT} shows the computational time measured in seconds over time. Our COLREGS-Compliant \ac{ATC} A* method had a peek cost of 0.364s for path generation for this head-on scenario. As we can see, both \ac{ATC} case and no \ac{ATC} have similar computational cost curves. This happens because most of the computational cost of our path planning method is related to our A* implementation. The \ac{ATC} method alone has low computational consumption. In the worst case the need is to fill a grid area of dimension $w \times m$, where $w$ is equals to \ac{OV}'s width (2 local cost map grid cells) and $m$ is equals to half of cost map greater dimension (around 50 cells);
+        Figure \ref{fig:plot_ho_w_vs_wo_CT} shows the computational time measured in seconds over time. Our COLREGS-Compliant \ac{ATC} A* method had a peek cost of 0.364s for path generation for this head-on scenario. As we can see, both \ac{ATC} and no \ac{ATC} cases have similar computational cost curves. This happens because most of the computational cost of our path planning method is related to our A* implementation. The \ac{ATC} method alone has low computational consumption. The worst-case scenario consists of filling a grid area of dimension $w \times m$, where $w$ is equals to \ac{OV}'s width (2 local cost map grid cells), and $m$ is equals to half of the cost map greater dimension (around 50 cells);
         \begin{figure}[H]
             \centering
             \includesvg[width=\textwidth]{figs/Chap5/plot_ho_w_vs_wo_CT.svg}
-            \caption{Computational time comparison between \ac{ATC} case versus no \ac{ATC} in a head-on encounter over time. The system achieves a peak cost of around 0.364s using \ac{ATC} and around 0.369 without \ac{ATC}. This happens due to an intrinsic characteristic of our A* method. At $t_1$ \ac{EV} appears in the limit of \ac{OV} local cost map in a conflicting position with local map A* goal. In this situation, the planning system searches for the nearest free position and define a path to it. After some time, \ac{EV} is not anymore in a conflicting position, and the computational time reduces dramatically. Due to this behavior, our system presents a low average execution time around 0.074s when compared to the maximum computational time.}
+            \caption{Computational time comparison between \ac{ATC} case versus no \ac{ATC} in a head-on encounter over time. The system achieves a peak cost of around 0.364s using \ac{ATC} and around 0.369 without \ac{ATC}. This happens due to an intrinsic characteristic of our A* method. At $t_1$ \ac{AV} appears in the limit of \ac{OV} local cost map in a conflicting position with local map A* goal. In this situation, the planning system searches for the nearest free position and define a path to it. After some time, \ac{AV} is no longer in a conflicting position, and the computational time reduces dramatically. Due to this behavior, our system presents a low average execution time around 0.074s when compared to the maximum computational time.}
             \label{fig:plot_ho_w_vs_wo_CT}
         \end{figure}
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Head-On w vs wo Wind
         %
-        %% Grammarlly: ??/100
+        %% Grammarlly: 99/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        In Figure \ref{fig:plot_ho_w_vs_wind} we compare final trajectories for the same head-on scenario described in \ref{tab:simulation_scenarios_configuration_own_vessel}, now for two executions of the simulation with different wind influence, in both executions we use \ac{ATC} A*. "No wind case" shows the behavior of the \ac{OV} being influenced by no wind. "Wind case" shows the trajectory of the our \ac{OV} being influenced by the wind with northeast direction and intensity of 2.0 m/s, 
+        In Figure \ref{fig:plot_ho_w_vs_wind} we compare final trajectories for the same head-on scenario described in \ref{tab:simulation_scenarios_configuration_own_vessel}, now for two executions of the simulation with different wind influence, where we use \ac{ATC} A*. "No wind case" shows the behavior of the \ac{OV} being influenced by no wind. "Wind case" shows the trajectory of our \ac{OV} being influenced by the wind with northeast direction and intensity of 2.0 m/s, indicated by an arrow. We can see the change in the trajectory of \ac{OV} and that it still maintains COLREGS-compliance. \ac{AV} response to the wind is related to the standard control system used; in this work, we do not evaluate the limitations of the \ac{AV}'s control system.
         %AMA eh importante explicar pq essa velocidade foi usada. acho a vc pode tracar um paralelo com as velocidades usadas pelo barco e demonstrar q essa velocidade eh xxx% da velocidade maxima
         %DJ: adicionei um parágrafo abaixo. 
-        indicated by an arrow. We can see the change in the trajectory of \ac{OV} and that it still maintains COLREGS-compliance. 
-        \ac{EV} response to the wind is related to the standard control system used; in this work, we do not evaluate the limitations of the \ac{EV}'s control system.
+        
         %AMA nao esta claro o que eh ' we do not evaluate the limitations of this system'. que sistema eh esse ? acho q seria control system.
         %DJ: Done
 
         %DJ: aqui \/
-        We empirically determined a 2.0 m/s for evaluation of our system. In all simulations we performed using 2.0 m/s for wind intensity, our system was capable to react and avoid collision. With wind intensity greater than 2.0 m/s our system was not capable to avoid collision, being strongly influenced by wind. This behavior is related to our internal controller (inside local planner and presented in \ref{sec:chap4_control}). Currently we achieve a maximum velocity of 0.43 m/s (see Table \ref{tab:simulation_scenarios_configuration_own_vessel}). \todo{Ask Amory evaluation}
+        %% Grammarlly: 96/100
+        We empirically determined a 2.0 m/s for evaluation of our system. In all simulations using 2.0 m/s for wind intensity, our system was capable of react and avoid collision. With wind intensity greater than 2.0 m/s, our system was not capable of avoiding collision, being strongly influenced by wind. This behavior is related to our internal controller (inside local planner and presented in \ref{sec:chap4_control}). Currently, we achieve a maximum velocity of 0.43 m/s (see Table \ref{tab:simulation_scenarios_configuration_own_vessel}). \todo{Ask Amory evaluation}
         
         
         \begin{figure}[H]
             \centering
             \includegraphics[width=\textwidth]{figs/Chap5/plot_ho_w_vs_wind.pdf}
-            \caption{Comparison between the trajectories of the vessels in Wind case and no Wind case in a head-on encounter scenario, both cases use \ac{ATC} A*. Start position for \ac{OV} and \ac{EV} are marked with ">" and "<", while their goals are marked with "x". For the Wind case, the direction of the wind is northeast, represented by an arrow. We can observe that our \ac{ATC} A* kept implying COLREGS compliance even under the influence of wind in this scenario.}
+            \caption{Comparison between the trajectories of the vessels in Wind case and no Wind case in a head-on encounter scenario, both cases use \ac{ATC} A*. Start position for \ac{OV} and \ac{AV} are marked with ">" and "<", while their goals are marked with "x". For the Wind case, the direction of the wind is northeast, represented by an arrow. We can observe that our \ac{ATC} A* kept implying COLREGS compliance even under the influence of wind in this scenario.}
             \label{fig:plot_ho_w_vs_wind}
         \end{figure}
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Head-On w vs wo Wind Computational Time
         %
-        %% Grammarlly: 100/100
+        %% Grammarlly: 99/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        Figure \ref{fig:plot_ho_w_vs_wind_CT} shows the computational time measured in seconds over time for wind and no wind cases. We observe that the computational time keep similar and does not seems to be related to the imposed wind influence for this simulation.
+        Figure \ref{fig:plot_ho_w_vs_wind_CT} shows the computational time measured in seconds over time for wind and no wind cases. We observe that the computational time remains stable and does not seem to be related to the imposed wind influence for this simulation.
         \begin{figure}[H]
             \centering
             \includesvg[width=\textwidth]{figs/Chap5/plot_ho_w_vs_wind_CT.svg}
@@ -297,9 +300,7 @@
         %
         %% Grammarlly: 100/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        In Figure \ref{fig:plots_cr}, we present the behavior of our system when \ac{OV} encounters another vessel coming from the right side. In Figure \ref{fig:plot_cr_w_vs_wo}, we show the comparison between trajectories with and without ATC and in Figure \ref{fig:plot_cr_w_vs_wo_CT} we can see computational time for each case. As we can see, our method implies COLREGS compliance when avoiding a collision.
-        
-        In Figure \ref{fig:plot_cr_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cr_w_vs_wind_CT} we can see computational time for each case. As we can see, once again, our method kept COLREGS-compliant even when disturbed by a maximum of 2.0 m/s wind.
+        In Figure \ref{fig:plots_cr}, we present the behavior of our system when \ac{OV} encounters another vessel coming from the right side. In Figure \ref{fig:plot_cr_w_vs_wo}, we show the comparison between trajectories with and without ATC and in Figure \ref{fig:plot_cr_w_vs_wo_CT} we can see computational time for each case. As we can see, our method implies COLREGS compliance when avoiding a collision. In Figure \ref{fig:plot_cr_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cr_w_vs_wind_CT} we can see computational time for each case. Our method kept COLREGS-compliant even when disturbed by a maximum of 2.0 m/s wind.
         
         \begin{figure}[H]
         \centering
@@ -341,16 +342,14 @@
         
          %AMA pq a posicao final do EV eh diferente com e sem vento ?
          
-        In Figure \ref{fig:plot_cr_w_vs_wind}, in the time window we show, the \ac{EV} do not achieve its goal, the wind acts against \ac{EV} motion, reducing the maximun speed.
-          
+        In Figure \ref{fig:plot_cr_w_vs_wind}, in the time window we show, the \ac{AV} do not achieve its goal, the wind acts against \ac{AV} motion, reducing the maximun speed.
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Overtaking w vs wo \ac{ATC}. w vs wo Wind
         %
-        %% Grammarlly: ?/100
+        %% Grammarlly: 100/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        In Figure \ref{fig:plots_cl}, we present the behavior of our system in an overtaking encounter. In Figure \ref{fig:plot_cl_w_vs_wo} we show the comparison between trajectories with and without \ac{ATC} and in Figure \ref{fig:plot_cl_w_vs_wo_CT} we can see computational time for each case. In an overtaking encounter, \ac{OV} must keep moving ahead, avoiding to generate any other crossing situation while overtaking. In our simulation, \ac{OV} avoids going to \ac{EV} front until it gets near the goal.
-        
-        In Figure \ref{fig:plot_cl_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cl_w_vs_wind_CT} we can see computational time for each case. As we can see, our method kept COLREGS-compliant even when disturbed by a maximum of 2.0 m/s wind.
+        In Figure \ref{fig:plots_cl}, we present the behavior of our system in an overtaking encounter. In Figure \ref{fig:plot_cl_w_vs_wo} we show the comparison between trajectories with and without \ac{ATC} and in Figure \ref{fig:plot_cl_w_vs_wo_CT} we can see computational time for each case. In an overtaking encounter, \ac{OV} must keep moving ahead, avoiding to generate any other crossing situations while overtaking. In our simulation, \ac{OV} avoids going to the front of \ac{AV} until it gets near the goal.
+        In Figure \ref{fig:plot_cl_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cl_w_vs_wind_CT} we can see computational time for each case. Our method kept COLREGS-compliant even when disturbed by a maximum of 2.0 m/s wind.
         \begin{figure}[H]
         \centering
         
@@ -393,8 +392,7 @@
         %
         %% Grammarlly: 100/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        In Figure \ref{fig:plots_ov}, we present the behavior of our system when \ac{OV} encounters another vessel ahead. 
-        %AMA a legenda diz overtaking ... confere os nomes e mantem a coerencia
+        In Figure \ref{fig:plots_ov}, we present the behavior of our system when \ac{OV} encounters another vessel ahead.  %AMA a legenda diz overtaking ... confere os nomes e mantem a coerencia 
         In Figure \ref{fig:plot_ov_w_vs_wo} we show the comparison between trajectories with and without ATC and in Figure \ref{fig:plot_ov_w_vs_wo} we can see computational time for each case. As we can see, once again, our method implies COLREGS compliance when avoiding a collision. In Figure \ref{fig:plot_ov_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_ov_w_vs_wind_CT} we can see computational time for each case. 
         \begin{figure}[H]
         \centering
@@ -425,28 +423,29 @@
                 \label{fig:plot_ov_w_vs_wind_CT}
             \end{subfigure}
         
-        %% Grammarlly: 98/100
-        \caption{Overtaking Encounter Scenario with \ac{ATC}, with and without wind. In \ref{fig:plot_ov_w_vs_wind_CT} we can see a considerable increase in computation time from around 3 minutes until around 4min and 25 second. This happened due to the second limitation discovered in our method. With \ac{ATC} the creation of virtual obstacles can be conflicting with the A* goal location and its neighbors, in this situation the planner is not able to decide the route to be followed and decided to use the last generated speed command until the position of the A* goal location is free. Due to the conflicting position of the created virtual obstacle and local A* goal, the computational time cost achieves great value, since it explored the whole search space and found no solution.}
+        %% Grammarlly: 100/100
+        \caption{Overtaking Encounter Scenario with \ac{ATC}, with and without wind. In \ref{fig:plot_ov_w_vs_wind_CT} we can see a considerable increase in computation time from around 3 minutes until around 4min and 25 seconds. This happened due to the second limitation discovered in our method. With \ac{ATC}, the creation of virtual obstacles can be conflicting with the A* goal location and its neighbors. In this situation, the planner is not able to decide the route to be followed and decided to use the last generated speed command until the position of the A* goal location is free. Due to the conflicting position of the created virtual obstacle and local A* goal, the computational time cost achieves great value, since it explored the whole search space and found no solution.}
         \label{fig:plots_ov}
         \end{figure}
         %AMA acho melhor mover as dicussoes p o texto e nao deixar na legenda.
         
         %% Grammarlly: 100/100
-        In Table \ref{tab:results}, we summarize the results for the different simulations we have done. In simulation scenarios, we can see that the computational time peak keeps in a range from 0.355 to 0.390 for no \ac{ATC} configuration, from 0.357 to 0.395 for \ac{ATC} configuration and from 0.355 to 0.8852 for Wind configuration. Computation time for no \ac{ATC} and \ac{ATC} are similar since our \ac{ATC} method has a low impact on the A* implementation. With the influence of wind, we see an increase in the computational time peak. For the Overtaking scenario, the influence of wind caused our system to an exhaustive scenario search in the whole search space. 
+        In Table \ref{tab:results}, we summarize the results for the different simulations we have done. In simulation scenarios, we can see that the computational time peak stays in a range from 0.355 to 0.390 for no \ac{ATC} configuration, from 0.357 to 0.395 for \ac{ATC} configuration and from 0.355 to 0.8852 for Wind configuration. Computation time for no \ac{ATC} and \ac{ATC} are similar since our \ac{ATC} method has a low impact on the A* implementation. With the influence of wind, we see an increase in the computational time peak. For the Overtaking scenario, the influence of wind led our system to an exhaustive scenario search in the whole search space. 
         %AMA algumas das discussoes q eu reclamei q faltavam estao aqui. Note que eu mencionei ALGUMAS .... 
         % mas vc deve lembrar q o leitor vai ler em ordem. Assim, ele vai ficar com duvidas ate chegar nesse ponto. Nesses casos, vc deve mencionar que, la onde a explicacao tinha q aparecer inicialmente, vc vai discutir tal coisa a seguir.
         
-        The average time keeps similar for each scenario encounter, not depending on the configuration (no \ac{ATC}, \ac{ATC}, and Wind). In all cases presented, there is at least a 4.6 ratio between the maximum and average time. The high values reached occur when there is some considerable restriction in the search space, that is when the goal for the local A* conflicts or with the current position of \ac{EV} or with the created virtual obstacle. The average time remains low because the search in 100x100 search space does not demand much effort from the system, considering the platform where we perform the simulation and some execution just needed to generate short and straight paths ahead. Regarding minimum distance, in our simulations, our system kept at least a safe distance of 1.505 meters from \ac{EV}. 
+        %% Grammarlly: 96/100
+        The average time stays similar for each scenario, regardless the configuration (no \ac{ATC}, \ac{ATC}, and Wind). In all cases presented, there is at least a 4.6 ratio between the maximum and average time. The high values reached occur when there is some considerable restriction in the search space, that is, when the goal for the local A* conflicts with the current position of \ac{AV} or with the created virtual obstacle. The average time remains low because the search in 100x100 search space does not demand much effort from the system, considering the platform where we perform the simulation and execution just needed to generate short and straight paths ahead. Regarding minimum distance, in our simulations, our system kept at least a safe distance of 1.505 meters from \ac{AV}. 
         %AMA e isso eh considerado safe ? de acordo c o que  ou quem ? importante discutir isso.
         %AMA note q na tabela em uma min distance de 0.7 m !!!
         
         
         %\ac{COLREGS} do not specify a specific value for safe distance or a proportion related to \ac{OV}'s size, but for some authors \cite{} \acp{USV} should at least keep a safe distance as the size of the vessel.
         % The average time keeps similar for each scenario encounter, not depending on the configuration (no \ac{ATC}, \ac{ATC}, and Wind) and consumed at least 4.6 times less time. 
-        % Regarding minimum distance, in our simulations, our system kept at least a safe distance of 1.505 meters from \ac{EV}. %\ac{COLREGS} do not specify a specific value for safe distance or a proportion related to \ac{OV}'s size, but for some authors \cite{} \acp{USV} should at least keep a safe distance as the size of the vessel.
+        % Regarding minimum distance, in our simulations, our system kept at least a safe distance of 1.505 meters from \ac{AV}. %\ac{COLREGS} do not specify a specific value for safe distance or a proportion related to \ac{OV}'s size, but for some authors \cite{} \acp{USV} should at least keep a safe distance as the size of the vessel.
 
 \begin{table}
-\caption{Based on \cite{Lazarowska2017New, Singh2018Constrained, Agrawal2015COLREGS, Candeloro2017Voronoi, Svec2013Dynamics} we made a quantitative evaluation of our planning system measuring computational cost and the minimum distance kept between the vessels during simulations.}
+\caption{Based on \cite{Lazarowska2017New, Singh2018Constrained, Agrawal2015COLREGS, Candeloro2017Voronoi, Svec2013Dynamics}, we made a quantitative evaluation of our planning system measuring computational cost and the minimum distance kept between the vessels during simulations.}
 \label{tab:results}
 \centering
 \begin{tabular}{ccccccc} 

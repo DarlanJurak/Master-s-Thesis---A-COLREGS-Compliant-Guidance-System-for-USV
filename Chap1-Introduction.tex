@@ -5,16 +5,16 @@
     %%%%%%%%%%%%%%%%%%
     
     % General Context    
-    Waters cover approximately 71\% of the Earth and important tasks happen on them, such as environment monitoring, merchandise, and exploration. 
-    Some of these tasks can be dangerous, exhaustive, or tedious for humans, so a trend is the development of autonomous systems for executing these tasks. Thus, driven by the military, scientific, and commercial interests, the development of \acp{USV} has become a current demand \cite{Liu2016Unmanned}.
+    Approximately 71\% of the Earth is covered by water, and important tasks happen on them, such as environment monitoring, merchandising, and exploration. 
+    Some of these tasks can be dangerous, exhaustive, or tedious for humans, so a trend is the development of autonomous systems for executing these tasks. Thus, driven by military, scientific, and commercial interests, the development of \acp{USV} has become a current demand \cite{Liu2016Unmanned}.
     
     % Definition of USV
-    \acp{USV} recall a category of marine robots that act without a crew on the water surface, presenting autonomous behavior or being remotely controlled. In the last decades, several techniques have been applied for making \acp{USV} autonomous. The main challenges are related to collision avoidance, precisely navigation on the seagoing, and accordance with international marine rules, namely \ac{COLREGS}.
-    Current \acp{USV} applications include: environment monitoring \cite{Caccia2005Sampling}; ocean resources exploration as oil and gas exploration \cite{Pastore2010Improving}; port, harbor and coastal surveillance for military purposes \cite{Caccia2007unmanned, Pastore2010Improving, Svec2011aAutomated}; transportation \cite{Kiencke2005Impact}; and scientific research \cite{Yan2010Development}.
+    \acp{USV} constitute a category of marine robots that act without a crew on the water surface, presenting autonomous behavior or being remotely controlled. In the last decades, several techniques have been applied for making \acp{USV} autonomous. The main challenges are related to collision avoidance, precise navigation on the seagoing, and accordance with international marine rules, namely \ac{COLREGS}.
+    Current \ac{USV} applications include: environment monitoring \cite{Caccia2005Sampling}; ocean resources exploration as oil and gas exploration \cite{Pastore2010Improving}; port, harbor and coastal surveillance for military purposes \cite{Caccia2007unmanned, Pastore2010Improving, Svec2011aAutomated}; transportation \cite{Kiencke2005Impact}; and scientific research \cite{Yan2010Development}.
     
     % Collision Avoidance
     % The \acs{COLREGS} determines rules that must be followed by maritime pilots for preventing collisions in potential collision scenarios such as crossing, head-on, and overtaking. Currently, a direct collision between ships represents 60\% of the accidents in the sea, and 56\% of the collisions are caused by \acs{COLREGS} violation \cite{Liu2016Unmanned, Campbell2012Review_COLREGs}. Thus, \ac{USV} must be compliant with the \ac{COLREGS} rules, but the fact that \ac{COLREGS} were written by humans to humans using subjective and ambiguous terms generated dependency on human interpretation, implying a considerable challenge for \acp{USV} systems.
-    The \acs{COLREGS} determines rules that must be followed by maritime pilots for preventing collisions in potential collision scenarios such as crossing, head-on, and overtaking. Currently, direct collision between ships represents 60\% of the accidents in the sea, and 56\% of the collisions are caused by \acs{COLREGS} violation \cite{Liu2016Unmanned, Campbell2012Review_COLREGs}. Thus, \ac{USV} must be compliant with the \ac{COLREGS}.
+    The \acs{COLREGS} determines rules that must be followed by maritime pilots for preventing collisions in potential collision scenarios such as crossing, head-on, and overtaking. Currently, direct collision between ships represents 60\% of the accidents at sea, and 56\% of the collisions are caused by \acs{COLREGS} violation \cite{Liu2016Unmanned, Campbell2012Review_COLREGs}. Thus, \acp{USV} must be compliant with the \ac{COLREGS}.
     
     % Proposed work
     % In this dissertation, we present a \ac{COLREGS}-compliant \ac{USV} system capable of avoiding collision with static and dynamic obstacles. We developed COLREGS compliance integrating the creation of virtual obstacles that block not COLREGS-compliant regions in the search space used by the path planner. We used \ac{ROS} for implementation\cite{Quigley2009ROS} while the evaluation of the system's behavior is done through software simulation using the USV\_sim simulator \cite{Paravisi2018Toward}.% and on field tests using the Platypus Lutra airboat \cite{PlatypusLutraAirboat}. 
@@ -22,14 +22,14 @@
     \section{Research Problem and Scope}
     
     %%%%%%%%%%%%%%%%%%
-    % Grammarly:99/100
+    % Grammarly:?/100
     %%%%%%%%%%%%%%%%%%
     
-    \ac{USV} \ac{COLREGS} compliant systems already exist and are being developed more and more. We note that many of these works have the proposal of developing specific applications with \ac{USV} and sometimes end up not providing access to their applications, or they are protected with patents. In our laboratory, we have small unmanned vessels with the potential to be used in disaster situations during the monitoring phase or in activities to collect water samples for quality assessment. The focus of this work is to generate a system that can serve as a basis for the autonomous guidance of the vessels that we have. As respect for the international rules of the navy is of high relevance, we chose to develop the base system with \ac{COLREGS} compliance.
+    \ac{USV} \ac{COLREGS} compliant systems already exist and are being developed extensively. We note that many works on \ac{USV} have the proposal of developing specific applications with \ac{USV} and sometimes end up not providing access to their applications, or are protected with patents. In our laboratory, we have small unmanned vessels with the potential to be used in disaster situations during the monitoring phase or in activities to collect water samples for quality assessment. The focus of this work is to generate a system that can serve as a basis for the autonomous guidance of our vessels. As respect for the international rules of the navy is of high relevance, we chose to develop the base system with \ac{COLREGS} compliance.
     
-    Our scope is in simulation, we developed and validated our system, using the USV\_sim\footnote{https://github.com/disaster-robotics-proalertas/usv\_sim\_lsa}~\cite{Paravisi2018Toward} simulator.
+    Our scope is in simulation, we developed and validated our system using the USV\_sim\footnote{https://github.com/disaster-robotics-proalertas/usv\_sim\_lsa}~\cite{Paravisi2018Toward} simulator.
     %AMA bota o link tb
-    The USV\_sim is a simulator developed in our research group, and besides allowing simulation considering realistic disturbances such as wind influence, it also has realistic representations of the vessels that we have in our research group. For the development of our system, we use the \ac{ROS}~\cite{Quigley2009ROS} framework that is widely used around the world, and we believe this way, we can continue to develop our system in a distributed and collaborative way.
+    The USV\_sim is a simulator developed by our research group, which besides allowing simulation considering realistic disturbances such as wind influence, also has realistic representations of the vessels that we have in our research group. For the development of our system, we use the \ac{ROS}~\cite{Quigley2009ROS} framework that is widely used around the world, and we believe this way, we can continue to develop our system in a distributed and collaborative way.
     
     % \section{Goals}
     
@@ -41,19 +41,19 @@
     % Grammarly:99/100
     %%%%%%%%%%%%%%%%%%
     
-     Our main contribution is a \ac{COLREGS}-compliant \ac{USV} system capable of avoiding collision with static and dynamic obstacles. We developed our system under \ac{ROS} framework to enable collaborative and distributed development. Also, we make the COLREGS-compliant path planner of our system available as a \ac{ROS} plugin\footnote{https://github.com/Unmanned-Surface-Vehicle/atc\_astar}. Furthermore, regarding the evaluation of our system, we integrated it into the USV\_sim simulator. This integration allowed us to evaluate our system considering realistic environment disturbance such as wind influence. Our system can be used as a base system for further development.
+     Our main contribution is a \ac{COLREGS}-compliant \ac{USV} system capable of avoiding collision with static and dynamic obstacles. We developed our system under the \ac{ROS} framework to enable collaborative and distributed development. Also, we make the COLREGS-compliant path planner of our system available as a \ac{ROS} plugin\footnote{https://github.com/Unmanned-Surface-Vehicle/atc\_astar}. Furthermore, regarding the evaluation of our system, we integrated it into the USV\_sim simulator. This integration allowed us to evaluate our system considering realistic environmental disturbances such as wind influence. Our system can be used as a base system for further development.
 
     \section{Publications}
     
-    During the master's period the has a journal article and the two papers accepted for publication. We summarize the contributions presented in each already accepted publication as follows.
+    During the master's period, the author has a journal article and two papers accepted for publication. We summarize the contributions presented in each already accepted publication as follows.
     
     %AMA para cada artigo. diga onde foi publicado. coloca uma ref em cada um
     \begin{enumerate}
         \item 2019
             \begin{itemize}
-                \item A Survey on Unmanned Surface Vehicles for Disaster Robotics: Main Challenges and Directions \cite{Jorge2019Survey}. This paper presents the first comprehensive survey about the applications and roles of \acp{USV} for disaster management, as far as we know. Currently, we have 11 citations around the world.
-                \item Programming teaching with robotic support for people who are visually impaired: a systematic review \cite{Damasio2019Programming}. In our laboratory, we developed a robotic environment composed of programming language, simulation, and a robot to support people who are visually impaired to learn to program. In this work, we extended a review of other works that support visually impaired people on learning programming with robotics.
-                \item Integrating an MPSoC to a Robotics Environment \cite{Domingues2019Integrating}. In this work, we integrated an MPSoC with a robotic simulator and run a trivial application for demonstration purposes.
+                \item "A Survey on Unmanned Surface Vehicles for Disaster Robotics: Main Challenges and Directions" \cite{Jorge2019Survey}. This paper presents the first comprehensive survey about the applications and roles of \acp{USV} for disaster management, to the best of our knowledge. Currently, we have 11 citations around the world.
+                \item "Programming teaching with robotic support for people who are visually impaired: a systematic review" \cite{Damasio2019Programming}. In our laboratory, we developed a robotic environment composed of programming language, simulation, and a robot to aid people who are visually impaired to learn programming. In this paper, we extended a review of other works that aid visually impaired people on learning programming with robotics.
+                \item "Integrating an MPSoC to a Robotics Environment \cite{Domingues2019Integrating}. In this work, we integrated a \ac{MPSoC} and a robotic simulator and ran a trivial application for demonstration purposes.
             \end{itemize}
     \end{enumerate}
     
@@ -61,5 +61,5 @@
     
     % Thesis Outline
     In Chapter \ref{chap:2_TheoreticalBackground}, we present important definitions and background information related to our research. In Chapter \ref{chap:3_LiteratureReview}, we present and discuss the literature related to \acp{USV} guidance systems. 
-    In Chapter \ref{chap:4_COLREGS_Compliant_Guidance_System}, we present the developed systems, its architecture and features. In Chapter \ref{chap:5_Simulation_And_Results}, we present simulation scenarios and results. In Chapter \ref{chap:6_Conclusion}, we discuss the retrieved results.
+    In Chapter \ref{chap:4_COLREGS_Compliant_Guidance_System}, we present the developed system, its architecture and features. In Chapter \ref{chap:5_Simulation_And_Results}, we present simulation scenarios and results. In Chapter \ref{chap:6_Conclusion}, we discuss the collected results.
     

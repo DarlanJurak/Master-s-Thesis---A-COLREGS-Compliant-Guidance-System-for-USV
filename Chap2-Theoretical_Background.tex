@@ -3,7 +3,7 @@
     %%%%%%%%%%%%%%%%%%
     % Grammarly: 100/100
     %%%%%%%%%%%%%%%%%%
-    In this chapter, we present the background of the main concepts related to our study. The focus is to present the components of an \acl{USV}, and present the international regulations for navigation of vessels on water (\acs{COLREGS}).
+    In this chapter, we present the background of the main concepts regarding our study. The focus is to present the components of an \acl{USV}, and present the international regulations for navigation of vessels on water (\acs{COLREGS}).
 
 \section{GNC System}
     
@@ -22,43 +22,24 @@
     %%%%%%%%%%%%%%%%%%
     % Grammarly: 100/100
     %%%%%%%%%%%%%%%%%%
-    In short, the guidance system is responsible for the determination of the \ac{USV}'s trajectory to achieve a goal location. For trajectory generation, the guidance system uses the information provided by the navigation system related to the environment (\eg~obstacles around and general disturbances such as wind and current) and related to the \ac{OV}'s state (\eg~current location). After generating the trajectory, the guidance system makes the route available to the control system. The control system generates actuation commands to change the \ac{USV}'s state and effectively move the \ac{USV}. We present detailed explanations about the \ac{GNC} modules in the sections below.
-    % After the determination of a path, the guidance system make the path available to the control system.
+    In short, the guidance system is responsible for the determination of the \ac{USV}'s trajectory to achieve a goal location. For trajectory generation\todo{"For trajectory generation" está certo e é equivalente a "To generate the trajectory"?}, the guidance system uses the information provided by the navigation system regarding the environment (\eg~obstacles around and general disturbances such as wind and current) and related to the \ac{USV}'s state (\eg~current location). After generating the trajectory, the guidance system makes the route available to the control system. The control system generates actuation commands to change the \ac{USV}'s state and effectively move the \ac{USV}. We present detailed explanations about the \ac{GNC} modules in the following sections.
     
     \subsection{Guidance System}
-
-
-    % In an autonomous approach, most \acp{USV} guidance systems are responsible for planning the path that will be traveled by the \ac{USV}. 
-    % % For determination of a path, the guidance system uses available information about static and dynamic obstacles gathered by the navigation system. 
-    % For determination of a path, the guidance system uses the information gathered by the navigation system related to the environment and to the \ac{OV}'s state. In general, trajectory generation shall be in accordance with the \ac{USV} mission and marine protocols, such as being in accordance with the \ac{COLREGS} or respect \ac{TSS} definitions (\ac{TSS} are similar to traffic ground lines that must be respected by vessels on navigation at sea.) Also, information about vehicle capability (e.g. maximum speed and power consumption)
-    % %AMA dar uma exemplo de vehicle capability
-    % %DJ: Done
-    % and environmental conditions (e.g. wind, wave, and current disturbance)
-    % %AMA dar exemplos de environmental conditions que podem ser relevantes
-    % %DJ: Done
-    % may be required to determine suitable trajectories.
     
     %%%%%%%%%%%%%%%%%%
     % Grammarly: 100/100
     %%%%%%%%%%%%%%%%%%
-    In an autonomous approach, most \acp{USV} guidance systems are responsible for planning the path that will be traveled by the \ac{USV}. For the determination of a path, the guidance system uses the information gathered by the navigation system related to the environment and the \ac{OV}'s state. In general, trajectory generation shall consider the \ac{USV} mission and marine protocols, such as being under the \ac{COLREGS} or respect \ac{TSS} definitions (\ac{TSS} are similar to traffic ground lines that must be respected by vessels on navigation at sea.) Also, information about vehicle capability (e.g., maximum speed and power consumption) and environmental conditions (e.g., wind, wave, and current disturbance) may be required to determine suitable trajectories.
+    In an autonomous approach, most \acp{USV} guidance systems are responsible for planning the path that will be traveled by the \ac{USV}. For the determination of a path, the guidance system uses the information gathered by the navigation system regarding the environment and the \ac{USV}'s state. In general, trajectory generation shall consider the \ac{USV} mission and marine protocols, such as being under the \ac{COLREGS} or respect \ac{TSS} definitions (\ac{TSS} are similar to traffic ground lines that must be respected by vessels on navigation at sea.) Also, information about vehicle capability (e.g., maximum speed and power consumption) and environmental conditions (e.g., wind, wave, and current disturbance) may be required to determine suitable trajectories.
     
     %%%%%%%%%%%%%%%%%%
     % Grammarly: 100/100
     %%%%%%%%%%%%%%%%%%
-    % Gloabl path-planning algorithms evaluate the whole information available on a certain area in order to generate an obstacle-free path between the departure location, or initial waypoint, and the destination, or final waypoint. Candeloro2017Voronoi
-    Typical implementations of the guidance system propose the usage of global and local planners\cite{Liu2016Unmanned}. The global planner is responsible for path planning related to the far-field based on well-known information about the environment, such as islands, coasts, bridges over water \etc, assuming a deliberative behavior (see Figure \ref{fig:chap2_globallocalpath}). Conversely, the local planner is responsible for path planning related to the near-field environment, assuming a reactive behavior when detecting other vessels or obstacles. Conventional methods for path planning applied to \ac{USV} guidance are based on heuristic search\cite{Liu2016Unmanned}, such as A*\cite{Larson2006Autonomous, Naus2013Idea}. Some works used optimization methods for \ac{USV}`s path planning but presented several limitations in real-world trials, due to expensive computational cost \cite{Svec2011Trajectory, Campbell2013Automatic}.
-    %AMA me parece q deveria ter pelo menos uma ref para essas heuristicas. um survey, por exemplo.
-    %DJ: Done
+    Typical implementations of the guidance system propose the usage of global and local planners~\cite{Liu2016Unmanned}. The global planner is responsible for path planning related to the far-field based on well-known information about the environment, such as islands, coasts, bridges over water \etc, assuming a deliberative behavior. Conversely, the local planner is responsible for path planning regarding the near-field environment, assuming a reactive behavior when detecting other vessels or obstacles. Conventional methods for path planning applied to \ac{USV} guidance are based on heuristic search~\cite{Liu2016Unmanned}, such as A*~\cite{Larson2006Autonomous, Naus2013Idea}. Some works used optimization methods for \ac{USV}`s path planning but presented several limitations in real-world trials, due to expensive computational cost~\cite{Svec2011Trajectory, Campbell2013Automatic}.
 
     %%%%%%%%%%%%%%%%%%
     % Grammarly: 100/100
     %%%%%%%%%%%%%%%%%%
-    % In Figure \ref{fig:chap2_globallocalpath} we illustrate the difference between global and local planning in our context. For a situation where our own vessel (\acs{OV}), is not capable of
-    % %AMA capable of + verbo-ing ..... capable of detecting. verificar se existem outras ocorrencias
-    % detecting some vessel in the far-field, the global planner could define a route above a location occupied by the encountering vessel (\acs{EV}). In this situation the local planner should react when \ac{EV} appears in the near-field and define an avoidance behavior. Both global and local planners usually define the \ac{USV} trajectory considering static and dynamic obstacles.
-    
-    In Figure \ref{fig:chap2_globallocalpath}, we illustrate the difference between global and local planning in our context. For a situation where our vessel (henceforth referred to as \ac{OV}) is not capable of detecting some vessel in the far-field, the global planner could define a route above a location occupied by the encountering vessel (\acs{EV}). In this situation, the local planner should react when the \ac{EV} appears in the near-field and define an avoidance behavior. Both global and local planners usually define the \ac{USV} trajectory considering static and dynamic obstacles.
+    In Figure \ref{fig:chap2_globallocalpath}, we illustrate the difference between global and local planning in our context. For a situation where our vessel (henceforth referred to as \ac{OV}) is not capable of detecting some vessel in the far-field, the global planner could define a route above a location occupied by an approaching vessel (henceforth referred to as \ac{AV}). In this situation, the local planner should react when an \ac{AV} appears in the near-field and define an avoidance behavior. Both global and local planners usually define the \ac{USV} trajectory considering static and dynamic obstacles.
     
     \begin{figure}[H]
         \centering
@@ -70,21 +51,9 @@
     %%%%%%%%%%%%%%%%%%
     % Grammarly: 100/100
     %%%%%%%%%%%%%%%%%%
-    %AMA me parece q essa definicao deveria vir antes. deixo a teu criterio
-    %DJ: modifiquei o texto acima para que esse ultimo parágrafo fique numa sequência lógica.
-    In general, static information about the environment, such as islands, and coasts, are extracted from nautical charts, topography charts, and maps available offline. While dynamic information about the environment, such as unknown static obstacles and other vessels, is acquired in run-time by the navigation system. Also, the guidance system depends on a world representation (i.e., cost maps) for running its main component, the path planner.
+    In general, static information about the environment, such as islands, and coasts, are extracted from nautical charts, topography charts, and offline available maps. While dynamic information about the environment, such as unknown static obstacles and other vessels, is acquired in run-time by the navigation system. Also, the guidance system depends on a world representation (i.e., cost maps) for running its main component, the path planner.
 
-    \subsection{Navigation and Control Systems}
-    
-     
-    
-    % The navigation system is responsible for the determination of the current state of the USV (e.g., position, velocity, orientation, and acceleration) and environment perception (e.g., static and dynamic obstacles, other vessels, wind speed, and water current).
-    % %AMA esse tipo de exemplo eh bem importante. acho q se vc colocar la na 1a vez q vc menciona esses termos ja eh o suficiente. por outro lado, melhor sobrar do que faltar. de qualquer forma. eh importante ter PELO MENOS nas 1a mencoes
-    % %DJ: Adicionei nas 1as menções
-    % For current state estimation, the navigation system can use GPS, \ac{IMU}, and compasses.
-    % %AMA barometer eh usado em USV ?!?! certeza ?
-    % %DJ: removed
-    % Regarding environment perception, static information about the environment is extracted from nautical charts and topographic maps. On the other hand, the dynamic information about the environment is acquired in real-time sensing by the navigation system through the usage of cameras, \ac{LIDAR}, radar, and \ac{AIS}. \ac{AIS} allows automated message exchange between vessel, facilitating the identification of other vessels location, velocity, course, path, dimension, and type. 
+    \subsection{Navigation System}
     
     %%%%%%%%%%%%%%%%%%
     %
@@ -92,8 +61,9 @@
     %
     %%% Grammarly: 99/100
     %%%%%%%%%%%%%%%%%%
-    The navigation system is responsible for the determination of the current state of the USV (e.g., position, velocity, orientation, and acceleration) and environment perception (e.g., static and dynamic obstacles, other vessels, wind speed, and water current). For current state estimation, the navigation system can use GPS, \ac{IMU}, and compasses. Regarding environment perception, static information about the environment is extracted from nautical charts and topographic maps. On the other hand, the dynamic information about the environment is acquired in real-time sensing by the navigation system through the usage of cameras, \ac{LIDAR}, radar, and \ac{AIS}. \ac{AIS} allows automated message exchange between vessels, facilitating the identification of location, velocity, course, path, dimension, and type.
+    The navigation system is responsible for the determination of the current state of the \ac{USV} (e.g., position, velocity, orientation, and acceleration) and environment perception (e.g., static and dynamic obstacles, other vessels, wind speed, and water current). For \ac{USV}'s state estimation, the navigation system can use GPS, \ac{IMU}\footnote{For more information read https://en.wikipedia.org/wiki/Inertial\_measurement\_unit}, and compasses. Regarding environment perception, static information about the environment is extracted from nautical charts and topographic maps. While, dynamic information about the environment is acquired in real-time sensing by the navigation system through the usage of cameras, \ac{LIDAR}\footnote{For more information read https://en.wikipedia.org/wiki/Lidar}, radar, and \ac{AIS}. \ac{AIS} allows automated message exchange between vessels, facilitating the identification of location, velocity, course, path, dimension, and type of \acp{AV}.
     
+    \subsection{Control System}
     %%%%%%%%%%%%%%%%%%
     %
     %%% Control
@@ -119,7 +89,7 @@
             \label{fig:chap2_diffboat}
         \end{subfigure}
     
-    \caption{Example of vessels and different propellers Both vessels are simulated versions of Platypus\cite{PlatypusLLC} boats we have in our laboratory.}
+    \caption{Example of vessels and different propellers. Both vessels are simulated versions of Platypus~\cite{PlatypusLLC} boats we have in our laboratory.}
     \label{fig:boats}
     \end{figure}
 
@@ -130,9 +100,9 @@
     % Human error, both active and latent, are said to cause marine collisions in an estimated 89-96\% of cases (Roth-blum (2000)), for instance the catastrophic MVDo˜na Paz ferry collision with the MTVector. An intelligent Obstacle Detection and Avoidance (ODA) system can potentially eliminate the issues caused by poor judgement or failure to react promptly.
 
     %%%%%%%%%%%%%%%%%%
-    %%% Grammarly: 99/100
+    %%% Grammarly: ??/100
     %%%%%%%%%%%%%%%%%%
-    \ac{COLREGS}\cite{COLREGS} stands for "International Regulation for Preventing Collisions at Sea, 1972", sometimes cited as "COLlision REGulations at Sea" or "Convention on the International Regulations for Preventing Collisions at Sea" - in this work we adopted the latter. The definitions declared on the \ac{COLREGS} are controlled, updated, and of responsibility of the \ac{IMO}. Briefly, the \ac{COLREGS} defines the rules that must be followed by vessels upon waters to avoid a collision. 
+    \ac{COLREGS}\cite{COLREGS} stands for "International Regulation for Preventing Collisions at Sea, 1972", sometimes cited as "COLlision REGulations at Sea" or "Convention on the International Regulations for Preventing Collisions at Sea" - in this work we adopted the latter. The definitions declared on the \ac{COLREGS} are controlled, updated, and of responsibility of the \ac{IMO}. Briefly, the \ac{COLREGS} defines the rules that must be followed by vessels upon waters to avoid collisions when encountering another vessel. 
     The \ac{COLREGS} are adopted by the United Nations as a global convention and must be respected by every country.
     
     % Some rules are related to possible or mandatory features required for a \ac{USV} system, such as 9, 10, 13, 14, 15, 16, 17, and 18. Also, other rules are related to structural requirements for \ac{USV}s in real-world trials, such as 23, and 33.
@@ -146,24 +116,23 @@
     %%%%%%%%%%%%%%%%%%
     %%% Grammarly: 100/100
     %%%%%%%%%%%%%%%%%%
-    Below we describe the four main encounters presented in \ac{COLREGS}, head-on, crossing from the right, crossing from the left, and overtaking. In our work, we adapted in the guidance system the behavior described below for each type of encounter.
+    Below we describe the four main encounters presented in \ac{COLREGS} (illustrated in Figure \ref{fig:chap2_encounters}), head-on, crossing from the right, crossing from the left, and overtaking.
+    
+    \begin{itemize}
+        \item Head-On: In this situation both vessels should avoid collision going to their starboard side.
+        \item Crossing from the right and crossing from the left: In this scenario, the \ac{COLREGS} defines different responsibilities for each vessel. The vessel that has the other vessel in its starboard side must give way and is responsible for collision avoidance. The vessel that has the other vessel in its port side must keep its course without significant changes. In a critical situation, where the give-way vessel seems not able to avoid the collision, the keep vessel should act to avoid.
+        \item Overtake: In this scenario the vessel overtaking another, can freely decide which side to go and must avoid generating another crossing situation.
+    \end{itemize}
     
     \begin{figure}[H]
         \centering
         \includegraphics[scale=0.125]{figs/Chap2/Encounters.pdf}
-        \caption{Possible encounters between vessels discussed in the COLREGS.}
+        \caption{Possible encounters between two vessels discussed in the \ac{COLREGS}. Arrows indicate the behavior that must be performed by the vessels. In c) there is two possible paths for the orange vessel. }
         \label{fig:chap2_encounters}
     \end{figure}
-    
-    \begin{itemize}
-        \item Head-On: In this situation both vessels should avoid collision going to their starboard side.
-        \item Crossing from the right and crossing from the left: In this scenario, the COLREGS defines different responsibilities for each vessel. The vessel that has the other vessel in its starboard side must give way and is responsible for the collision avoidance. The vessel that has the other vessel in its port side must keep its course without great changes. In a critical situation, where the give way vessel seems not able to avoid the collision, the keep vessel should act to avoid.
-        \item Overtake: In this scenario the vessel overtaking another, can freely decide which side to go but must avoid to generate any other crossing situation.
-    \end{itemize}
 
-    % \subsection{Surface Vehicle Modeling}
-    % \subsection{Configuration Space}
-    % \subsection{Planning Algorithms}
+    % \section{ROS}
+    % \section{A*}
     
 % \section{A*}
 
