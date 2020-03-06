@@ -86,14 +86,12 @@
     \end{minipage}
     
     \vskip 1cm
-    %  We assembled the scenarios in a simulated version of the Dilúvio stream. The Dilúvio stream is a potential location for real-world trials of our system due to the fact that it is near of our laboratory, so we evaluate the behavior of our system on a simulated version of it. In Figure \ref{fig:simulation_diluvio_googleLocation_roundedArea} we show with a red box the specific location we simulated in our experiments\footnote{Google maps location: (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil}. In Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea} we show side by side another perspective of the real-word location and its simulated version, in both Figures we marked with a red box a bridge region where we assembled some the encounters between the vessels.
-    
-    %  %AMA mencionar brevemente como esse cenario foi montado (foto area, resolucao de tanto, etc). O Marcelo tem essa descricao.
 
     % Grammarlly: 100/100
     We assembled the scenarios in a simulated version of the Dilúvio stream. The Dilúvio stream is a potential location for real-world trials of our system since it is near our laboratory, so we evaluate the behavior of our system on a simulated version of it. In Figure \ref{fig:simulation_diluvio_googleLocation2_roundedArea} we show with a red box the specific location we simulated in our experiments\footnote{Google maps location: (-30.047258°, -51.232660°), Av. Edvaldo Pereira Paiva, 1970 - Praia de Belas - Porto Alegre - RS - Brazil} and its simulated version.
     % We assembled 4 encounters between two vessels in the region marked with the red box.
      %AMA mencionar brevemente como esse cenario foi montado (foto area, resolucao de tanto, etc). O Marcelo tem essa descricao.
+    % Este cenário foi criado pelos mantedores do USV\_sim. Ele foi construído unindo informação geográfica de localização e relevo com informação de geometria e edificações 3D. Este cenário simula uma área real de 1340mx555m.
      
     \begin{figure}
     \centering
@@ -273,7 +271,7 @@
         %DJ: aqui \/
         %% Grammarlly: 96/100
         We empirically determined a 2.0 m/s for evaluation of our system. In all simulations using 2.0 m/s for wind intensity, our system was capable of react and avoid collision. With wind intensity greater than 2.0 m/s, our system was not capable of avoiding collision, being strongly influenced by wind. This behavior is related to our internal controller (inside local planner and presented in \ref{sec:chap4_control}). Currently, we achieve a maximum velocity of 0.43 m/s (see Table \ref{tab:simulation_scenarios_configuration_own_vessel}). \todo{Ask Amory evaluation}
-        
+        %AMA ok
         
         \begin{figure}[H]
             \centering
@@ -342,13 +340,17 @@
         
          %AMA pq a posicao final do EV eh diferente com e sem vento ?
          
-        In Figure \ref{fig:plot_cr_w_vs_wind}, in the time window we show, the \ac{AV} do not achieve its goal, the wind acts against \ac{AV} motion, reducing the maximun speed.
+        In Figure \ref{fig:plot_cr_w_vs_wind}, in the time window we show, the \ac{AV} do not achieve its goal, the wind acts against \ac{AV} motion, reducing the maximum speed.
+        %AMA nao entendi. quem nao atinge o objetivo ? na figura parece q sim. Ainda nao tem uma explicacao pq com vento a curva ficou melhor q sem vento
+        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Overtaking w vs wo \ac{ATC}. w vs wo Wind
         %
         %% Grammarlly: 100/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        In Figure \ref{fig:plots_cl}, we present the behavior of our system in an overtaking encounter. In Figure \ref{fig:plot_cl_w_vs_wo} we show the comparison between trajectories with and without \ac{ATC} and in Figure \ref{fig:plot_cl_w_vs_wo_CT} we can see computational time for each case. In an overtaking encounter, \ac{OV} must keep moving ahead, avoiding to generate any other crossing situations while overtaking. In our simulation, \ac{OV} avoids going to the front of \ac{AV} until it gets near the goal.
+        In Figure \ref{fig:plots_cl}, we present the behavior of our system in an overtaking encounter.
+        %AMA ZOOOONA. o texto diz q eh overtaking e a legenda diz q eh crossin right. olhando a figura parece que a figura esta certa e o texto errado.mas esse tipo de erro da um no no leitor pois ele comeca a duvidar se entendeu alguma coisa.
+        In Figure \ref{fig:plot_cl_w_vs_wo} we show the comparison between trajectories with and without \ac{ATC} and in Figure \ref{fig:plot_cl_w_vs_wo_CT} we can see computational time for each case. In an overtaking encounter, \ac{OV} must keep moving ahead, avoiding to generate any other crossing situations while overtaking. In our simulation, \ac{OV} avoids going to the front of \ac{AV} until it gets near the goal.
         In Figure \ref{fig:plot_cl_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cl_w_vs_wind_CT} we can see computational time for each case. Our method kept COLREGS-compliant even when disturbed by a maximum of 2.0 m/s wind.
         \begin{figure}[H]
         \centering
@@ -392,7 +394,8 @@
         %
         %% Grammarlly: 100/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        In Figure \ref{fig:plots_ov}, we present the behavior of our system when \ac{OV} encounters another vessel ahead.  %AMA a legenda diz overtaking ... confere os nomes e mantem a coerencia 
+        In Figure \ref{fig:plots_ov}, we present the behavior of our system when \ac{OV} encounters another vessel ahead.  %AMA a legenda diz overtaking ... confere os nomes e mantem a coerencia
+        %AMA isso ainda nao foi corrigido !!!
         In Figure \ref{fig:plot_ov_w_vs_wo} we show the comparison between trajectories with and without ATC and in Figure \ref{fig:plot_ov_w_vs_wo} we can see computational time for each case. As we can see, once again, our method implies COLREGS compliance when avoiding a collision. In Figure \ref{fig:plot_ov_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_ov_w_vs_wind_CT} we can see computational time for each case. 
         \begin{figure}[H]
         \centering
@@ -454,17 +457,17 @@
 \cmidrule[\heavyrulewidth]{3-5}
                                                                                                 &                                 & \textbf{Maximum} & \textbf{Average} & \textbf{Std. Variation} &                                                                                                    &                                                                                                     \\ 
 \toprule
-\multirow{3}{*}{\textbf{Head-On}}                                                               & \textbf{No ATC}                 & 0.369            & 0.074            & 0.081                   & Yes                                                                                                & 4.431                                                                                               \\
-                                                                                                & \textbf{ATC}                    & 0.364            & 0.076            & 0.076                   & Yes                                                                                                & 1.599                                                                                               \\
-                                                                                                & \textbf{Wind}                   & 0.355            & 0.077            & 0.079                   & Yes                                                                                                & 1.505                                                                                               \\ 
+\multirow{3}{*}{\textbf{Head-On}}                                                               & \textbf{No ATC}                 & 0.369            & 0.136            & 0.061                   & Yes                                                                                                & 4.431                                                                                               \\
+                                                                                                & \textbf{ATC}                    & 0.364            & 0.129            & 0.056                   & Yes                                                                                                & 1.599                                                                                               \\
+                                                                                                & \textbf{Wind}                   & 0.355            & 0.131            & 0.060                   & Yes                                                                                                & 1.505                                                                                               \\ 
 \cline{2-7}
-\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing}\\\textbf{from Right}\end{tabular}} & \textbf{No ATC}                 & 0.390            & 0.050            & 0.098                   & Yes                                                                                                & 5.414                                                                                               \\
-                                                                                                & \textbf{ATC}                    & 0.390             & 0.052            & 0.104                   & Yes                                                                                                & 3.264                                                                                               \\
-                                                                                                & \textbf{Wind}                   & 0.403            & 0.085            & 0.124                   & Yes                                                                                                & 3.739                                                                                               \\ 
+\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing}\\\textbf{from Right}\end{tabular}} & \textbf{No ATC}                 & 0.390            & 0.178            & 0.107                   & Yes                                                                                                & 5.414                                                                                               \\
+                                                                                                & \textbf{ATC}                    & 0.390             & 0.249            & 0.060                   & Yes                                                                                                & 3.264                                                                                               \\
+                                                                                                & \textbf{Wind}                   & 0.403            & 0.253            & 0.062                   & Yes                                                                                                & 3.739                                                                                               \\ 
 \cline{2-7}
-\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing}\\\textbf{from Left}\end{tabular}}  & \textbf{No ATC}                 & 0.416                 & 0.039                 & 0.096                        &  Yes                                                                                                  & 7.018                                                                                                    \\
-                                                                                                & \textbf{ATC}                    & 0.389                 & 0.028                 & 0.080                        & Yes                                                                                                   & 6.274                                                                                                    \\
-                                                                                                & \textbf{Wind}                   & 0.400                 & 0.030                 & 0.081                        & Yes                                                                                                   & 5.707                                                                                                    \\ 
+\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing}\\\textbf{from Left}\end{tabular}}  & \textbf{No ATC}                 & 0.416                 & 0.235                 & 0.105                        &  Yes                                                                                                  & 7.018                                                                                                    \\
+                                                                                                & \textbf{ATC}                    & 0.389                 & 0.224                 & 0.091                        & Yes                                                                                                   & 6.274                                                                                                    \\
+                                                                                                & \textbf{Wind}                   & 0.400                 & 0.208                 & 0.102                        & Yes                                                                                                   & 5.707                                                                                                    \\ 
 \cline{2-7}
 \multirow{3}{*}{\textbf{Overtaking}}                                                            & \textbf{No ATC}                 & 0.368            & 0.006            & 0.030                   & Yes                                                                                                & 3.325                                                                                               \\
                                                                                                 & \textbf{ATC}                    & 0.357            & 0.018            & 0.022                   & Yes                                                                                                & 3.101                                                                                               \\
