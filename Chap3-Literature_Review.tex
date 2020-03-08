@@ -264,7 +264,8 @@
     In this section, we briefly discuss important aspects related to the development of \ac{USV} guidance and collision avoidance systems presented in the literature. Based on the read studies, we can have a glance about the relevance of A*, \ac{LOS}, and \ac{VO} for \ac{USV} guidance and the focus on addressing avoidance of overtaking, head-on, and crossing collision situations.
     
     
-    \subsection{Guidance}
+    %\subsection{Guidance}
+    %AMA  nao faz sentido ter uma secao somente
     
     %% Grammarly 100/100
     In general, guidance based on path planning requires addressing both stationary and dynamic obstacles. Regarding real-world-tested work, guidance requires an accurate world model and robust methods to avoid detected obstacles. World representation is done using cost maps and information is collected through nautical charts~\cite{Larson2006Autonomous}, electronic charts~\cite{Naus2013Idea}, \ac{ARPA} contacts~\cite{Larson2006Autonomous}, and \ac{AIS}~\cite{Abdelaal2017NMPC}. The usage of these two last allow path planning for global guidance to consider not only stationary obstacles but moving obstacles also. Regarding the location and orientation of the \ac{USV} itself, the literature presented the usage of GPS~\cite{Benjamin2004COLREGS} and compasses~\cite{Annamalai2013Comparison}. Based on our literature review we identified the following methods for global and local planning
@@ -279,6 +280,7 @@
         
     \end{enumerate}
     
+    %Grammarly 97/100
     Collision avoidance is performed mostly with an architecture composed of two subsystems, one deliberative and other reactive. Deliberative systems are based on well-known maps and are implemented through optimization and heuristics methods. Reactive systems run online, are based on real-time collected data from \ac{LIDAR}~\cite{Agrawal2015COLREGS}, \ac{SONAR}~\cite{Candeloro2017Voronoi}, and cameras\cite{Kuwata2014Safe} and requires more intelligent systems since they must be compliant to protocols such as the \ac{COLREGS}. 
     
     Based on the literature, the identification of \ac{COLREGS} situation can be made through the calculation of the bearing angle~\cite{Kuwata2014Safe}\footnote{We use it in our system and explain it in chapter~\ref{chap:4_COLREGS_Compliant_Guidance_System}}. Some authors present the usage of \ac{CPA}~\cite{Campbell2013Automatic} for anticipated detection of \ac{COLREGS} situation while other authors present pure reactive approach.
