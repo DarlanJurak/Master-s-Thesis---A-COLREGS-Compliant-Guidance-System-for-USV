@@ -214,16 +214,28 @@
 % Resumo, com as palavras-chave passadas por parâmetro
 % (OBRIGATÓRIO, ao menos para teses e dissertações)
 %----------------------------------------------------------------
-\begin{resumo}{lorem, ipsum, dolor, sit, amet}
-Seu resumo em português aqui. lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum stet clita.  kasd gubergren no sea takimata sanctus est lorem ipsum dolor sit amet lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at.
+\begin{resumo}{USV, COLREGS, ATC A*, ROS}
+Os veículos de superfície não tripulados (USVs) constituem uma categoria de robôs marinhos que atuam sem tripulação na superfície da água, apresentando comportamento autônomo ou sendo controlados remotamente. 
+Nas últimas décadas, vários estudos foram realizados para tornar os USVs autônomos. As atuais aplicações de USVs incluem monitoramento do ambiente, exploração de recursos oceânicos como petróleo e gás, vigilância portuária e costeira para fins militares, transporte e pesquisa científica. 
+As Normas da Autoridade Marítima (NORMAM) determinam regras que devem ser seguidas por marinheiros para evitar colisões em possíveis cenários de colisão, como cruzamento, encontro frontal e ultrapassagem. 
+Atualmente, colisões diretas entre navios representam 60\% dos acidentes no mar, e 56\% das colisões são causadas por violação da NORMAM. Portanto, os USVs devem estar em conformidade com as NORMAM. 
+Nesta dissertação, apresentamos o sistema que desenvolvemos para orientar USVs em missões autônomas e em conformidade com a NORMAM. 
+O principal componente de orientação do nosso sistema é um planejador de caminhos que respeita a NORMAM. 
+Adaptamos a técnica de Artificial Terrain Cost, apresentado por Agrawal~\cite{Agrawal2015COLREGS}~\etal, à nossa solução baseada em A*, dessa forma, bloqueamos no espaço de busca as posições não compatível com a NORMAM, através da criação de obstáculos virtuais. 
+Desenvolvemos o nosso sistema usand ROS (Robotic Operating System) e integramos ele a um barco diferencial disponível no simulador USV\_sim, um simulador para USVs, capaz de gerar distúrbios realistas, como vento e corrente de água. Medimos o tempo computacional, o vento máximo sustentado e a distância mínima mantida ao encontrar outra embarcação nos cenários de encontro frontal, de cruzamento pela esquerda, cruzamento pela direita e ultrapassagem.
+Em todos os cenários que simulamos, o sistema foi capaz de evitar colisões, mantendo no máximo 0,253 segundos de tempo computacional médio, 0,852 segundos de tempo computacional máximo, pelo menos 1,505 metros de distância da embarcação que se aproximava, e capacidade de sustentar vento com intensidade de 2 m/s.
 \end{resumo}
 
 %----------------------------------------------------------------
 % Abstract, com as palavras-chave passadas por parâmetro
 % (OBRIGATÓRIO, ao menos para teses e dissertações)
 %----------------------------------------------------------------
-\begin{abstract}{lorem, ipsum, dolor, sit, amet}
-Your abstract in English here. lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum stet clita kasd gubergren no sea takimata sanctus est lorem ipsum dolor sit amet lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at
+\begin{abstract}{USV, COLREGS, ATC A*, ROS}
+
+Unmanned surface vehicles (USVs) are a category of marine robots that act unmanned on the water surface, performing autonomous behavior or being remotely controlled. In recent decades, several studies have been carried out to make USVs autonomous. The main challenges are related to collision avoidance, accurate navigation on the high seas, and compliance with international maritime rules, such as the Convention on the International Regulations for Preventing Collisions at Sea (COLREGS). Current applications of USVs include monitoring the environment, exploiting ocean resources such as oil and gas, port and coastal surveillance for military purposes, transport, and scientific research. COLREGS determines rules that must be followed by sailors to avoid collisions in possible collision scenarios, such as crossing, head-on, and overtaking. Currently, direct collisions between vessels represent 60\% of accidents at sea, and the violation of COLREGS causes 56\% of collisions. Therefore, USVs must comply with COLREGS.
+In this master's thesis, we present the system we developed to guide USVs on autonomous missions while following the COLREGS.
+The main guiding component of our system is a path planner that follows the COLREGS. We adapted the Artificial Terrain Cost method, presented by Agrawal~\cite{Agrawal2015COLREGS}~\etal, to our solution, blocking locations in the search space that are not compliant with COLREGS, through the creation of virtual obstacles. We integrated our system to a differential boat available in the USV\_sim simulator, a simulator for USVs, capable of generating realistic disturbances, such as wind and water current. We measure the computational time, the maximum sustained wind, and the minimum distance maintained when encountering another vessel in the scenarios of head-on encounter, crossing from the left, crossing from the right, and overtaking. In all simulated scenarios, the system was able to avoid collisions, maintaining a maximum of 0.253 seconds of average, and 0.852 seconds of maximum computational time; at least 1.505 meters away from the approaching vessel; and the ability to sustain wind with an intensity of 2 m/s.
+
 \end{abstract}
 
 %----------------------------------------------------------------
