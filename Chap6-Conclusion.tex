@@ -1,7 +1,7 @@
 \chapter{Conclusion}
 \label{chap:6_Conclusion}
 
-    Neste capítulo discutimos os resultados obtidos e possíveis trabalhos futuros.
+    In this chapter we discuss the results and future work.
     
     \section{Results Discussion}
 
@@ -11,7 +11,7 @@
     
     Our main contribution was the development and integration of these modules and the adaptation of a technique presented in the literature to make the behavior of a vessel guided by our system respect the \ac{COLREGS}. Our system can react following the \ac{COLREGS} when it finds only one approaching vessel. When finding multiple vessels, our system can generate routes to avoid collision, but the \ac{COLREGS} compliance capacity has not been guaranteed. Another limitation is related to our system, considering that the approaching vessel is of the same type as ours since different categories of vessels imply a change in the \ac{COLREGS} interpretation.
     
-    Our solution uses A* to find a path that leads towards the location goal. When a vessel approaches ours, our local planning module reacts and generates \ac{COLREGS}-compliant routes. To generate \ac{COLREGS} compliant routes, we have adapted the solution presented by Agrawal~\etal~\cite{Agrawal2015COLREGS} in our system. When our system detects another vessel in its proximity, it creates a virtual obstacle that restricts the search space of our local planner, excluding positions that would violate \ac{COLREGS}. Thus the local planner is forced to choose a \ac{COLREGS}-complaint route.
+    Our solution uses A* to find a path that leads towards the location goal. When a vessel approaches ours, our local planning module reacts and generates \ac{COLREGS}-compliant routes. To generate \ac{COLREGS} compliant routes, we have adapted the solution presented by Agrawal~\etal~\cite{Agrawal2015COLREGS} in our system. When our system detects another vessel in its proximity, it creates a virtual obstacle that restricts the search space of our local planner, excluding positions that would violate \ac{COLREGS}. Thus the local planner is forced to choose a \ac{COLREGS}-compliant route.
 
     We evaluate the performance of our system regarding the main scenarios of encounter described in \ac{COLREGS}, they are head-on, crossing from the right, crossing from the left, and overtaking. We collected the maximum and average computational time for the execution of our \aclp{ATC} (\ac{ATC}) A* method in each cycle. For all simulated scenarios, our system was able to avoid collision and follow \ac{COLREGS} even with a wind intensity of 2 m/s.
 
@@ -21,6 +21,10 @@
     
     \section{Future Work}
     
-    Uma melhoria melhoria possível seria adionar um raio de inflação de custo nos obstáculos criados para evitar que o método A* explorasse área que são vizinhas de obstáculos virtuais e que não poderam ser utilizadas na busca pela trajetória final e acabam somente por aumentar o custo computacional, pois nos testes realiados o método explorou grandes área próximas dos obstáculos virtuais, devido ao comportamento heuristico  do algoritmo mas esses obstáculos não podiam ser transpostos, então estes nodos foram explorados mas não levavam a trajetória final.
+    The main improvements are related to the reduction of computational time, an increase in the maximum speed of the vessel, and a greater variety in possible encounters. Regarding computational time, it is necessary to investigate our implementation of A* to find out if there is any possible improvement that impacts on the total time of execution of our local planner. Another major limitation related to our local planner is the reduced ability to generate velocity commands that allow \ac{USV} to navigate with more than 0.4 m/s. The simulated \ac{USV} model we used in our tests can navigate up to 1.8 m/s. This improvement requires investigation to understand better where the speed restriction is.
     
-    Outra melhoria possível seria avaliar uma distância crítica na qual o sistema deveria onsiderar como irrelevante a COLREGS compliance e tornar prioritária evitar obstáculos a todo custo, ou seja podendo inclusive ultrapassar zonas que estivessem com a marcação de obstáculos virtuais, isso pode ser implementado mantendo os obstáculos virtuais com um custo auto mas não acima do aceitável para trangressão pelo A*.
+    Regarding variety in the encounter, our system has the potential to be simulated in an environment with multiple boats. It is necessary to study ways to apply our method based on the creation of virtual obstacles for situations where simultaneous encounters between multiple vessels occur. Perhaps a necessary change is the removal of lethality from virtual obstacles. Currently, the virtual obstacles created are considered impassable by the local planner. In multiple encounters, there is a potential increase in space restriction, where it is not possible to navigate. Therefore, high-cost virtual obstacles could be created for the planner but with the possibility of transposition if it is the only choice to avoid collision.
+    
+    Related to the encounters variety, we should study ways to consider different categories of vessels found and take this into account when creating virtual obstacles. For example, where our vessel is power-driven and finds a sailing vessel to its left, instead of keeping its course and waiting for the vessel on left to avoid collision, our vessel assumes the responsibility of evading the collision.
+    
+    Another improvement possible would be to add a ray of cost inflation around the virtual obstacles created. This could prevent the A* method from exploring locations that are neighbors of virtual obstacles, possibly decreasing the computational cost. In the tests performed, the method explored large areas close to the virtual obstacles, due to the heuristic behavior of the algorithm. However, these obstacles could not be overcome, so these nodes were explored but did not lead to the final trajectory.
