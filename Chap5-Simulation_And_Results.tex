@@ -251,24 +251,26 @@
         %% Grammarlly: 93/100
         %% v2.0
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        We qualitatively evaluate the behavior of our method in two different configurations. In the first configuration, we compare the behavior of the system with and without \ac{ATC}.  In the second configuration, we compare our system's behavior with \ac{ATC} with and without the influence of wind. We executed both scenarios for four types of possible encounters between the two vessels. For the quantitative evaluation of each scenario, we measured the computation time of every execution of our path planner, average sustained speed, and minimal distance maintained between the vessels, as well as whether the collision avoidance was successful or not. In Table \ref{tab:results}, we summarize the collected results.
+        We qualitatively evaluate the behavior of our method in two different configurations. In the first configuration, we compare the behavior of the system with and without \ac{ATC}.  In the second configuration, we compare our system's behavior with \ac{ATC} with and without the influence of wind. We executed both scenarios for four types of possible encounters between the two vessels. For the quantitative evaluation of each scenario, we measured the computation time of every execution of our path planner, and minimal distance maintained between the vessels, as well as whether the collision avoidance was successful or not. In Table \ref{tab:results}, we summarize the collected results.
+        
+        \section{Head-on}
 
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Head-On w vs wo \ac{ATC}
         %
         %% Grammarlly: 99/100
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
-        \begin{figure}[H]
-            \centering
-            \includesvg[width=\textwidth]{figs/Chap5/plot_ho_w_vs_wo.svg}
-            \caption{Comparison of vessel trajectories in \ac{ATC} case and no \ac{ATC} in a head-on encounter scenario. Start position for \ac{OV} and \ac{AV} are marked with "$\blacktriangleright$" and "$\blacktriangleleft$", while their goals are marked with "x". In gray we present static obstacles. In blue we show the trajectory done by the \ac{AV}. In orange we show the trajectory of the \ac{OV} with our path planner. In yellow we show the trajectory of the \ac{OV} without our path planner. We can observe that our \ac{ATC} A* method implied \ac{COLREGS} compliance, once on the detection of another vessel (at time $t_1$) it avoided collision going to its starboard side.}
-            \label{fig:plot_ho_w_vs_wo}
-        \end{figure}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
         In Figure \ref{fig:plot_ho_w_vs_wo}, we present, comparatively, the final trajectory of two vessels in two executions of the same head-on scenario. For the \ac{OV}, the performed trajectory is guided by our local guidance system, while the \ac{AV} is following a path towards a given goal ahead. In the "ATC case" execution, our system is fully functional, in the "no ATC" execution we removed the ability of the planning system to generate virtual obstacles, which is the core of the \ac{ATC} method and partially responsible for the \ac{COLREGS}-Compliant path planning. In both runs, in the time interval from t0 until just before t1, \ac{OV} goes northeast, due to a static obstacle located from (450, 104) to (460, 104). 
         
         Until t1, \ac{OV} tends to distance itself from the static obstacle. At t1 for both executions of the scenario, \ac{AV} becomes noticeable at the \ac{OV} local cost map. From t1 onwards, \ac{OV} reacts differently to each scenario. We observe that even with the existence of a static obstacle to the south in its proximity, \ac{OV} in the \ac{ATC} case decides to avoid the encounter with the other vessel moving to its starboard side, featuring a \ac{COLREGS}-Compliant behavior. \ac{OV} in "no ATC" case, is influenced only by the existence of an obstacle in the south and at the encounter with \ac{AV}, performs a not \ac{COLREGS}-compliant trajectory.
+        
+        \begin{figure}
+            \centering
+            \includesvg[width=\textwidth]{figs/Chap5/plot_ho_w_vs_wo.svg}
+            \caption{Comparison of vessels trajectories in \ac{ATC} case and no \ac{ATC} in a head-on encounter scenario. Start position for \ac{OV} and \ac{AV} are marked with "$\blacktriangleright$" and "$\blacktriangleleft$", while their goals are marked with "x". In gray we present static obstacles. In blue we show the trajectory done by the \ac{AV}. In orange we show the trajectory of the \ac{OV} with our path planner. In yellow we show the trajectory of the \ac{OV} without our path planner. We can observe that our \ac{ATC} A* method implied \ac{COLREGS} compliance, once on the detection of another vessel (at time $t_1$) it avoided collision going to its starboard side.}
+            \label{fig:plot_ho_w_vs_wo}
+        \end{figure}
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Head-On w vs wo \ac{ATC} Computational Time
@@ -294,7 +296,8 @@
         In Figure \ref{fig:plot_ho_w_vs_wind} we compare final trajectories for the same head-on scenario described in \ref{tab:simulation_scenarios_configuration_own_vessel}, now for two executions of the simulation with different wind influence, where we use \ac{ATC} A*. "No wind case" shows the behavior of the \ac{OV} being influenced by no wind. "Wind case" shows the trajectory of our \ac{OV} being influenced by the wind with northeast direction and intensity of 2.0 m/s, indicated by an arrow. We can see the change in the trajectory of \ac{OV} and that it still maintains \ac{COLREGS}-compliance. \ac{AV} response to the wind is related to the standard control system used; in this work, we do not evaluate the limitations of the \ac{AV}'s control system.
         
         %% Grammarlly: 96/100
-        We empirically determined a 2.0 m/s for evaluation of our system. In all simulations using 2.0 m/s for wind intensity, our system was capable of react and avoid collision. With wind intensity greater than 2.0 m/s, our system was not capable of avoiding collision, being strongly influenced by wind. This behavior is related to our internal controller (inside local planner and presented in \ref{sec:chap4_control}). In this scenario we achieved a maximum velocity of 0.43 m/s.
+        We empirically determined a 2.0 m/s for evaluation of our system. In all simulations using 2.0 m/s for wind intensity, our system was capable of react and avoid collision. With wind intensity greater than 2.0 m/s, our system was not capable of avoiding collision, being strongly influenced by wind. This behavior is related to our internal controller (inside local planner and presented in \ref{sec:chap4_control}). 
+        % In this scenario the \ac{OV} achieved a maximum velocity of 0.43 m/s.
         
         \begin{figure}[H]
             \centering
@@ -316,34 +319,72 @@
             \label{fig:plot_ho_w_vs_wind_CT}
         \end{figure}
         
+        
+        \section{Crossing from the Right}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Crossing Right w vs wo \ac{ATC}. 
+        %
+        %% Grammarlly: 100/100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        In Figure \ref{fig:plot_cr_w_vs_wo}, we present the behavior of our system when \ac{OV} encounters another vessel coming from the right side. In Figure \ref{fig:plot_cr_w_vs_wo}, we show the comparison between trajectories with and without \ac{ATC}. As we can see, our method implies \ac{COLREGS} compliance when avoiding the collision. Regarding the trajectories, at time $t_1$ for each of the scenarios, the \ac{OV} has different behaviors. From the start until $t_1$, for both scenarios, \ac{OV} goes to the northwest direction. From $t_1$, \ac{OV} detects \ac{AV} in its local cost map. In the scenario with our local planner, \ac{OV} decides to avoid collision going to its starboard side, featuring a \ac{COLREGS}-compliant behavior. While for the scenario where \ac{OV} do not have our local planner, it decides to keep going northwest.
+        
+        \begin{figure}
+            \centering
+            \includesvg[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wo.svg}
+            \caption{Comparison of vessel trajectories in \ac{ATC} case and no \ac{ATC} in a crossing from the right encounter scenario. Start position for \ac{OV} and \ac{AV} are marked with "$\blacktriangle$" and "$\blacktriangleleft$", while their goals are marked with "x". In blue we show the trajectory done by the \ac{AV}. In orange we show the trajectory of the \ac{OV} with our path planner. In yellow we show the trajectory of the \ac{OV} without our path planner. We can observe that our \ac{ATC} A* method implied \ac{COLREGS} compliance, once on the detection of another vessel (at time $t_1$) it avoided collision going to its starboard side.}
+            \label{fig:plot_cr_w_vs_wo}
+        \end{figure}
+
+        Figure \ref{fig:plot_cr_w_vs_wo_CT} shows the computational time measured in seconds over time. Our \ac{COLREGS}-Compliant \ac{ATC} A* method had a peek cost of 0.395s for path generation for this crossing from the right scenario. As we can see, both \ac{ATC} and no \ac{ATC} cases have similar computational cost curves.
+        
+        \begin{figure}[H]
+            \centering
+                \includesvg[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wo_CT.svg}
+                \caption{Computational time comparison between \ac{ATC} case versus no \ac{ATC} in a crossing from the right encounter over time. The system achieves a peak cost of around 0.395s using \ac{ATC} and around 0.390 without \ac{ATC}}
+                \label{fig:plot_cr_w_vs_wo_CT}
+        \end{figure}
+        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %% Crossing Right w vs wo \ac{ATC}. w vs wo Wind
+        %% Crossing Right w vs wo \ac{ATC}. WIND
         %
         %% Grammarlly: 100/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
         \begin{figure}[H]
             \centering
-            \includesvg[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wo.svg}
-            \caption{Comparison of vessel trajectories in \ac{ATC} case and no \ac{ATC} in a crossing from the right encounter scenario. Start position for \ac{OV} and \ac{AV} are marked with filled "$\blacktriangle$" and "$\blacktriangleleft$", while their goals are marked with "x". In blue we show the trajectory done by the \ac{AV}. In orange we show the trajectory of the \ac{OV} with our path planner. In yellow we show the trajectory of the \ac{OV} without our path planner. We can observe that our \ac{ATC} A* method implied \ac{COLREGS} compliance, once on the detection of another vessel (at time $t_1$) it avoided collision going to its starboard side.}
-            \label{fig:plot_cr_w_vs_wo}
+            \includegraphics[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wind.pdf}
+            \caption{Comparison between the trajectories of the vessels in Wind case and no Wind case in a crossing from the right encounter scenario, both cases use \ac{ATC} A*. Start position for \ac{OV} and \ac{AV} are marked with "$\blacktriangle$" and "$\blacktriangleleft$", while their goals are marked with "x". For the Wind case, the direction of the wind is northeast, represented by an arrow. We can observe that our \ac{ATC} A* kept implying COLREGS compliance even under the influence of wind in this scenario.}
+            \label{fig:plot_cr_w_vs_wind}
         \end{figure}
         
-        In Figure \ref{fig:plot_cr_w_vs_wo}, we present the behavior of our system when \ac{OV} encounters another vessel coming from the right side. In Figure \ref{fig:plot_cr_w_vs_wo}, we show the comparison between trajectories with and without \ac{ATC}. As we can see, our method implies \ac{COLREGS} compliance when avoiding the collision. Regarding the trajectories, at time $t_1$ for each of the scenarios, the \ac{OV} has different behaviors. From the start until $t_1$, for both scenarios, \ac{OV} goes to the northwest direction. From $t_1$, \ac{OV} detects \ac{AV} in its local cost map. In the scenario with our local planner, \ac{OV} decide to avoid collision going to its starboard side, featuring a \ac{COLREGS}-compliant behavior. While for the scenario where \ac{OV} do not have our local planner, it decides to keep going northwest.
+        In Figure \ref{fig:plot_cr_w_vs_wind} we compare final trajectories for the same crossing from the right scenario described in \ref{tab:simulation_scenarios_configuration_own_vessel}, now for two executions of the simulation with different wind influence, where we use \ac{ATC} A*. "No Wind case" shows the behavior of the \ac{OV} being influenced by no wind. "Wind case" shows the trajectory of our \ac{OV} being influenced by the wind with northeast direction and intensity of 2.0 m/s, indicated by an arrow. We can see the change in the trajectory of \ac{OV} and that it still maintains \ac{COLREGS}-compliance. The \ac{OV}'s behavior we observe in both cases, going very far from \ac{AV} happens due to residual cost in the local cost map. After go far from the residual cost in the local cost map, the \ac{OV} go towards the location goal.
+        % The final position of the \ac{AV} for "Wind case" is not show in the plot presented in Figure \ref{fig:plot_cr_w_vs_wind} due to data loss in collection process.\todo{Do collection again} 
+        % In this scenario the \ac{OV} achieved a maximum velocity of 0.43 m/s
         
-         In Figure \ref{fig:plot_ho_w_vs_wind_CT} we show the computational time measured in seconds over time for wind and no wind cases. We observe that the computational time remains stable and and similar to the previously presented cases. The computational time does not seem to be related to the imposed wind influence for this simulation.
+        % Comparando a trajetória do \ac{OV} para os casos com e seu vento, podemos observar que no caso sem vento o \ac{OV} se desloca mais para northeast than in the with wind case. This happens due the atraso de deslocamento do \ac{AV}. O efeito
+        % Comparing the \ac{OV}'s trajectory in both cases, we can see that in the "no wind case" the \ac{OV} goes to northwest more than in the "wind case". This occurs due to \ac{AV}'s behavior. The \ac{AV}  confront wastes more time to achieve its goal.   In Figure \ref{fig:plot_cr_w_vs_wind} we want to highlight to points. The first one regarding \ac{OV}'s trajectory comparison between
         
-        In Figure \ref{fig:plot_cr_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cr_w_vs_wind_CT} we can see computational time for each case. Our method kept \ac{COLREGS}-compliant even when disturbed by a maximum of 2.0 m/s wind.
-        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Crossing Right w vs wo WIND Computational Time
+        %
+        %% Grammarlly: 99/100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        Figure \ref{fig:plot_cr_w_vs_wind_CT} shows the computational time measured in seconds over time for wind and no wind cases. We observe that the computational time remains stable and and similar to the previously presented cases. The computational time does not seem to be related to the imposed wind influence for this simulation.
         \begin{figure}[H]
             \centering
-                \includesvg[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wo_CT.svg}
-                \caption{Computational time comparison between \ac{ATC} case versus no \ac{ATC} in a crossing from the right encounter over time. The system achieves a peak cost of around 0.364s using \ac{ATC} and around 0.369 without \ac{ATC}}
-                \label{fig:plot_cr_w_vs_wo_CT}
+            \includesvg[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wind_CT.svg}
+            \caption{Computational time comparison between Wind case versus no Wind in a crossing from the right encounter. The system achieves a peak cost of around 0.395s using \ac{ATC} without wind and around 0.402s with wind.}
+            \label{fig:plot_cr_w_vs_wind_CT}
         \end{figure}
         
-        \begin{figure}[H]
-        \centering
+        % In Figure \ref{fig:plot_cr_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cr_w_vs_wind_CT} we can see computational time for each case. Our method kept \ac{COLREGS}-compliant even when disturbed by a maximum of 2.0 m/s wind.
+        
+        % In Figure \ref{fig:plot_r_w_vs_wind_CT} we show the computational time measured in seconds over time for wind and no wind cases. We observe that the computational time remains stable and and similar to the previously presented cases. The computational time does not seem to be related to the imposed wind influence for this simulation.
+        
+        
+        % \begin{figure}[H]
+        % \centering
         
             % \begin{subfigure}[b]{0.49\textwidth}
             %     \centering
@@ -360,119 +401,143 @@
             %     \label{fig:plot_cr_w_vs_wo_CT}
             % \end{subfigure}
             
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wind.pdf}
-                % \caption{Trajectory comparison between Wind and no Wind cases}
-                \caption{}
-                \label{fig:plot_cr_w_vs_wind}
-            \end{subfigure}
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includesvg[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wind_CT.svg}
-                % \caption{Computation Time. Wind and no Wind cases.}
-                \caption{}
-                \label{fig:plot_cr_w_vs_wind_CT}
-            \end{subfigure}
+            % \begin{subfigure}[b]{0.49\textwidth}
+            %     \centering
+            %     \includegraphics[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wind.pdf}
+            %     % \caption{Trajectory comparison between Wind and no Wind cases}
+            %     \caption{}
+            %     \label{fig:plot_cr_w_vs_wind}
+            % \end{subfigure}
+            % \begin{subfigure}[b]{0.49\textwidth}
+            %     \centering
+            %     \includesvg[width=\textwidth]{figs/Chap5/plot_cr_w_vs_wind_CT.svg}
+            %     % \caption{Computation Time. Wind and no Wind cases.}
+            %     \caption{}
+            %     \label{fig:plot_cr_w_vs_wind_CT}
+            % \end{subfigure}
         
-        \caption{Crossing Right Encounter Scenario. Comparison between \ac{ATC} and no \ac{ATC} (a and b), and Wind cases (c and d).}
-        \label{fig:plots_cr}
-        \end{figure}
+        % \caption{Crossing Right Encounter Scenario. Comparison between \ac{ATC} and no \ac{ATC} (a and b), and Wind cases (c and d).}
+        % \label{fig:plots_cr}
+        % \end{figure}
         %AMA descobriu pq sem vento a curva mais mais longa do q com vento? parece estar invertido. convem verificar pois vao perguntar isso. nao esta fazendo  sentido.
         
          %AMA pq a posicao final do EV eh diferente com e sem vento ?
          
-        In Figure \ref{fig:plot_cr_w_vs_wind}, in the time window we show, the \ac{AV} do not achieve its goal, the wind acts against \ac{AV} motion, reducing the maximum speed.
         %AMA nao entendi. quem nao atinge o objetivo ? na figura parece q sim. Ainda nao tem uma explicacao pq com vento a curva ficou melhor q sem vento
         
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %% Overtaking w vs wo \ac{ATC}. w vs wo Wind
+        \section{Crossing from the Left}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Crossing Left w vs wo \ac{ATC}. 
         %
         %% Grammarlly: 100/100
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        In Figure \ref{fig:plots_cl}, we present the behavior of our system in an overtaking encounter.
-        %AMA ZOOOONA. o texto diz q eh overtaking e a legenda diz q eh crossin right. olhando a figura parece que a figura esta certa e o texto errado.mas esse tipo de erro da um no no leitor pois ele comeca a duvidar se entendeu alguma coisa.
-        In Figure \ref{fig:plot_cl_w_vs_wo} we show the comparison between trajectories with and without \ac{ATC} and in Figure \ref{fig:plot_cl_w_vs_wo_CT} we can see computational time for each case. In an overtaking encounter, \ac{OV} must keep moving ahead, avoiding to generate any other crossing situations while overtaking. In our simulation, \ac{OV} avoids going to the front of \ac{AV} until it gets near the goal.
-        In Figure \ref{fig:plot_cl_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cl_w_vs_wind_CT} we can see computational time for each case. Our method kept \ac{COLREGS}-compliant even when disturbed by a maximum of 2.0 m/s wind.
-        \begin{figure}[H]
-        \centering
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includesvg[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wo.svg}
-                \caption{Trajectory}
-                \label{fig:plot_cl_w_vs_wo}
-            \end{subfigure}
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
+        \begin{figure}[H]
+            \centering
+            \includesvg[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wo.svg}
+            \caption{Comparison of vessels trajectories in \ac{ATC} case and no \ac{ATC} in a crossing from the left encounter scenario. Start position for \ac{OV} and \ac{AV} are marked with "$\blacktriangle$" and "$\blacktriangleright$", while their goals are marked with "x". In blue we show the trajectory done by the \ac{AV}. In orange we show the trajectory of the \ac{OV} with our path planner. In yellow we show the trajectory of the \ac{OV} without our path planner.}
+            \label{fig:plot_cl_w_vs_wo}
+        \end{figure}
+        
+        In Figure \ref{fig:plot_cl_w_vs_wo}, we present the behavior of our system when \ac{OV} encounters another vessel coming from the left side. In Figure \ref{fig:plot_cl_w_vs_wo}, we show the comparison between trajectories with and without \ac{ATC}. In this situation both system perform simular behavior in both scenarios, once for this situation the \ac{OV} is not responsible for the collision avoidance. Even so, when \ac{AV} appears in the \ac{OV}'s local cost map, the \ac{OV} starts to avoid proximity with \ac{AV} and go towards its starboard side (right). 
+        
+        Figure \ref{fig:plot_cl_w_vs_wo_CT} shows the computational time measured in seconds over time. Our \ac{COLREGS}-Compliant \ac{ATC} A* method had a peek cost of 0.388s for path generation for this crossing from the right scenario. As we can see, both \ac{ATC} and no \ac{ATC} cases have similar computational cost curves. The fall we see in the collected data (\eg{}~ between 0.6 and 0.8 min in ATC case) happens due to missing valid A* goal. Sometimes this happens due to error on conversion between global and local locations using ROS move\_base standard function.
+        
+        \begin{figure}[H]
+            \centering
                 \includesvg[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wo_CT.svg}
-                \caption{Computation Time}
+                \caption{Computational time comparison between \ac{ATC} case versus no \ac{ATC} in a crossing from the left encounter over time. The system achieves a peak cost of around 0.388s using \ac{ATC} and around 0.415 without \ac{ATC}}
                 \label{fig:plot_cl_w_vs_wo_CT}
-            \end{subfigure}
-            
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wind.pdf}
-                \caption{Trajectory}
-                \label{fig:plot_cl_w_vs_wind}
-            \end{subfigure}
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includesvg[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wind_CT.svg}
-                \caption{Computation Time}
-                \label{fig:plot_cl_w_vs_wind_CT}
-            \end{subfigure}
-        
-        \caption{Crossing Right Encounter Scenario. Comparing \ac{ATC} versus no \ac{ATC} cases and, with and Wind vs no Wind cases.}
-        \label{fig:plots_cl}
         \end{figure}
-        %AMA vc nao ia tentar refazer esse resltado p ver se sai essa barriga ?
-        %AMA nao eh so para esse caso. esta faltando um paragrafro q discute o resultado. vc esta basicamente so largando as figuras sem nehuma discussao ou explicacao do reaultado obtido. cada caso deve ter uma discussao. nao eh o suficiente somente dizer se conseguiu ou nao realizar.
-        %AMA pq tem uma diff no tempo de execucao com e sem vento ? FALTA DISCUSSAO !!!!
-      
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %% Overtaking w vs wo \ac{ATC}. w vs wo Wind
+        %% Crossing Left w vs wo \ac{ATC}. WIND
         %
         %% Grammarlly: 100/100
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        In Figure \ref{fig:plots_ov}, we present the behavior of our system when \ac{OV} encounters another vessel ahead.  %AMA a legenda diz overtaking ... confere os nomes e mantem a coerencia
-        %AMA isso ainda nao foi corrigido !!!
-        In Figure \ref{fig:plot_ov_w_vs_wo} we show the comparison between trajectories with and without ATC and in Figure \ref{fig:plot_ov_w_vs_wo} we can see computational time for each case. As we can see, once again, our method implies COLREGS compliance when avoiding a collision. In Figure \ref{fig:plot_ov_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_ov_w_vs_wind_CT} we can see computational time for each case. 
+        
         \begin{figure}[H]
-        \centering
-        
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wo.svg}
-                \caption{Trajectory}
-                \label{fig:plot_ov_w_vs_wo}
-            \end{subfigure}
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wo_CT.svg}
-                \caption{Computation Time}
-                \label{fig:plot_ov_w_vs_wo_CT}
-            \end{subfigure}
-            
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wind.pdf}
-                \caption{Trajectory}
-                \label{fig:plot_ov_w_vs_wind}
-            \end{subfigure}
-            \begin{subfigure}[b]{0.49\textwidth}
-                \centering
-                \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wind_CT.svg}
-                \caption{Computation Time}
-                \label{fig:plot_ov_w_vs_wind_CT}
-            \end{subfigure}
-        
-        %% Grammarlly: 100/100
-        \caption{Overtaking Encounter Scenario with \ac{ATC}, with and without wind. In \ref{fig:plot_ov_w_vs_wind_CT} we can see a considerable increase in computation time from around 3 minutes until around 4min and 25 seconds. This happened due to the second limitation discovered in our method. With \ac{ATC}, the creation of virtual obstacles can be conflicting with the A* goal location and its neighbors. In this situation, the planner is not able to decide the route to be followed and decided to use the last generated speed command until the position of the A* goal location is free. Due to the conflicting position of the created virtual obstacle and local A* goal, the computational time cost achieves great value, since it explored the whole search space and found no solution.}
-        \label{fig:plots_ov}
+            \centering
+            \includegraphics[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wind.pdf}
+            \caption{Comparison between the trajectories of the vessels in Wind case and no Wind case in a crossing from the left encounter scenario, both cases use \ac{ATC} A*. Start position for \ac{OV} and \ac{AV} are marked with "$\blacktriangle$" and "$\blacktriangleright$", while their goals are marked with "x". For the Wind case, the direction of the wind is northeast, represented by an arrow.}
+            \label{fig:plot_cl_w_vs_wind}
         \end{figure}
-        %AMA acho melhor mover as dicussoes p o texto e nao deixar na legenda.
+        
+        In Figure \ref{fig:plot_cl_w_vs_wind} we compare final trajectories for the same crossing from the left scenario described in \ref{tab:simulation_scenarios_configuration_own_vessel}, now for two executions of the simulation with different wind influence, where we use \ac{ATC} A*. "No Wind case" shows the behavior of the \ac{OV} being influenced by no wind. "Wind case" shows the trajectory of our \ac{OV} being influenced by the wind with northeast direction and intensity of 2.0 m/s, indicated by an arrow.\todo{discuss result}
+        
+        % Comparando a trajetória do \ac{OV} para os casos com e seu vento, podemos observar que no caso sem vento o \ac{OV} se desloca mais para northeast than in the with wind case. This happens due the atraso de deslocamento do \ac{AV}. O efeito
+        % Comparing the \ac{OV}'s trajectory in both cases, we can see that in the "no wind case" the \ac{OV} goes to northwest more than in the "wind case". This occurs due to \ac{AV}'s behavior. The \ac{AV}  confront wastes more time to achieve its goal.   In Figure \ref{fig:plot_cr_w_vs_wind} we want to highlight to points. The first one regarding \ac{OV}'s trajectory comparison between
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Crossing Left w vs wo WIND Computational Time
+        %
+        %% Grammarlly: 99/100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        Figure \ref{fig:plot_cl_w_vs_wind_CT} shows the computational time measured in seconds over time for wind and no wind cases. We observe that the computational time remains stable and and similar to the previously presented cases. The computational time does not seem to be related to the imposed wind influence for this simulation. \todo{missing discussion}
+        \begin{figure}[H]
+            \centering
+            \includesvg[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wind_CT.svg}
+            \caption{Computational time comparison between Wind case versus no Wind in a crossing from the left encounter. The system achieves a peak cost of around 0.388s using \ac{ATC} without wind and around 0.400s with wind.}
+            \label{fig:plot_cl_w_vs_wind_CT}
+        \end{figure}
+        
+        \section{Overtaking}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Overtaking w vs wo \ac{ATC}. 
+        %
+        %% Grammarlly: 100/100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        \begin{figure}[H]
+            \centering
+            \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wo.svg}
+            \caption{Comparison of vessels trajectories in \ac{ATC} case and no \ac{ATC} in a crossing from the left encounter scenario. Start position for \ac{OV} and \ac{AV} are marked with "$\blacktriangleright$", while their goals are marked with "x". In blue we show the trajectory done by the \ac{AV}. In orange we show the trajectory of the \ac{OV} with our path planner. In yellow we show the trajectory of the \ac{OV} without our path planner.}
+            \label{fig:plot_ov_w_vs_wo}
+        \end{figure}
+        
+        In Figure \ref{fig:plot_ov_w_vs_wo}, we present the behavior of our system when \ac{OV} encounters another vessel coming from the left side. In Figure \ref{fig:plot_ov_w_vs_wo}, we show the comparison between trajectories with and without \ac{ATC}. In this situation both system perform simular behavior in both scenarios, once for this situation the \ac{OV} is not responsible for the collision avoidance. Even so, when \ac{AV} appears in the \ac{OV}'s local cost map, the \ac{OV} starts to avoid proximity with \ac{AV} and go towards its starboard side (right);
+        
+        Figure \ref{fig:plot_ov_w_vs_wo_CT} shows the computational time measured in seconds over time. Our \ac{COLREGS}-Compliant \ac{ATC} A* method had a peek cost of 0.388s for path generation for this crossing from the right scenario. As we can see, both \ac{ATC} and no \ac{ATC} cases have similar computational cost curves.\todo{why the falls?}
+        
+        \begin{figure}[H]
+            \centering
+                \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wo_CT.png}
+                \caption{Computational time comparison between \ac{ATC} case versus no \ac{ATC} in a crossing from the left encounter over time. The system achieves a peak cost of around 0.388s using \ac{ATC} and around 0.415 without \ac{ATC}}
+                \label{fig:plot_ov_w_vs_wo_CT}
+        \end{figure}
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Overtaking w vs wo \ac{ATC}. WIND
+        %
+        %% Grammarlly: 100/100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wind.pdf}
+            \caption{Comparison between the trajectories of the vessels in Wind case and no Wind case in a crossing from the left encounter scenario, both cases use \ac{ATC} A*. Start position for \ac{OV} and \ac{AV} are marked with "$\blacktriangle$" and "$\blacktriangleright$", while their goals are marked with "x". For the Wind case, the direction of the wind is northeast, represented by an arrow.}
+            \label{fig:plot_ov_w_vs_wind}
+        \end{figure}
+        
+        In Figure \ref{fig:plot_ov_w_vs_wind} we compare final trajectories for the same crossing from the left scenario described in \ref{tab:simulation_scenarios_configuration_own_vessel}, now for two executions of the simulation with different wind influence, where we use \ac{ATC} A*. "No Wind case" shows the behavior of the \ac{OV} being influenced by no wind. "Wind case" shows the trajectory of our \ac{OV} being influenced by the wind with northeast direction and intensity of 2.0 m/s, indicated by an arrow.\todo{discuss result}
+        
+        % Comparando a trajetória do \ac{OV} para os casos com e seu vento, podemos observar que no caso sem vento o \ac{OV} se desloca mais para northeast than in the with wind case. This happens due the atraso de deslocamento do \ac{AV}. O efeito
+        % Comparing the \ac{OV}'s trajectory in both cases, we can see that in the "no wind case" the \ac{OV} goes to northwest more than in the "wind case". This occurs due to \ac{AV}'s behavior. The \ac{AV}  confront wastes more time to achieve its goal.   In Figure \ref{fig:plot_cr_w_vs_wind} we want to highlight to points. The first one regarding \ac{OV}'s trajectory comparison between
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Overtaking w vs wo WIND Computational Time
+        %
+        %% Grammarlly: 99/100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        Figure \ref{fig:plot_ov_w_vs_wind_CT} shows the computational time measured in seconds over time for wind and no wind cases. We observe that the computational time remains stable and and similar to the previously presented cases. The computational time does not seem to be related to the imposed wind influence for this simulation. \todo{missing discussion}
+        \begin{figure}[H]
+            \centering
+            \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wind_CT.svg}
+            \caption{Computational time comparison between Wind case versus no Wind in a crossing from the left encounter. The system achieves a peak cost of around 0.388s using \ac{ATC} without wind and around 0.400s with wind.}
+            \label{fig:plot_ov_w_vs_wind_CT}
+        \end{figure}
+        
+        %%%%%% %%%%% %%%%%% %%%%% %%%%%% %%%%%% %%%%%
         
         %% Grammarlly: 100/100
         In Table \ref{tab:results}, we summarize the results for the different simulations we have done. In simulation scenarios, we can see that the computational time peak stays in a range from 0.355 to 0.390 for no \ac{ATC} configuration, from 0.357 to 0.395 for \ac{ATC} configuration and from 0.355 to 0.8852 for Wind configuration. Computation time for no \ac{ATC} and \ac{ATC} are similar since our \ac{ATC} method has a low impact on the A* implementation. With the influence of wind, we see an increase in the computational time peak. For the Overtaking scenario, the influence of wind led our system to an exhaustive scenario search in the whole search space. 
@@ -489,33 +554,132 @@
         % The average time keeps similar for each scenario encounter, not depending on the configuration (no \ac{ATC}, \ac{ATC}, and Wind) and consumed at least 4.6 times less time. 
         % Regarding minimum distance, in our simulations, our system kept at least a safe distance of 1.505 meters from \ac{AV}. %\ac{COLREGS} do not specify a specific value for safe distance or a proportion related to \ac{OV}'s size, but for some authors \cite{} \acp{USV} should at least keep a safe distance as the size of the vessel.
 
-\begin{table}
-\caption{Based on \cite{Lazarowska2017New, Singh2018Constrained, Agrawal2015COLREGS, Candeloro2017Voronoi, Svec2013Dynamics}, we made a quantitative evaluation of our planning system measuring computational cost and the minimum distance kept between the vessels during simulations.}
-\label{tab:results}
-\centering
-\begin{tabular}{ccccccc} 
-\toprule
-\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Encounter}\\\textbf{Type} \end{tabular}}     & \multirow{2}{*}{\textbf{Case} } & \multicolumn{3}{c}{\textbf{Computational Time (s)} }          & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Successful }\\\textbf{Avoidance }\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Minimum }\\\textbf{Distance (m) }\end{tabular}}  \\ 
-\cmidrule[\heavyrulewidth]{3-5}
-                                                                                                &                                 & \textbf{Maximum} & \textbf{Average} & \textbf{Std. Variation} &                                                                                                    &                                                                                                     \\ 
-\toprule
-\multirow{3}{*}{\textbf{Head-On}}                                                               & \textbf{No ATC}                 & 0.369            & 0.136            & 0.061                   & Yes                                                                                                & 4.431                                                                                               \\
-                                                                                                & \textbf{ATC}                    & 0.364            & 0.129            & 0.056                   & Yes                                                                                                & 1.599                                                                                               \\
-                                                                                                & \textbf{Wind}                   & 0.355            & 0.131            & 0.060                   & Yes                                                                                                & 1.505                                                                                               \\ 
-\cline{2-7}
-\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing}\\\textbf{from Right}\end{tabular}} & \textbf{No ATC}                 & 0.390            & 0.178            & 0.107                   & Yes                                                                                                & 5.414                                                                                               \\
-                                                                                                & \textbf{ATC}                    & 0.390             & 0.249            & 0.060                   & Yes                                                                                                & 3.264                                                                                               \\
-                                                                                                & \textbf{Wind}                   & 0.403            & 0.253            & 0.062                   & Yes                                                                                                & 3.739                                                                                               \\ 
-\cline{2-7}
-\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing}\\\textbf{from Left}\end{tabular}}  & \textbf{No ATC}                 & 0.416                 & 0.235                 & 0.105                        &  Yes                                                                                                  & 7.018                                                                                                    \\
-                                                                                                & \textbf{ATC}                    & 0.389                 & 0.224                 & 0.091                        & Yes                                                                                                   & 6.274                                                                                                    \\
-                                                                                                & \textbf{Wind}                   & 0.400                 & 0.208                 & 0.102                        & Yes                                                                                                   & 5.707                                                                                                    \\ 
-\cline{2-7}
-\multirow{3}{*}{\textbf{Overtaking}}                                                            & \textbf{No ATC}                 & 0.368            & 0.006            & 0.030                   & Yes                                                                                                & 3.325                                                                                               \\
-                                                                                                & \textbf{ATC}                    & 0.357            & 0.018            & 0.022                   & Yes                                                                                                & 3.101                                                                                               \\
-                                                                                                & \textbf{Wind}                   & 0.852            & 0.039            & 0.073                   & Yes                                                                                                & 1.787                                                                                               \\
-\bottomrule
-\end{tabular}
-\end{table}
-%AMA discuta pq crossing from left tem tempos menores (max, avg, std var)
-%AMA discuta p o maximo da ultima linha eh tao maior q os outros
+        \begin{table}
+        \caption{Based on \cite{Lazarowska2017New, Singh2018Constrained, Agrawal2015COLREGS, Candeloro2017Voronoi, Svec2013Dynamics}, we made a quantitative evaluation of our planning system measuring computational cost and the minimum distance kept between the vessels during simulations.}
+        \label{tab:results}
+        \centering
+        \begin{tabular}{ccccccc} 
+        \toprule
+        \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Encounter}\\\textbf{Type} \end{tabular}}     & \multirow{2}{*}{\textbf{Case} } & \multicolumn{3}{c}{\textbf{Computational Time (s)} }          & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Successful }\\\textbf{Avoidance }\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Minimum }\\\textbf{Distance (m) }\end{tabular}}  \\ 
+        \cmidrule[\heavyrulewidth]{3-5}
+                                                                                                        &                                 & \textbf{Maximum} & \textbf{Average} & \textbf{Std. Variation} &                                                                                                    &                                                                                                     \\ 
+        \toprule
+        \multirow{3}{*}{\textbf{Head-On}}                                                               & \textbf{No ATC}                 & 0.369            & 0.136            & 0.061                   & Yes                                                                                                & 4.431                                                                                               \\
+                                                                                                        & \textbf{ATC}                    & 0.364            & 0.129            & 0.056                   & Yes                                                                                                & 1.599                                                                                               \\
+                                                                                                        & \textbf{Wind}                   & 0.355            & 0.131            & 0.060                   & Yes                                                                                                & 1.505                                                                                               \\ 
+        \cline{2-7}
+        \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing}\\\textbf{from Right}\end{tabular}} & \textbf{No ATC}                 & 0.390            & 0.178            & 0.107                   & Yes                                                                                                & 5.414                                                                                               \\
+                                                                                                        & \textbf{ATC}                    & 0.390             & 0.249            & 0.060                   & Yes                                                                                                & 3.264                                                                                               \\
+                                                                                                        & \textbf{Wind}                   & 0.403            & 0.253            & 0.062                   & Yes                                                                                                & 3.739                                                                                               \\ 
+        \cline{2-7}
+        \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Crossing}\\\textbf{from Left}\end{tabular}}  & \textbf{No ATC}                 & 0.416                 & 0.235                 & 0.105                        &  Yes                                                                                                  & 7.018                                                                                                    \\
+                                                                                                        & \textbf{ATC}                    & 0.389                 & 0.224                 & 0.091                        & Yes                                                                                                   & 6.274                                                                                                    \\
+                                                                                                        & \textbf{Wind}                   & 0.400                 & 0.208                 & 0.102                        & Yes                                                                                                   & 5.707                                                                                                    \\ 
+        \cline{2-7}
+        \multirow{3}{*}{\textbf{Overtaking}}                                                            & \textbf{No ATC}                 & 0.368            & 0.006            & 0.030                   & Yes                                                                                                & 3.325                                                                                               \\
+                                                                                                        & \textbf{ATC}                    & 0.357            & 0.018            & 0.022                   & Yes                                                                                                & 3.101                                                                                               \\
+                                                                                                        & \textbf{Wind}                   & 0.852            & 0.039            & 0.073                   & Yes                                                                                                & 1.787                                                                                               \\
+        \bottomrule
+        \end{tabular}
+        \end{table}
+        %AMA discuta pq crossing from left tem tempos menores (max, avg, std var)
+        %AMA discuta p o maximo da ultima linha eh tao maior q os outros
+        
+        % \section{OLD}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Overtaking w vs wo \ac{ATC}. w vs wo Wind
+        %
+        %% Grammarlly: 100/100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % In Figure \ref{fig:plots_cl}, we present the behavior of our system in an overtaking encounter.
+        
+        %AMA ZOOOONA. o texto diz q eh overtaking e a legenda diz q eh crossin right. olhando a figura parece que a figura esta certa e o texto errado.mas esse tipo de erro da um no no leitor pois ele omeca a duvidar se entendeu alguma coisa.
+        
+        % In Figure \ref{fig:plot_overtaking_w_vs_wind} we show the comparison between trajectories with and without \ac{ATC} and in Figure \ref{fig:plot_overtaking_w_vs_wind_CT} we can see computational time for each case. In an overtaking encounter, \ac{OV} must keep moving ahead, avoiding to generate any other crossing situations while overtaking. In our simulation, \ac{OV} avoids going to the front of \ac{AV} until it gets near the goal.
+        % In Figure \ref{fig:plot_cl_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_cl_w_vs_wind_CT} we can see computational time for each case. Our method kept \ac{COLREGS}-compliant even when disturbed by a maximum of 2.0 m/s wind.
+        % \begin{figure}[H]
+        % \centering
+        
+        %     \begin{subfigure}[b]{0.49\textwidth}
+        %         \centering
+        %         \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wo.svg}
+        %         \caption{Trajectory}
+        %         \label{fig:plot_ov_w_vs_wo}
+        %     \end{subfigure}
+        %     \begin{subfigure}[b]{0.49\textwidth}
+        %         \centering
+        %         \includesvg[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wo_CT.svg}
+        %         \caption{Computation Time}
+        %         \label{fig:plot_ov_w_vs_wo_CT}
+        %     \end{subfigure}
+            
+        %     \begin{subfigure}[b]{0.49\textwidth}
+        %         \centering
+        %         \includegraphics[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wind.pdf}
+        %         \caption{Trajectory}
+        %         \label{fig:plot_overtaking_w_vs_wind}
+        %     \end{subfigure}
+        %     \begin{subfigure}[b]{0.49\textwidth}
+        %         \centering
+        %         \includesvg[width=\textwidth]{figs/Chap5/plot_cl_w_vs_wind_CT.svg}
+        %         \caption{Computation Time}
+        %         \label{fig:plot_overtaking_w_vs_wind_CT}
+        %     \end{subfigure}
+        
+        % \caption{Overtaking Encounter Scenario. Comparing \ac{ATC} versus no \ac{ATC} cases and, with and Wind vs no Wind cases.}
+        % \label{fig:plots_ov}
+        % \end{figure}
+        
+        %AMA vc nao ia tentar refazer esse resltado p ver se sai essa barriga ?
+        %AMA nao eh so para esse caso. esta faltando um paragrafro q discute o resultado. vc esta basicamente so largando as figuras sem nehuma discussao ou explicacao do reaultado obtido. cada caso deve ter uma discussao. nao eh o suficiente somente dizer se conseguiu ou nao realizar.
+        %AMA pq tem uma diff no tempo de execucao com e sem vento ? FALTA DISCUSSAO !!!!
+      
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Overtaking w vs wo \ac{ATC}. w vs wo Wind
+        %
+        %% Grammarlly: 100/100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % In Figure \ref{fig:plots_ov}, we present the behavior of our system when \ac{OV} encounters another vessel ahead and should a overtaking.
+        
+        .  %AMA a legenda diz overtaking ... confere os nomes e mantem a coerencia
+        %AMA isso ainda nao foi corrigido !!!
+        
+        % In Figure \ref{fig:plot_ov_w_vs_wo} we show the comparison between trajectories with and without \ac{ATC} and in Figure \ref{fig:plot_ov_w_vs_wo} we can see computational time for each case. As we can see, once again, our method implies COLREGS compliance when avoiding a collision. In Figure \ref{fig:plot_overtaking_w_vs_wind} we show the comparison between trajectories with and without wind influence and in Figure \ref{fig:plot_overtaking_w_vs_wind_CT} we can see computational time for each case. 
+        % \begin{figure}[H]
+        % \centering
+        
+        %     \begin{subfigure}[b]{0.49\textwidth}
+        %         \centering
+        %         \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wo.svg}
+        %         \caption{Trajectory}
+        %         \label{fig:plot_ov_w_vs_wo}
+        %     \end{subfigure}
+        %     \begin{subfigure}[b]{0.49\textwidth}
+        %         \centering
+        %         \includesvg[width=\textwidth]{figs/Chap5/plot_ov_w_vs_wo_CT.svg}
+        %         \caption{Computation Time}
+        %         \label{fig:plot_ov_w_vs_wo_CT}
+        %     \end{subfigure}
+            
+        %     \begin{subfigure}[b]{0.49\textwidth}
+        %         \centering
+        %         \includegraphics[width=\textwidth]{figs/Chap5/plot_overtaking_w_vs_wind.pdf}
+        %         \caption{Trajectory}
+        %         \label{fig:plot_overtaking_w_vs_wind}
+        %     \end{subfigure}
+        %     \begin{subfigure}[b]{0.49\textwidth}
+        %         \centering
+        %         \includesvg[width=\textwidth]{figs/Chap5/plot_overtaking_w_vs_wind_CT.svg}
+        %         \caption{Computation Time}
+        %         \label{fig:plot_overtaking_w_vs_wind_CT}
+        %     \end{subfigure}
+        
+        % %% Grammarlly: 100/100
+        % \caption{Overtaking Encounter Scenario with \ac{ATC}, with and without wind. In \ref{fig:plot_overtaking_w_vs_wind_CT} we can see a considerable increase in computation time from around 3 minutes until around 4min and 25 seconds. This happened due to the second limitation discovered in our method. With \ac{ATC}, the creation of virtual obstacles can be conflicting with the A* goal location and its neighbors. In this situation, the planner is not able to decide the route to be followed and decided to use the last generated speed command until the position of the A* goal location is free. Due to the conflicting position of the created virtual obstacle and local A* goal, the computational time cost achieves great value, since it explored the whole search space and found no solution.}
+        % \label{fig:plots_ov}
+        % \end{figure}
+        %AMA acho melhor mover as dicussoes p o texto e nao deixar na legenda.
