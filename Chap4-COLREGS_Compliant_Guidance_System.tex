@@ -97,6 +97,13 @@
         %%%%%%%%%%%%%%%%%%%%%%%%
         As shown in Figure \ref{fig:gnc_arch}, the guidance module is mainly composed of global and local planners. We implemented both planners inside the ROS move\_base environment\footnote{The ROS move\_base environment is a ROS framework that allows the standardized creation of robotics applications regarding robots motion.}. For global planning, we use move\_base standard A* search\footnote{http://wiki.ros.org/global\_planner?distro=kinetic}, and for local planning, we developed our \ac{COLREGS}-compliant A*. The global planner determines the global route, and the local planner is responsible for generating velocity commands to move the \ac{OV}, regardless of whether there are obstacles nearby or not - the moves\_base ROS structure imposes this style.
         
+        %%%%%%%%%%%%%%%%%%%%%%%%
+        % Grammarly: 99/100
+        %%%%%%%%%%%%%%%%%%%%%%%%
+        Apart from the planners, the guidance module has cost maps. Cost maps are data structures composed of cells that store information about each position of the environment. There is a cost map for each planner, and each cell of a cost map has a cost value (range from 0 to 255, where a cost greater than 250 represents an obstacle). Thus, the planners can search for paths. In Figure \ref{fig:costmaps} we can observe a practical exemplification of the difference between global and local cost maps. Around the robot location, we can see a squared grid with a gradient from blue to red, indicating proximity to obstacles, this squared grid is a local cost map. All information outside the local cost map composes the global cost map.
+        
+        In our system, the local cost map is a 100x100 grid, representing a 20mx20m area with 1:0.2 resolution, resulting in a search space of 10000 cells. The local cost map has our \ac{COLREGS}-compliant vessel at its center with some variation of at most two grid cells due to approximation errors when converting global position to local position.
+        
          \begin{figure}[H]
             \centering
             % \includegraphics[scale=0.85]{figs/Chap4/costmaps_ros2.png}
@@ -108,13 +115,6 @@
             \caption{Simulation regarding the comparison between global and local scopes. In the left half of the Figure, surrounded by a red box, we have our \ac{COLREGS}-compliant vessel capable of detecting obstacles in its proximity using a laser. Every orange dot represents a laser contact in an obstacle's surface. In black, we see globally known obstacles.  Around the robot position, we can see a squared grid with a gradient from blue to red, indicating proximity to obstacles. This squared grid is a local cost map. All information outside the local cost map composes the global cost map. Moreover, we show global and local paths, respectively, in red and green.}
             \label{fig:costmaps}
         \end{figure}
-        
-        %%%%%%%%%%%%%%%%%%%%%%%%
-        % Grammarly: 99/100
-        %%%%%%%%%%%%%%%%%%%%%%%%
-        Apart from the planners, the guidance module has cost maps. Cost maps are data structures composed of cells that store information about each position of the environment. There is a cost map for each planner, and each cell of a cost map has a cost value (range from 0 to 255, where a cost greater than 250 represents an obstacle). Thus, the planners can search for paths. In Figure \ref{fig:costmaps} we can observe a practical exemplification of the difference between global and local cost maps. Around the robot location, we can see a squared grid with a gradient from blue to red, indicating proximity to obstacles, this squared grid is a local cost map. All information outside the local cost map composes the global cost map.
-        
-        In our system, the local cost map is a 100x100 grid, representing a 20mx20m area with 1:0.2 resolution, resulting in a search space of 10000 cells. The local cost map has our \ac{COLREGS}-compliant vessel at its center with some variation of at most two grid cells due to approximation errors when converting global position to local position.
 
         \subsubsection{Local Planner}
         \label{sec:local_planner}
@@ -183,7 +183,7 @@
                 
                 \begin{figure}[H]
                     \centering
-                    \includegraphics[scale=1.5]{figs/Chap4/bearing.pdf}
+                    \includegraphics[scale=1.2]{figs/Chap4/bearing.pdf}
                     %%%%%%%%%%%%%%%%%%%%%%%%
                     % Grammarly: 99/100
                     %%%%%%%%%%%%%%%%%%%%%%%%
